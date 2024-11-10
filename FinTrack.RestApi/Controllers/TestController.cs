@@ -2,11 +2,33 @@
 
 namespace FinTrack.RestApi.Controllers
 {
-    public class TestController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TestController : AbstractController
     {
-        public IActionResult Index()
+        public TestController(ILogger<TestController> logger)
+            : base(logger)
         {
-            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(string testData)
+        {
+            try
+            {
+                Logger.LogInformation("TestController.Index started");
+
+                var result = "Profit" + testData + '!';
+
+                Logger.LogInformation("TestController.Index completed");
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWarning("TestController.Index error!");
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
