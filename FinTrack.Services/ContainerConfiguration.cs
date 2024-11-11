@@ -23,6 +23,7 @@ namespace FinTrack.Services
             builder.RegisterType<AuthService>().As<IAuthService>();
             builder.RegisterType<HashService>().As<IHashService>();
             builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterType<CurrencyService>().As<ICurrencyService>();
 
             //register facade
             builder.RegisterType<AuthFacade>().As<IAuthFacade>();

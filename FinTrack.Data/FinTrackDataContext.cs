@@ -11,6 +11,7 @@ namespace FinTrack.Data
         protected readonly IConfiguration Configuration;
         private DbConnectionSettings _settings;
         public DbSet<User> Users { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
 
         public FinTrackDataContext(DbConnectionSettings settings)
         {
