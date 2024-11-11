@@ -15,7 +15,7 @@ namespace FinTrack.Data
 
             builder.RegisterType<DataContextManager>().As<IDataContextManager>();
             builder.RegisterType<UserRepository>().As<IUserRepository>();
-
+            builder.RegisterType<CurrencyRepository>().As<ICurrencyRepository>();
         }
     }
 }

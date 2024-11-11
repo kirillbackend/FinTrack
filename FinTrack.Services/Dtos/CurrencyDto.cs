@@ -1,7 +1,6 @@
-﻿
-namespace FinTrack.Model
+﻿namespace FinTrack.Services.Dtos
 {
-    public class Currency
+    public class CurrencyDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

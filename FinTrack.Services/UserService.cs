@@ -10,19 +10,16 @@ namespace FinTrack.Services
 {
     public class UserService : AbstractService, IUserService
     {
-        private readonly ContextLocator _contextLocator;
-
-        public UserService(ILogger<UserService> logger, IMapperFactory mapperFactory, ContextLocator contextLocator
-            , IDataContextManager dataContextManager)
-            : base(logger, mapperFactory, dataContextManager)
+        public UserService(ILogger<UserService> logger, IMapperFactory mapperFactory
+            , IDataContextManager dataContextManager, ContextLocator contextLocator)
+            : base(logger, mapperFactory, dataContextManager, contextLocator)
         {
-            _contextLocator = contextLocator;
         }
 
         public async Task<UserDto> GetUserByEmail(string email)
         {
             Logger.LogInformation("UserService.GetUserByUserName started");
-            var resourceProvider = _contextLocator.GetContext<LocaleContext>().ResourceProvider;
+            var resourceProvider = ContextLocator.GetContext<LocaleContext>().ResourceProvider;
 
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserMapper>();
