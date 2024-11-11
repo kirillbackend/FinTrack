@@ -3,7 +3,7 @@ using FinTrack.Services.Exceptions;
 
 namespace FinTrack.RestApi.Controllers
 {
-    public class AbstractController : ControllerBase
+    public abstract class AbstractController : ControllerBase
     {
         public ILogger Logger { get; set; }
 

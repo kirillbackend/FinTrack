@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using FinTrack.RestApi.ActionFilters;
 using FinTrack.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -29,9 +30,9 @@ namespace FinTrack.RestApi
 
             services.AddControllers(options =>
             {
-                //todo: add action filters
-                //options.Filters.Add<LocaleActionFilter>();
+                options.Filters.Add<LocaleActionFilter>();
 
+                //todo: add action filters
                 //options.Filters.Add<OrganizationActionFilter>();
             })
             .AddNewtonsoftJson(options =>
@@ -128,7 +129,7 @@ namespace FinTrack.RestApi
         public void ConfigureContainer(ContainerBuilder builder)
         {
             var options = _configuration.Get<ApiSettings>();
-            ContainerConfiguration.RegisterTypes(builder, options);
+            ContainerConfiguration.ResisterTypes(builder, options);
 
 
             //todo add action filters
