@@ -1,4 +1,5 @@
 ﻿using FinTrack.Data.Contracts;
+using FinTrack.Localization;
 using FinTrack.Services.Mappers.Contracts;
 using Microsoft.Extensions.Logging;
 
@@ -12,10 +13,13 @@ namespace FinTrack.Services
 
         public IDataContextManager DataContextManager { get; }
 
-        public AbstractService(ILogger logger, IMapperFactory mapperFactory, IDataContextManager dataContextManager)
+        public  ContextLocator ContextLocator;
+
+        public AbstractService(ILogger logger, IMapperFactory mapperFactory, IDataContextManager dataContextManager, ContextLocator contextLocator)
         {
             Logger = logger;
             MapperFactory = mapperFactory;
+            ContextLocator = contextLocator;
             DataContextManager = dataContextManager;
         }
     }

@@ -22,6 +22,13 @@ namespace FinTrack.Data
             return _container.Resolve<T>(new TypedParameter(typeof(FinTrackDataContext), GetDataContext(id)));
         }
 
+        public async Task SaveAsync(string id = "default")
+        {
+            var contextKey = id;
+
+            await _contexts[contextKey].SaveChangesAsync();
+        }
+
         #region private metods
 
         private FinTrackDataContext GetDataContext(string id = "default")

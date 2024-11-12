@@ -1,5 +1,6 @@
 ﻿using FinTrack.Data.Contracts;
 using FinTrack.Data.Repositories.Contracts;
+using FinTrack.Localization;
 using FinTrack.Services.Contracts;
 using FinTrack.Services.Dtos;
 using FinTrack.Services.Mappers.Contracts;
@@ -15,9 +16,9 @@ namespace FinTrack.Services
     {
         private readonly FinTrackServiceSettings _dailyPlannerServiceSettings;
 
-        public AuthService(ILogger<AuthService> logger, IMapperFactory mapperFactory, FinTrackServiceSettings dailyPlannerServiceSettings
-            , IDataContextManager dataContextManager)
-            : base(logger, mapperFactory, dataContextManager)
+        public AuthService(ILogger<AuthService> logger, IMapperFactory mapperFactory
+            , IDataContextManager dataContextManager, ContextLocator contextLocator, FinTrackServiceSettings dailyPlannerServiceSettings)
+            : base(logger, mapperFactory, dataContextManager, contextLocator)
         {
             _dailyPlannerServiceSettings = dailyPlannerServiceSettings;
         }
