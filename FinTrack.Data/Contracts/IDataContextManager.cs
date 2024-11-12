@@ -5,5 +5,7 @@ namespace FinTrack.Data.Contracts
     {
         TRepository CreateRepository<TRepository>(string id = "default")
            where TRepository : class, IRepository;
+
+        Task SaveAsync(string id = "default");
     }
 }

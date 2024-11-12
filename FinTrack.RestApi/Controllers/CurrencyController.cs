@@ -63,16 +63,54 @@ namespace FinTrack.RestApi.Controllers
         {
             try
             {
-                Logger.LogInformation($"CurrencyController.Get started");
+                Logger.LogInformation($"CurrencyController.Post started");
 
-                var currency = await _currencyService.GetCurrencies();
+                await _currencyService.AddCurrency(currencyDto);
 
-                Logger.LogInformation($"CurrencyController.Get completed");
+                Logger.LogInformation($"CurrencyController.Post completed");
+                return Ok();
+            }
+            catch (ValidationException ex)
+            {
+                Logger.LogInformation($"CurrencyController.Post completed; invalid request");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                Logger.LogInformation($"CurrencyController.Delete({id}) started");
+
+                await _currencyService.Delete(id);
+
+                Logger.LogInformation($"CurrencyController.Delete({id}) completed");
+                return NoContent();
+            }
+            catch (ValidationException ex)
+            {
+                Logger.LogInformation($"CurrencyController.Delete completed; invalid request");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put(CurrencyDto currencyDto)
+        {
+            try
+            {
+                Logger.LogInformation($"CurrencyController.Put started");
+
+                var currency = await _currencyService.Update(currencyDto);
+
+                Logger.LogInformation($"CurrencyController.Put completed");
                 return Ok(currency);
             }
             catch (ValidationException ex)
             {
-                Logger.LogInformation($"CurrencyController.Get completed; invalid request");
+                Logger.LogInformation($"CurrencyController.Put completed; invalid request");
                 return BadRequest(ex);
             }
         }

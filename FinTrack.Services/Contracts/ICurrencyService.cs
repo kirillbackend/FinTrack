@@ -1,10 +1,13 @@
-﻿using FinTrack.Model;
+﻿using FinTrack.Services.Dtos;
 
 namespace FinTrack.Services.Contracts
 {
     public interface ICurrencyService
     {
-        Task<Currency> GetCurrencyById(int id);
-        Task<IEnumerable<Currency>> GetCurrencies();
+        Task<CurrencyDto> GetCurrencyById(int id);
+        Task<IEnumerable<CurrencyDto>> GetCurrencies();
+        Task AddCurrency(CurrencyDto currencyDto);
+        Task Delete(int id);
+        Task<CurrencyDto> Update(CurrencyDto currencyDto);
     }
 }

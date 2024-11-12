@@ -120,6 +120,9 @@
   <data name="CurrencyWasNotFound" xml:space="preserve">
     <value>The currency was not found</value>
   </data>
+  <data name="FinanceWasNotFound" xml:space="preserve">
+    <value>The finance was not found</value>
+  </data>
   <data name="HashIsNull" xml:space="preserve">
     <value>Hash is null</value>
   </data>

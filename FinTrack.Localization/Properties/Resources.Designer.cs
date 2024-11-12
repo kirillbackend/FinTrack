@@ -70,6 +70,15 @@ namespace FinTrack.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The finance was not found.
+        /// </summary>
+        internal static string FinanceWasNotFound {
+            get {
+                return ResourceManager.GetString("FinanceWasNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hash is null.
         /// </summary>
         internal static string HashIsNull {
