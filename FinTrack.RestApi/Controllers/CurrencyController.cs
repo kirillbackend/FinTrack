@@ -77,25 +77,6 @@ namespace FinTrack.RestApi.Controllers
             }
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(int id)
-        {
-            try
-            {
-                Logger.LogInformation($"CurrencyController.Delete({id}) started");
-
-                await _currencyService.Delete(id);
-
-                Logger.LogInformation($"CurrencyController.Delete({id}) completed");
-                return NoContent();
-            }
-            catch (ValidationException ex)
-            {
-                Logger.LogInformation($"CurrencyController.Delete completed; invalid request");
-                return BadRequest(ex);
-            }
-        }
-
         [HttpPut]
         public async Task<IActionResult> Put(CurrencyDto currencyDto)
         {
@@ -111,6 +92,25 @@ namespace FinTrack.RestApi.Controllers
             catch (ValidationException ex)
             {
                 Logger.LogInformation($"CurrencyController.Put completed; invalid request");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                Logger.LogInformation($"CurrencyController.Delete({id}) started");
+
+                await _currencyService.Delete(id);
+
+                Logger.LogInformation($"CurrencyController.Delete({id}) completed");
+                return NoContent();
+            }
+            catch (ValidationException ex)
+            {
+                Logger.LogInformation($"CurrencyController.Delete completed; invalid request");
                 return BadRequest(ex);
             }
         }
