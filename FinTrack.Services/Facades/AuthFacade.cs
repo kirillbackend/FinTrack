@@ -29,7 +29,7 @@ namespace FinTrack.Services.Facades
             Logger.LogInformation("AuthFacade.SingUp started");
 
             var resourceProvider = _contextLocator.GetContext<LocaleContext>().ResourceProvider;
-            var userDto = await _userService.GetUserByEmail(singUpDto.Email);
+            var userDto = await _userService.GetByEmail(singUpDto.Email);
 
             if (userDto != null)
             {
@@ -56,7 +56,7 @@ namespace FinTrack.Services.Facades
             Logger.LogInformation("AuthFacade.LogIn started");
 
             var resourceProvider = _contextLocator.GetContext<LocaleContext>().ResourceProvider;
-            var userDto = await _userService.GetUserByEmail(loginDto.Email);
+            var userDto = await _userService.GetByEmail(loginDto.Email);
 
             if (userDto == null)
             {

@@ -24,6 +24,7 @@ namespace FinTrack.Data.Repositories
             if (finance != null)
             {
                 finance.IsDeleted = true;
+                finance.UpdatedDate = DateTime.UtcNow;
                 await Context.SaveChangesAsync();
             }
         }

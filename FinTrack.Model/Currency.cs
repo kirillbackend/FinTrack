@@ -8,5 +8,7 @@ namespace FinTrack.Model
         public string Code { get; set; }
         public string Symbol { get; set; }
         public bool IsDeleted { get; set; }
+
+        public List<Finance> Finances { get; set; } 
     }
 }

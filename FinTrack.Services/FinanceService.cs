@@ -11,7 +11,7 @@ namespace FinTrack.Services
 {
     public class FinanceService : AbstractService, IFinanceService
     {
-        public FinanceService(ILogger logger, IMapperFactory mapperFactory
+        public FinanceService(ILogger<FinanceService> logger, IMapperFactory mapperFactory
             , IDataContextManager dataContextManager, ContextLocator contextLocator)
             : base(logger, mapperFactory, dataContextManager, contextLocator)
         {
@@ -25,6 +25,8 @@ namespace FinTrack.Services
             var mapper = MapperFactory.GetMapper<IFinanceMapper>();
 
             var finance = mapper.MapFromDto(currencyDto);
+            finance.CreatedDate = DateTime.UtcNow;
+            finance.UpdatedDate = DateTime.UtcNow;
             financeRepository.Add(finance);
 
             Logger.LogInformation($"FinanceService.AddFinance completed");
@@ -104,9 +106,11 @@ namespace FinTrack.Services
                 throw new ValidationException("Finance was not found.", resourceProvider.Get("FinanceWasNotFound"));
             }
 
+
             var mapper = MapperFactory.GetMapper<IFinanceMapper>();
 
             mapper.MapFromDto(financeDto, destination: finance);
+            finance.UpdatedDate = DateTime.UtcNow;
             await DataContextManager.SaveAsync();
 
             Logger.LogInformation($"FinanceService.Update completed");

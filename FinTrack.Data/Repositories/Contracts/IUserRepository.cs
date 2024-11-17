@@ -6,6 +6,9 @@ namespace FinTrack.Data.Repositories.Contracts
     public interface IUserRepository : IRepository
     {
         void Add(User entity);
-        Task<User> GetUserByEmail(string email);
+        Task Delete(int id);
+        Task<User> GetById(int id);
+        Task<IEnumerable<User>> GetUsers();
+        Task<User> GetByEmail(string email);
     }
 }

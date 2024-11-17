@@ -1,5 +1,4 @@
 ﻿using FinTrack.Enums;
-using FinTrack.Model;
 
 namespace FinTrack.Services.Dtos
 {
@@ -7,8 +6,12 @@ namespace FinTrack.Services.Dtos
     {
         public int Id { get; set; }
         public decimal Amount { get; set; }
-        public Currency Currency { get; set; }
+        public int CurrencyId { get; set; }
         public bool IsDeleted { get; set; }
+        public string Description { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
         public FinanceType FinanceType { get; set; }
+        public FinanceCategoryType FinanceCategoryType { get; set; }
     }
 }
