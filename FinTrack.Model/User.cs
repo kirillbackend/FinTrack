@@ -1,4 +1,6 @@
-﻿namespace FinTrack.Model
+﻿using FinTrack.Enums;
+
+namespace FinTrack.Model
 {
     public class User
     {
@@ -10,5 +12,6 @@
         public bool IsDeleted { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+        public UserRole UserRole { get; set; }
     }
 }
