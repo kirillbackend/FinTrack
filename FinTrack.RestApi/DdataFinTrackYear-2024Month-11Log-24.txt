@@ -1,0 +1,590 @@
+2024-11-24 13:37:51.562 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2024-11-24 13:37:53.032 +00:00 [INF] Now listening on: http://[::]:8080
+2024-11-24 13:37:53.035 +00:00 [INF] Now listening on: https://[::]:8081
+2024-11-24 13:37:53.037 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 13:37:53.038 +00:00 [INF] Hosting environment: Development
+2024-11-24 13:37:53.039 +00:00 [INF] Content root path: /app
+2024-11-24 13:38:16.835 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 13:38:16.837 +00:00 [INF] Setting up scope
+2024-11-24 13:38:16.932 +00:00 [INF] AuthController.SingUp started
+2024-11-24 13:38:16.934 +00:00 [INF] AuthFacade.SingUp started
+2024-11-24 13:38:16.936 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 13:38:19.124 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 13:38:19.126 +00:00 [INF] HashService.CreateHashPassword started
+2024-11-24 13:38:19.127 +00:00 [INF] HashService.CreateHashPassword completed
+2024-11-24 13:38:19.129 +00:00 [INF] AuthService.SignUp started
+2024-11-24 13:38:19.271 +00:00 [INF] AuthService.SignUp completed
+2024-11-24 13:38:19.271 +00:00 [INF] AuthFacade.SingUp completed
+2024-11-24 13:38:19.272 +00:00 [INF] AuthController.SingUp completed; success
+2024-11-24 13:38:32.163 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 13:38:32.163 +00:00 [INF] Setting up scope
+2024-11-24 13:38:32.210 +00:00 [INF] AuthController.LogIn started
+2024-11-24 13:38:32.211 +00:00 [INF] AuthFacade.LogIn started
+2024-11-24 13:38:32.211 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 13:38:32.284 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 13:38:32.286 +00:00 [INF] HashService.VerifyHashedPassword started
+2024-11-24 13:38:32.286 +00:00 [INF] HashService.VerifyHashedPassword completed
+2024-11-24 13:38:32.288 +00:00 [INF] AuthService.CreateToken started
+2024-11-24 13:38:32.346 +00:00 [INF] AuthService.CreateToken completed
+2024-11-24 13:38:32.346 +00:00 [INF] AuthFacade.LogIn completed
+2024-11-24 13:38:32.347 +00:00 [INF] AuthController.LogIn completed
+2024-11-24 13:39:09.605 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 13:39:09.606 +00:00 [INF] Setting up scope
+2024-11-24 13:39:09.609 +00:00 [INF] UserController.Get(1) started
+2024-11-24 13:39:09.610 +00:00 [INF] UserService.GetById(1 started)
+2024-11-24 13:39:09.625 +00:00 [INF] UserService.GetById(1) completed
+2024-11-24 13:39:09.626 +00:00 [INF] UserController.Get(1) completed
+2024-11-24 13:39:17.704 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 13:39:17.705 +00:00 [INF] Setting up scope
+2024-11-24 13:39:17.705 +00:00 [INF] UserController.Get(2) started
+2024-11-24 13:39:17.706 +00:00 [INF] UserService.GetById(2 started)
+2024-11-24 13:39:17.713 +00:00 [INF] UserService.GetById(2) completed
+2024-11-24 13:39:17.714 +00:00 [INF] UserController.Get(2) completed
+2024-11-24 13:40:06.311 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 13:40:06.319 +00:00 [INF] Setting up scope
+2024-11-24 13:40:06.320 +00:00 [INF] AuthController.LogIn started
+2024-11-24 13:40:06.320 +00:00 [INF] AuthFacade.LogIn started
+2024-11-24 13:40:06.321 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 13:40:06.357 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 13:40:06.358 +00:00 [INF] HashService.VerifyHashedPassword started
+2024-11-24 13:40:06.359 +00:00 [INF] HashService.VerifyHashedPassword completed
+2024-11-24 13:40:06.359 +00:00 [INF] AuthService.CreateToken started
+2024-11-24 13:40:06.360 +00:00 [INF] AuthService.CreateToken completed
+2024-11-24 13:40:06.360 +00:00 [INF] AuthFacade.LogIn completed
+2024-11-24 13:40:06.361 +00:00 [INF] AuthController.LogIn completed
+2024-11-24 13:40:29.777 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 13:40:29.778 +00:00 [INF] Setting up scope
+2024-11-24 13:40:29.779 +00:00 [INF] UserController.Get started
+2024-11-24 13:40:29.781 +00:00 [INF] UserService.GetUsers started
+2024-11-24 13:40:29.822 +00:00 [INF] UserService.GetUsers completed
+2024-11-24 13:40:29.823 +00:00 [INF] UserController.Get completed
+2024-11-24 17:29:59.408 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2024-11-24 17:30:00.776 +00:00 [INF] Now listening on: http://[::]:8080
+2024-11-24 17:30:00.778 +00:00 [INF] Now listening on: https://[::]:8081
+2024-11-24 17:30:00.780 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 17:30:00.781 +00:00 [INF] Hosting environment: Development
+2024-11-24 17:30:00.782 +00:00 [INF] Content root path: /app
+2024-11-24 17:30:53.255 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 17:30:53.257 +00:00 [INF] Setting up scope
+2024-11-24 17:30:53.347 +00:00 [INF] AuthController.LogIn started
+2024-11-24 17:30:53.349 +00:00 [INF] AuthFacade.LogIn started
+2024-11-24 17:30:53.351 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 17:30:55.474 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 17:30:55.474 +00:00 [WRN] AuthFacade.SingUp a user with that name has already been registered. Username : 123
+2024-11-24 17:30:55.533 +00:00 [WRN] AuthController.LogIn completed; invalid request
+2024-11-24 17:31:07.018 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 17:31:07.019 +00:00 [INF] Setting up scope
+2024-11-24 17:31:07.022 +00:00 [INF] AuthController.SingUp started
+2024-11-24 17:31:07.023 +00:00 [INF] AuthFacade.SingUp started
+2024-11-24 17:31:07.024 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 17:31:07.073 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 17:31:07.074 +00:00 [INF] HashService.CreateHashPassword started
+2024-11-24 17:31:07.075 +00:00 [INF] HashService.CreateHashPassword completed
+2024-11-24 17:31:07.077 +00:00 [INF] AuthService.SignUp started
+2024-11-24 17:31:07.293 +00:00 [ERR] Connection id "0HN8CLMGB0U38", Request id "0HN8CLMGB0U38:00000003": An unhandled exception was thrown by the application.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'Password', table 'FinTrackDB.dbo.Users'; column does not allow nulls. INSERT fails.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+ClientConnectionId:a4835ba5-efb1-4b93-aead-7cf2e63fb52d
+Error Number:515,State:2,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at FinTrack.Data.Repositories.UserRepository.Add(User entity) in D:\Api\FinTrack\FinTrack.Data\Repositories\UserRepository.cs:line 18
+   at FinTrack.Services.AuthService.SignUp(UserDto signUpDto) in D:\Api\FinTrack\FinTrack.Services\AuthService.cs:line 35
+   at FinTrack.Services.Facades.AuthFacade.SingUp(SignUpDto singUpDto) in D:\Api\FinTrack\FinTrack.Services\Facades\AuthFacade.cs:line 48
+   at FinTrack.RestApi.Controllers.AuthController.SingUp(SignUpModel model) in D:\Api\FinTrack\FinTrack.RestApi\Controllers\AuthController.cs:line 35
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2024-11-24 17:31:09.945 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 17:31:09.946 +00:00 [INF] Setting up scope
+2024-11-24 17:31:09.976 +00:00 [INF] AuthController.LogIn started
+2024-11-24 17:31:09.977 +00:00 [INF] AuthFacade.LogIn started
+2024-11-24 17:31:09.977 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 17:31:10.004 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 17:31:10.005 +00:00 [WRN] AuthFacade.SingUp a user with that name has already been registered. Username : 123
+2024-11-24 17:31:10.039 +00:00 [WRN] AuthController.LogIn completed; invalid request
+2024-11-24 17:31:12.596 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 17:31:12.597 +00:00 [INF] Setting up scope
+2024-11-24 17:31:12.598 +00:00 [INF] AuthController.LogIn started
+2024-11-24 17:31:12.598 +00:00 [INF] AuthFacade.LogIn started
+2024-11-24 17:31:12.599 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 17:31:12.604 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 17:31:12.605 +00:00 [WRN] AuthFacade.SingUp a user with that name has already been registered. Username : 123
+2024-11-24 17:31:12.630 +00:00 [WRN] AuthController.LogIn completed; invalid request
+2024-11-24 17:31:20.587 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 17:31:20.588 +00:00 [INF] Setting up scope
+2024-11-24 17:31:20.589 +00:00 [INF] AuthController.SingUp started
+2024-11-24 17:31:20.590 +00:00 [INF] AuthFacade.SingUp started
+2024-11-24 17:31:20.590 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 17:31:20.597 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 17:31:20.639 +00:00 [INF] HashService.CreateHashPassword started
+2024-11-24 17:31:20.665 +00:00 [INF] HashService.CreateHashPassword completed
+2024-11-24 17:31:20.666 +00:00 [INF] AuthService.SignUp started
+2024-11-24 17:31:20.719 +00:00 [ERR] Connection id "0HN8CLMGB0U38", Request id "0HN8CLMGB0U38:00000009": An unhandled exception was thrown by the application.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'Password', table 'FinTrackDB.dbo.Users'; column does not allow nulls. INSERT fails.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+ClientConnectionId:a4835ba5-efb1-4b93-aead-7cf2e63fb52d
+Error Number:515,State:2,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at FinTrack.Data.Repositories.UserRepository.Add(User entity) in D:\Api\FinTrack\FinTrack.Data\Repositories\UserRepository.cs:line 18
+   at FinTrack.Services.AuthService.SignUp(UserDto signUpDto) in D:\Api\FinTrack\FinTrack.Services\AuthService.cs:line 35
+   at FinTrack.Services.Facades.AuthFacade.SingUp(SignUpDto singUpDto) in D:\Api\FinTrack\FinTrack.Services\Facades\AuthFacade.cs:line 48
+   at FinTrack.RestApi.Controllers.AuthController.SingUp(SignUpModel model) in D:\Api\FinTrack\FinTrack.RestApi\Controllers\AuthController.cs:line 35
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2024-11-24 17:31:49.473 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 17:31:49.473 +00:00 [INF] Setting up scope
+2024-11-24 17:31:49.480 +00:00 [INF] AuthController.SingUp started
+2024-11-24 17:31:49.480 +00:00 [INF] AuthFacade.SingUp started
+2024-11-24 17:32:04.202 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 17:32:22.100 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 17:32:37.891 +00:00 [INF] HashService.CreateHashPassword started
+2024-11-24 17:32:37.893 +00:00 [INF] HashService.CreateHashPassword completed
+2024-11-24 17:32:48.170 +00:00 [INF] AuthService.SignUp started
+2024-11-24 17:33:38.019 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2024-11-24 17:33:38.723 +00:00 [INF] Now listening on: http://[::]:8080
+2024-11-24 17:33:38.726 +00:00 [INF] Now listening on: https://[::]:8081
+2024-11-24 17:33:38.728 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 17:33:38.728 +00:00 [INF] Hosting environment: Development
+2024-11-24 17:33:38.729 +00:00 [INF] Content root path: /app
+2024-11-24 17:33:49.216 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 17:33:49.218 +00:00 [INF] Setting up scope
+2024-11-24 17:33:49.291 +00:00 [INF] AuthController.SingUp started
+2024-11-24 17:33:49.293 +00:00 [INF] AuthFacade.SingUp started
+2024-11-24 17:33:51.791 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 17:33:58.906 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 17:34:01.477 +00:00 [INF] HashService.CreateHashPassword started
+2024-11-24 17:34:01.478 +00:00 [INF] HashService.CreateHashPassword completed
+2024-11-24 17:34:08.149 +00:00 [INF] AuthService.SignUp started
+2024-11-24 17:34:15.053 +00:00 [INF] AuthService.SignUp completed
+2024-11-24 17:34:16.138 +00:00 [INF] AuthFacade.SingUp completed
+2024-11-24 17:34:18.272 +00:00 [INF] AuthController.SingUp completed; success
+2024-11-24 17:34:32.129 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 17:34:32.130 +00:00 [INF] Setting up scope
+2024-11-24 17:34:32.152 +00:00 [INF] AuthController.LogIn started
+2024-11-24 17:34:32.154 +00:00 [INF] AuthFacade.LogIn started
+2024-11-24 17:34:34.332 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 17:35:01.935 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 17:39:21.599 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2024-11-24 17:39:22.324 +00:00 [INF] Now listening on: http://[::]:8080
+2024-11-24 17:39:22.326 +00:00 [INF] Now listening on: https://[::]:8081
+2024-11-24 17:39:22.329 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 17:39:22.329 +00:00 [INF] Hosting environment: Development
+2024-11-24 17:39:22.330 +00:00 [INF] Content root path: /app
+2024-11-24 17:39:51.484 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 17:39:51.486 +00:00 [INF] Setting up scope
+2024-11-24 17:39:51.558 +00:00 [INF] AuthController.LogIn started
+2024-11-24 17:39:51.560 +00:00 [INF] AuthFacade.LogIn started
+2024-11-24 17:39:54.031 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 17:40:14.154 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 17:40:18.572 +00:00 [INF] HashService.VerifyHashedPassword started
+2024-11-24 17:40:18.573 +00:00 [INF] HashService.VerifyHashedPassword completed
+2024-11-24 17:40:37.725 +00:00 [INF] AuthService.CreateToken started
+2024-11-24 17:40:42.189 +00:00 [INF] AuthService.CreateToken completed
+2024-11-24 17:40:43.923 +00:00 [INF] AuthFacade.LogIn completed
+2024-11-24 17:40:45.408 +00:00 [INF] AuthController.LogIn completed
+2024-11-24 17:59:29.102 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2024-11-24 17:59:29.833 +00:00 [INF] Now listening on: http://[::]:8080
+2024-11-24 17:59:29.836 +00:00 [INF] Now listening on: https://[::]:8081
+2024-11-24 17:59:29.838 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 17:59:29.839 +00:00 [INF] Hosting environment: Development
+2024-11-24 17:59:29.839 +00:00 [INF] Content root path: /app
+2024-11-24 18:00:19.593 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 18:00:19.595 +00:00 [INF] Setting up scope
+2024-11-24 18:00:19.686 +00:00 [INF] AuthController.LogIn started
+2024-11-24 18:00:19.688 +00:00 [INF] AuthFacade.LogIn started
+2024-11-24 18:00:35.588 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 18:00:46.141 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 18:00:48.412 +00:00 [INF] HashService.VerifyHashedPassword started
+2024-11-24 18:00:48.413 +00:00 [INF] HashService.VerifyHashedPassword completed
+2024-11-24 18:01:19.859 +00:00 [INF] AuthService.CreateToken started
+2024-11-24 18:01:19.879 +00:00 [INF] AuthService.CreateToken completed
+2024-11-24 18:01:20.303 +00:00 [INF] AuthFacade.LogIn completed
+2024-11-24 18:01:21.759 +00:00 [INF] AuthController.LogIn completed
+2024-11-24 18:02:02.082 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 18:02:02.082 +00:00 [INF] Setting up scope
+2024-11-24 18:02:02.086 +00:00 [INF] UserController.Get(3) started
+2024-11-24 18:02:04.526 +00:00 [INF] UserService.GetById(3 started)
+2024-11-24 18:03:47.940 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2024-11-24 18:03:48.660 +00:00 [INF] Now listening on: http://[::]:8080
+2024-11-24 18:03:48.662 +00:00 [INF] Now listening on: https://[::]:8081
+2024-11-24 18:03:48.664 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 18:03:48.665 +00:00 [INF] Hosting environment: Development
+2024-11-24 18:03:48.665 +00:00 [INF] Content root path: /app
+2024-11-24 18:04:03.735 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 18:04:03.736 +00:00 [INF] Setting up scope
+2024-11-24 18:04:03.815 +00:00 [INF] AuthController.LogIn started
+2024-11-24 18:04:03.817 +00:00 [INF] AuthFacade.LogIn started
+2024-11-24 18:04:09.775 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 18:04:10.975 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 18:04:10.977 +00:00 [INF] HashService.VerifyHashedPassword started
+2024-11-24 18:04:10.978 +00:00 [INF] HashService.VerifyHashedPassword completed
+2024-11-24 18:04:10.980 +00:00 [INF] AuthService.CreateToken started
+2024-11-24 18:04:11.002 +00:00 [INF] AuthService.CreateToken completed
+2024-11-24 18:04:11.003 +00:00 [INF] AuthFacade.LogIn completed
+2024-11-24 18:04:11.003 +00:00 [INF] AuthController.LogIn completed
+2024-11-24 18:04:29.756 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 18:04:29.757 +00:00 [INF] Setting up scope
+2024-11-24 18:04:29.761 +00:00 [INF] UserController.Get(3) started
+2024-11-24 18:04:42.983 +00:00 [INF] UserService.GetById(3 started)
+2024-11-24 18:04:43.909 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 18:04:43.909 +00:00 [INF] Setting up scope
+2024-11-24 18:04:43.917 +00:00 [INF] UserController.Get(3) started
+2024-11-24 18:05:05.709 +00:00 [INF] UserService.GetById(3 started)
+2024-11-24 18:05:40.635 +00:00 [ERR] Connection id "0HN8CM9CE67H4", Request id "0HN8CM9CE67H4:00000003": An unhandled exception was thrown by the application.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at FinTrack.Services.AbstractService.get_UserId() in D:\Api\FinTrack\FinTrack.Services\AbstractService.cs:line 31
+   at FinTrack.Services.UserService.GetById(Int32 id) in D:\Api\FinTrack\FinTrack.Services\UserService.cs:line 83
+   at FinTrack.RestApi.Controllers.UserController.Get(Int32 id) in D:\Api\FinTrack\FinTrack.RestApi\Controllers\UserController.cs:line 30
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2024-11-24 18:05:40.635 +00:00 [ERR] Connection id "0HN8CM9CE67H5", Request id "0HN8CM9CE67H5:00000001": An unhandled exception was thrown by the application.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at FinTrack.Services.AbstractService.get_UserId() in D:\Api\FinTrack\FinTrack.Services\AbstractService.cs:line 31
+   at FinTrack.Services.UserService.GetById(Int32 id) in D:\Api\FinTrack\FinTrack.Services\UserService.cs:line 83
+   at FinTrack.RestApi.Controllers.UserController.Get(Int32 id) in D:\Api\FinTrack\FinTrack.RestApi\Controllers\UserController.cs:line 30
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2024-11-24 18:06:13.804 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2024-11-24 18:06:14.540 +00:00 [INF] Now listening on: http://[::]:8080
+2024-11-24 18:06:14.543 +00:00 [INF] Now listening on: https://[::]:8081
+2024-11-24 18:06:14.545 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 18:06:14.546 +00:00 [INF] Hosting environment: Development
+2024-11-24 18:06:14.546 +00:00 [INF] Content root path: /app
+2024-11-24 18:06:25.711 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 18:06:25.713 +00:00 [INF] Setting up scope
+2024-11-24 18:06:25.791 +00:00 [INF] AuthController.LogIn started
+2024-11-24 18:06:25.793 +00:00 [INF] AuthFacade.LogIn started
+2024-11-24 18:06:25.794 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 18:06:26.994 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 18:06:26.995 +00:00 [INF] HashService.VerifyHashedPassword started
+2024-11-24 18:06:26.996 +00:00 [INF] HashService.VerifyHashedPassword completed
+2024-11-24 18:06:26.997 +00:00 [INF] AuthService.CreateToken started
+2024-11-24 18:06:27.016 +00:00 [INF] AuthService.CreateToken completed
+2024-11-24 18:06:27.016 +00:00 [INF] AuthFacade.LogIn completed
+2024-11-24 18:06:27.017 +00:00 [INF] AuthController.LogIn completed
+2024-11-24 18:06:39.402 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 18:06:39.402 +00:00 [INF] Setting up scope
+2024-11-24 18:06:39.406 +00:00 [INF] UserController.Get(3) started
+2024-11-24 18:06:41.626 +00:00 [INF] UserService.GetById(3 started)
+2024-11-24 18:45:20.214 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2024-11-24 18:45:21.067 +00:00 [INF] Now listening on: http://[::]:8080
+2024-11-24 18:45:21.070 +00:00 [INF] Now listening on: https://[::]:8081
+2024-11-24 18:45:21.071 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 18:45:21.072 +00:00 [INF] Hosting environment: Development
+2024-11-24 18:45:21.073 +00:00 [INF] Content root path: /app
+2024-11-24 18:45:37.758 +00:00 [ERR] Connection id "0HN8CN0J82I15", Request id "0HN8CN0J82I15:00000001": An unhandled exception was thrown by the application.
+System.InvalidOperationException: Unable to resolve service for type 'FinTrack.Services.Context.Contracts.IContextLocator' while attempting to activate 'FinTrack.RestApi.ActionFilters.UserContextActionFilter'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ThrowHelperUnableToResolveService(Type type, Type requiredBy)
+   at lambda_method429(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.TypeFilterAttribute.CreateInstance(IServiceProvider serviceProvider)
+   at Microsoft.AspNetCore.Mvc.Filters.DefaultFilterProvider.ProvideFilter(FilterProviderContext context, FilterItem filterItem)
+   at Microsoft.AspNetCore.Mvc.Filters.DefaultFilterProvider.OnProvidersExecuting(FilterProviderContext context)
+   at Microsoft.AspNetCore.Mvc.Filters.FilterFactory.CreateUncachedFiltersCore(IFilterProvider[] filterProviders, ActionContext actionContext, List`1 filterItems)
+   at Microsoft.AspNetCore.Mvc.Filters.FilterFactory.GetAllFilters(IFilterProvider[] filterProviders, ActionContext actionContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2024-11-24 18:45:45.134 +00:00 [ERR] Connection id "0HN8CN0J82I15", Request id "0HN8CN0J82I15:00000003": An unhandled exception was thrown by the application.
+System.InvalidOperationException: Unable to resolve service for type 'FinTrack.Services.Context.Contracts.IContextLocator' while attempting to activate 'FinTrack.RestApi.ActionFilters.UserContextActionFilter'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ThrowHelperUnableToResolveService(Type type, Type requiredBy)
+   at lambda_method429(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.TypeFilterAttribute.CreateInstance(IServiceProvider serviceProvider)
+   at Microsoft.AspNetCore.Mvc.Filters.DefaultFilterProvider.ProvideFilter(FilterProviderContext context, FilterItem filterItem)
+   at Microsoft.AspNetCore.Mvc.Filters.DefaultFilterProvider.OnProvidersExecuting(FilterProviderContext context)
+   at Microsoft.AspNetCore.Mvc.Filters.FilterFactory.CreateUncachedFiltersCore(IFilterProvider[] filterProviders, ActionContext actionContext, List`1 filterItems)
+   at Microsoft.AspNetCore.Mvc.Filters.FilterFactory.GetAllFilters(IFilterProvider[] filterProviders, ActionContext actionContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2024-11-24 18:48:36.798 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2024-11-24 18:48:37.542 +00:00 [INF] Now listening on: http://[::]:8080
+2024-11-24 18:48:37.545 +00:00 [INF] Now listening on: https://[::]:8081
+2024-11-24 18:48:37.547 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 18:48:37.547 +00:00 [INF] Hosting environment: Development
+2024-11-24 18:48:37.548 +00:00 [INF] Content root path: /app
+2024-11-24 18:52:21.270 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2024-11-24 18:52:22.033 +00:00 [INF] Now listening on: http://[::]:8080
+2024-11-24 18:52:22.035 +00:00 [INF] Now listening on: https://[::]:8081
+2024-11-24 18:52:22.037 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 18:52:22.038 +00:00 [INF] Hosting environment: Development
+2024-11-24 18:52:22.039 +00:00 [INF] Content root path: /app
+2024-11-24 18:53:04.263 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 18:53:04.265 +00:00 [INF] Setting up scope
+2024-11-24 18:53:04.351 +00:00 [INF] AuthController.LogIn started
+2024-11-24 18:53:04.354 +00:00 [INF] AuthFacade.LogIn started
+2024-11-24 18:53:04.356 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 18:53:05.623 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 18:53:05.625 +00:00 [INF] HashService.VerifyHashedPassword started
+2024-11-24 18:53:05.626 +00:00 [INF] HashService.VerifyHashedPassword completed
+2024-11-24 18:53:05.627 +00:00 [INF] AuthService.CreateToken started
+2024-11-24 18:53:05.647 +00:00 [INF] AuthService.CreateToken completed
+2024-11-24 18:53:05.647 +00:00 [INF] AuthFacade.LogIn completed
+2024-11-24 18:53:05.648 +00:00 [INF] AuthController.LogIn completed
+2024-11-24 18:53:47.476 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 18:53:49.330 +00:00 [INF] Setting up scope
+2024-11-24 18:53:51.489 +00:00 [INF] UserController.Get(3) started
+2024-11-24 18:53:53.608 +00:00 [INF] UserService.GetById(3 started)
+2024-11-24 18:54:01.957 +00:00 [ERR] Connection id "0HN8CN4GN2PR1", Request id "0HN8CN4GN2PR1:00000009": An unhandled exception was thrown by the application.
+System.Exception: Context FinTrack.Services.Context.UserContext is not registered in current container
+   at FinTrack.Services.Context.ContextLocator.Get[T]() in D:\Api\FinTrack\FinTrack.Services\Context\ContextLocator.cs:line 27
+   at FinTrack.Services.AbstractService.get_UserContext() in D:\Api\FinTrack\FinTrack.Services\AbstractService.cs:line 35
+   at FinTrack.Services.UserService.GetById(Int32 id) in D:\Api\FinTrack\FinTrack.Services\UserService.cs:line 85
+   at FinTrack.RestApi.Controllers.UserController.Get(Int32 id) in D:\Api\FinTrack\FinTrack.RestApi\Controllers\UserController.cs:line 30
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2024-11-24 18:55:40.689 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 18:55:50.754 +00:00 [INF] Setting up scope
+2024-11-24 18:56:10.208 +00:00 [INF] UserController.Get(3) started
+2024-11-24 18:56:17.905 +00:00 [INF] UserService.GetById(3 started)
+2024-11-24 18:59:47.767 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2024-11-24 18:59:48.491 +00:00 [INF] Now listening on: http://[::]:8080
+2024-11-24 18:59:48.494 +00:00 [INF] Now listening on: https://[::]:8081
+2024-11-24 18:59:48.496 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 18:59:48.497 +00:00 [INF] Hosting environment: Development
+2024-11-24 18:59:48.497 +00:00 [INF] Content root path: /app
+2024-11-24 19:00:06.363 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 19:00:06.366 +00:00 [INF] Setting up scope
+2024-11-24 19:00:06.489 +00:00 [INF] AuthController.LogIn started
+2024-11-24 19:00:06.496 +00:00 [INF] AuthFacade.LogIn started
+2024-11-24 19:00:06.498 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 19:00:07.818 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 19:00:07.821 +00:00 [INF] HashService.VerifyHashedPassword started
+2024-11-24 19:00:07.822 +00:00 [INF] HashService.VerifyHashedPassword completed
+2024-11-24 19:00:07.824 +00:00 [INF] AuthService.CreateToken started
+2024-11-24 19:00:07.845 +00:00 [INF] AuthService.CreateToken completed
+2024-11-24 19:00:07.845 +00:00 [INF] AuthFacade.LogIn completed
+2024-11-24 19:00:07.846 +00:00 [INF] AuthController.LogIn completed
+2024-11-24 19:01:05.449 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 19:01:18.815 +00:00 [INF] Setting up scope
+2024-11-24 19:01:24.653 +00:00 [INF] UserController.Get(1) started
+2024-11-24 19:01:32.234 +00:00 [INF] UserService.GetById(1 started)
+2024-11-24 19:02:03.015 +00:00 [ERR] Connection id "0HN8CN8LOP41V", Request id "0HN8CN8LOP41V:00000003": An unhandled exception was thrown by the application.
+System.Exception: Context FinTrack.Services.Context.UserContext is not registered in current container
+   at FinTrack.Services.Context.ContextLocator.Get[T]() in D:\Api\FinTrack\FinTrack.Services\Context\ContextLocator.cs:line 27
+   at FinTrack.Services.AbstractService.get_UserContext() in D:\Api\FinTrack\FinTrack.Services\AbstractService.cs:line 35
+   at FinTrack.Services.UserService.GetById(Int32 id) in D:\Api\FinTrack\FinTrack.Services\UserService.cs:line 84
+   at FinTrack.RestApi.Controllers.UserController.Get(Int32 id) in D:\Api\FinTrack\FinTrack.RestApi\Controllers\UserController.cs:line 30
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2024-11-24 19:02:13.959 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 19:02:14.845 +00:00 [INF] Setting up scope
+2024-11-24 19:03:09.853 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2024-11-24 19:03:10.583 +00:00 [INF] Now listening on: http://[::]:8080
+2024-11-24 19:03:10.586 +00:00 [INF] Now listening on: https://[::]:8081
+2024-11-24 19:03:10.588 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 19:03:10.589 +00:00 [INF] Hosting environment: Development
+2024-11-24 19:03:10.590 +00:00 [INF] Content root path: /app
+2024-11-24 19:03:22.041 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 19:03:22.043 +00:00 [INF] Setting up scope
+2024-11-24 19:03:22.117 +00:00 [INF] AuthController.LogIn started
+2024-11-24 19:03:22.119 +00:00 [INF] AuthFacade.LogIn started
+2024-11-24 19:03:22.121 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 19:03:23.392 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 19:03:23.393 +00:00 [INF] HashService.VerifyHashedPassword started
+2024-11-24 19:03:23.394 +00:00 [INF] HashService.VerifyHashedPassword completed
+2024-11-24 19:03:23.396 +00:00 [INF] AuthService.CreateToken started
+2024-11-24 19:03:23.419 +00:00 [INF] AuthService.CreateToken completed
+2024-11-24 19:03:23.419 +00:00 [INF] AuthFacade.LogIn completed
+2024-11-24 19:03:23.420 +00:00 [INF] AuthController.LogIn completed
+2024-11-24 19:03:45.259 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 19:03:45.259 +00:00 [INF] Setting up scope
+2024-11-24 19:03:45.263 +00:00 [INF] UserController.Get(3) started
+2024-11-24 19:03:46.203 +00:00 [INF] UserService.GetById(3 started)
+2024-11-24 19:03:54.980 +00:00 [ERR] Connection id "0HN8CNAHVOKJN", Request id "0HN8CNAHVOKJN:00000003": An unhandled exception was thrown by the application.
+System.Exception: Context FinTrack.Services.Context.UserContext is not registered in current container
+   at FinTrack.Services.Context.ContextLocator.Get[T]() in D:\Api\FinTrack\FinTrack.Services\Context\ContextLocator.cs:line 27
+   at FinTrack.Services.AbstractService.get_UserContext() in D:\Api\FinTrack\FinTrack.Services\AbstractService.cs:line 35
+   at FinTrack.Services.UserService.GetById(Int32 id) in D:\Api\FinTrack\FinTrack.Services\UserService.cs:line 84
+   at FinTrack.RestApi.Controllers.UserController.Get(Int32 id) in D:\Api\FinTrack\FinTrack.RestApi\Controllers\UserController.cs:line 30
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2024-11-24 19:04:18.590 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2024-11-24 19:04:19.410 +00:00 [INF] Now listening on: http://[::]:8080
+2024-11-24 19:04:19.412 +00:00 [INF] Now listening on: https://[::]:8081
+2024-11-24 19:04:19.414 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 19:04:19.415 +00:00 [INF] Hosting environment: Development
+2024-11-24 19:04:19.415 +00:00 [INF] Content root path: /app
+2024-11-24 19:04:28.503 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 19:04:28.505 +00:00 [INF] Setting up scope
+2024-11-24 19:04:28.593 +00:00 [INF] AuthController.LogIn started
+2024-11-24 19:04:28.595 +00:00 [INF] AuthFacade.LogIn started
+2024-11-24 19:04:28.597 +00:00 [INF] UserService.GetByEmail started
+2024-11-24 19:04:29.929 +00:00 [INF] UserService.GetByEmail completed
+2024-11-24 19:04:29.931 +00:00 [INF] HashService.VerifyHashedPassword started
+2024-11-24 19:04:29.932 +00:00 [INF] HashService.VerifyHashedPassword completed
+2024-11-24 19:04:29.934 +00:00 [INF] AuthService.CreateToken started
+2024-11-24 19:04:29.957 +00:00 [INF] AuthService.CreateToken completed
+2024-11-24 19:04:29.957 +00:00 [INF] AuthFacade.LogIn completed
+2024-11-24 19:04:29.958 +00:00 [INF] AuthController.LogIn completed
+2024-11-24 19:04:47.410 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2024-11-24 19:04:47.410 +00:00 [INF] Setting up scope
+2024-11-24 19:04:47.414 +00:00 [INF] UserController.Get(3) started
+2024-11-24 19:04:48.765 +00:00 [INF] UserService.GetById(3 started)

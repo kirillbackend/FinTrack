@@ -2,13 +2,13 @@
 
 namespace FinTrack.Localization
 {
-    public class ContextLocator
+    public class LocalizationContextLocator
     {
         private Dictionary<Type, IContext> _contexts = new Dictionary<Type, IContext>();
 
         public IContextFactory ContextFactory;
 
-        public ContextLocator(IContextFactory contextFactory)
+        public LocalizationContextLocator(IContextFactory contextFactory)
         {
             ContextFactory = contextFactory;
         }

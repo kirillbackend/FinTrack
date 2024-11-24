@@ -6,14 +6,15 @@ using FinTrack.Services.Dtos;
 using FinTrack.Services.Mappers.Contracts;
 using Microsoft.Extensions.Logging;
 using FinTrack.Services.Exceptions;
+using FinTrack.Services.Context.Contracts;
 
 namespace FinTrack.Services
 {
     public class UserService : AbstractService, IUserService
     {
         public UserService(ILogger<UserService> logger, IMapperFactory mapperFactory
-            , IDataContextManager dataContextManager, ContextLocator contextLocator)
-            : base(logger, mapperFactory, dataContextManager, contextLocator)
+            , IDataContextManager dataContextManager, LocalizationContextLocator localizationContext, IContextLocator contextLocator)
+            : base(logger, mapperFactory, dataContextManager, localizationContext, contextLocator)
         {
         }
 
@@ -34,9 +35,15 @@ namespace FinTrack.Services
         {
             Logger.LogInformation($"UserService.Delete({id} started)");
 
-            var resourceProvider = ContextLocator.GetContext<LocaleContext>().ResourceProvider;
+            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserMapper>();
+
+            if (UserContext.Id != id)
+            {
+                Logger.LogWarning($"UserService.Delete there is no access to the data.");
+                throw new ValidationException("No access data.", resourceProvider.Get("NoAccessData"));
+            }
 
             var user = await repo.GetById(id);
 
@@ -54,25 +61,31 @@ namespace FinTrack.Services
         public async Task<UserDto> GetByEmail(string email)
         {
             Logger.LogInformation("UserService.GetByEmail started");
-            var resourceProvider = ContextLocator.GetContext<LocaleContext>().ResourceProvider;
+            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
 
             var repo = DataContextManager.CreateRepository<IUserRepository>();
-            var mapper = MapperFactory.GetMapper<IUserMapper>();
+            var mapper = MapperFactory.GetMapper<IUserAuthMapper>();
 
-            var users = await repo.GetByEmail(email);
-            var usersDto = mapper.MapToDto(users);
+            var user = await repo.GetByEmail(email);
+            var userDto = mapper.MapToDto(user);
 
             Logger.LogInformation("UserService.GetByEmail completed");
-            return usersDto;
+            return userDto;
         }
 
         public async Task<UserDto> GetById(int id)
         {
             Logger.LogInformation($"UserService.GetById({id} started)");
 
-            var resourceProvider = ContextLocator.GetContext<LocaleContext>().ResourceProvider;
+            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserMapper>();
+
+            if (UserContext.Id != id)
+            {
+                Logger.LogWarning($"UserService.GetById there is no access to the data.");
+                throw new ValidationException("No access data.", resourceProvider.Get("NoAccessData"));
+            }
 
             var user = await repo.GetById(id);
 
@@ -107,9 +120,15 @@ namespace FinTrack.Services
         {
             Logger.LogInformation($"UserService.Update started)");
 
-            var resourceProvider = ContextLocator.GetContext<LocaleContext>().ResourceProvider;
+            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserMapper>();
+
+            if (UserContext.Id != userDto.Id)
+            {
+                Logger.LogWarning($"UserService.Update there is no access to the data.");
+                throw new ValidationException("No access data.", resourceProvider.Get("NoAccessData"));
+            }
 
             var user = await repo.GetById(userDto.Id);
 

@@ -58,7 +58,7 @@ namespace FinTrack.RestApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Post(CurrencyDto currencyDto)
         {
             try
@@ -77,7 +77,7 @@ namespace FinTrack.RestApi.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Put(CurrencyDto currencyDto)
         {
             try
@@ -96,7 +96,7 @@ namespace FinTrack.RestApi.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete, Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int id)
         {
             try

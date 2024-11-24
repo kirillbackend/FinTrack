@@ -1,6 +1,7 @@
 ﻿using FinTrack.Data.Contracts;
 using FinTrack.Data.Repositories.Contracts;
 using FinTrack.Localization;
+using FinTrack.Services.Context.Contracts;
 using FinTrack.Services.Contracts;
 using FinTrack.Services.Dtos;
 using FinTrack.Services.Mappers.Contracts;
@@ -17,8 +18,9 @@ namespace FinTrack.Services
         private readonly FinTrackServiceSettings _dailyPlannerServiceSettings;
 
         public AuthService(ILogger<AuthService> logger, IMapperFactory mapperFactory
-            , IDataContextManager dataContextManager, ContextLocator contextLocator, FinTrackServiceSettings dailyPlannerServiceSettings)
-            : base(logger, mapperFactory, dataContextManager, contextLocator)
+            , IDataContextManager dataContextManager, LocalizationContextLocator localization, IContextLocator contextLocator
+            , FinTrackServiceSettings dailyPlannerServiceSettings)
+            : base(logger, mapperFactory, dataContextManager, localization, contextLocator)
         {
             _dailyPlannerServiceSettings = dailyPlannerServiceSettings;
         }
@@ -37,13 +39,15 @@ namespace FinTrack.Services
             Logger.LogInformation("AuthService.SignUp completed");
         }
 
-        public async Task<string> CreateToken(LoginDto loginDto)
+        public async Task<string> CreateToken(UserDto userDto)
         {
             Logger.LogInformation("AuthService.CreateToken started");
 
             var authClaims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email, loginDto.Email)
+                new Claim(ClaimTypes.Email, userDto.Email),
+                new Claim(ClaimTypes.Role, userDto.UserRole.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, userDto.Id.ToString())
             };
 
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_dailyPlannerServiceSettings.Auth.Secret));

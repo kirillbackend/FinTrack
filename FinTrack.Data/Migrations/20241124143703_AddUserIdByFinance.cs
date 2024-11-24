@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FinTrack.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class addUserRole1 : Migration
+    public partial class AddUserIdByFinance : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,6 +53,7 @@ namespace FinTrack.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CurrencyId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -71,12 +72,23 @@ namespace FinTrack.Data.Migrations
                         principalTable: "Currencies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Finances_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Finances_CurrencyId",
                 table: "Finances",
                 column: "CurrencyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Finances_UserId",
+                table: "Finances",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -86,10 +98,10 @@ namespace FinTrack.Data.Migrations
                 name: "Finances");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Currencies");
 
             migrationBuilder.DropTable(
-                name: "Currencies");
+                name: "Users");
         }
     }
 }

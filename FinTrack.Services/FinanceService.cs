@@ -6,14 +6,16 @@ using FinTrack.Services.Dtos;
 using FinTrack.Services.Mappers.Contracts;
 using Microsoft.Extensions.Logging;
 using FinTrack.Services.Exceptions;
+using FinTrack.Services.Context;
+using FinTrack.Services.Context.Contracts;
 
 namespace FinTrack.Services
 {
     public class FinanceService : AbstractService, IFinanceService
     {
         public FinanceService(ILogger<FinanceService> logger, IMapperFactory mapperFactory
-            , IDataContextManager dataContextManager, ContextLocator contextLocator)
-            : base(logger, mapperFactory, dataContextManager, contextLocator)
+            , IDataContextManager dataContextManager, LocalizationContextLocator localization, IContextLocator contextLocator)
+            : base(logger, mapperFactory, dataContextManager, localization, contextLocator)
         {
         }
 
@@ -36,10 +38,18 @@ namespace FinTrack.Services
         {
             Logger.LogInformation($"FinanceService.Delete started");
 
-            var resourceProvider = ContextLocator.GetContext<LocaleContext>().ResourceProvider;
+            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var financeRepository = DataContextManager.CreateRepository<IFinanceRepository>();
 
-            var finance = financeRepository.Delete(id);
+            var finance = await financeRepository.GetFinanceById(id);
+
+            if (UserContext.Id != finance.UserId)
+            {
+                Logger.LogWarning($"FinanceService.Delete there is no access to the data.");
+                throw new ValidationException("No access data.", resourceProvider.Get("NoAccessData"));
+            }
+
+            await financeRepository.Delete(id);
 
             if (finance == null)
             {
@@ -56,11 +66,17 @@ namespace FinTrack.Services
         {
             Logger.LogInformation($"FinanceService.GetFinanceById({id}) started");
 
-            var resourceProvider = ContextLocator.GetContext<LocaleContext>().ResourceProvider;
+            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
 
             var financeRepository = DataContextManager.CreateRepository<IFinanceRepository>();
 
-            var finance = await financeRepository.GetFinanceById(id);  
+            var finance = await financeRepository.GetFinanceById(id);
+
+            if (UserContext.Id != finance.UserId)
+            {
+                Logger.LogWarning($"FinanceService.GetFinanceById there is no access to the data.");
+                throw new ValidationException("No access data.", resourceProvider.Get("NoAccessData"));
+            }
 
             if (finance == null)
             {
@@ -94,11 +110,17 @@ namespace FinTrack.Services
         {
             Logger.LogInformation($"FinanceService.Update started");
 
-            var resourceProvider = ContextLocator.GetContext<LocaleContext>().ResourceProvider;
+            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
 
             var financeRepository = DataContextManager.CreateRepository<IFinanceRepository>();
 
             var finance = await financeRepository.GetFinanceById(financeDto.Id);
+
+            if (UserContext.Id != finance.UserId)
+            {
+                Logger.LogWarning($"FinanceService.Update there is no access to the data.");
+                throw new ValidationException("No access data.", resourceProvider.Get("NoAccessData"));
+            }
 
             if (finance == null)
             {

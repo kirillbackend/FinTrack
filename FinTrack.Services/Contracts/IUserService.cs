@@ -1,4 +1,5 @@
-﻿using FinTrack.Services.Dtos;
+﻿using FinTrack.Model;
+using FinTrack.Services.Dtos;
 
 namespace FinTrack.Services.Contracts
 {

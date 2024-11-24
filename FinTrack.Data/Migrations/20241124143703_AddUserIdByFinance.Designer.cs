@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinTrack.Data.Migrations
 {
     [DbContext(typeof(FinTrackDataContext))]
-    [Migration("20241113080955_UpdateFinanceModelAddCreateDateAndUpdateDateAndFinanceCategoryType")]
-    partial class UpdateFinanceModelAddCreateDateAndUpdateDateAndFinanceCategoryType
+    [Migration("20241124143703_AddUserIdByFinance")]
+    partial class AddUserIdByFinance
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -86,9 +86,14 @@ namespace FinTrack.Data.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CurrencyId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Finances");
                 });
@@ -124,6 +129,9 @@ namespace FinTrack.Data.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserRole")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -137,10 +145,23 @@ namespace FinTrack.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FinTrack.Model.User", "User")
+                        .WithMany("Finances")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Currency");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FinTrack.Model.Currency", b =>
+                {
+                    b.Navigation("Finances");
+                });
+
+            modelBuilder.Entity("FinTrack.Model.User", b =>
                 {
                     b.Navigation("Finances");
                 });

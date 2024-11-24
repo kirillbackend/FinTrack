@@ -3,6 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using FinTrack.RestApi.ActionFilters;
 using FinTrack.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
@@ -30,10 +31,8 @@ namespace FinTrack.RestApi
 
             services.AddControllers(options =>
             {
+                options.Filters.Add<UserContextActionFilter>();
                 options.Filters.Add<LocaleActionFilter>();
-
-                //todo: add action filters
-                //options.Filters.Add<OrganizationActionFilter>();
             })
             .AddNewtonsoftJson(options =>
             {
@@ -136,6 +135,7 @@ namespace FinTrack.RestApi
             // register filters
             //builder.RegisterType<OrganizationActionFilter>().AsSelf();
             //builder.RegisterType<ExceptionHandler>().AsSelf();
+            builder.RegisterType<UserContextActionFilter>().AsSelf();
         }
     }
 }

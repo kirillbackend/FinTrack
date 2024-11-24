@@ -13,5 +13,7 @@ namespace FinTrack.Model
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public UserRole UserRole { get; set; }
+
+        public List<Finance> Finances { get; set; }
     }
 }

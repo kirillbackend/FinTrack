@@ -5,6 +5,7 @@ namespace FinTrack.Model
     public class Finance
     {
         public int Id { get; set; }
+        public int UserId { get; set; }
         public decimal Amount { get; set; }
         public int CurrencyId { get; set; }
         public bool IsDeleted { get; set; }
@@ -15,5 +16,6 @@ namespace FinTrack.Model
         public FinanceCategoryType FinanceCategoryType { get; set; }
 
         public Currency Currency { get; set; }
+        public User User { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿
+﻿using FinTrack.Enums;
+
 namespace FinTrack.Services.Dtos
 {
     public class UserDto : UserBaseDto
@@ -8,5 +9,6 @@ namespace FinTrack.Services.Dtos
         public string LastName { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate{ get; set; }
+        public UserRole UserRole { get; set; }
     }
 }

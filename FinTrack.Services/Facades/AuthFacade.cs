@@ -12,10 +12,10 @@ namespace FinTrack.Services.Facades
         private readonly IAuthService _authService;
         private readonly IHashService _hashService;
         private readonly IUserService _userService;
-        private readonly ContextLocator _contextLocator;
+        private readonly LocalizationContextLocator _contextLocator;
 
         public AuthFacade(ILogger<AuthFacade> logger, IAuthService authService, IHashService hashService, IUserService userService
-            , ContextLocator contextLocator)
+            , LocalizationContextLocator contextLocator)
             : base(logger)
         {
             _authService = authService;
@@ -33,7 +33,7 @@ namespace FinTrack.Services.Facades
 
             if (userDto != null)
             {
-                Logger.LogWarning($"AuthFacade.SingUp a user with that name has already been registered. Username : {singUpDto.Email}");
+                Logger.LogWarning($"AuthFacade.SingUp a userDto with that name has already been registered. Username : {singUpDto.Email}");
                 throw new ValidationException("User has already been registered.", resourceProvider.Get("UserRegistered"));
             }
 
@@ -56,15 +56,15 @@ namespace FinTrack.Services.Facades
             Logger.LogInformation("AuthFacade.LogIn started");
 
             var resourceProvider = _contextLocator.GetContext<LocaleContext>().ResourceProvider;
-            var userDto = await _userService.GetByEmail(loginDto.Email);
+            var user = await _userService.GetByEmail(loginDto.Email);
 
-            if (userDto == null)
+            if (user == null)
             {
-                Logger.LogWarning($"AuthFacade.SingUp a user with that name has already been registered. Username : {loginDto.Email}");
+                Logger.LogWarning($"AuthFacade.SingUp a userDto with that name has already been registered. Username : {loginDto.Email}");
                 throw new ValidationException("User was not found.", resourceProvider.Get("UserWasNotFound"));
             }
 
-            var isCorretPassWord = await _hashService.VerifyHashedPassword(userDto.Password, loginDto.Password);
+            var isCorretPassWord = await _hashService.VerifyHashedPassword(user.Password, loginDto.Password);
 
             if (!isCorretPassWord)
             {
@@ -72,7 +72,7 @@ namespace FinTrack.Services.Facades
                 throw new ValidationException("Invalid password", resourceProvider.Get("InvalidPassword"));
             }
 
-            var token = await _authService.CreateToken(loginDto);
+            var token = await _authService.CreateToken(user);
 
             Logger.LogInformation("AuthFacade.LogIn completed");
             return token;

@@ -39,7 +39,7 @@ namespace FinTrack.RestApi.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Get()
         {
             try
