@@ -4,10 +4,10 @@ namespace FinTrack.Services.Contracts
 {
     public interface ICurrencyService
     {
-        Task<CurrencyDto> GetCurrencyById(int id);
+        Task<CurrencyDto> GetCurrencyById(Guid id);
         Task<IEnumerable<CurrencyDto>> GetCurrencies();
         Task AddCurrency(CurrencyDto currencyDto);
-        Task Delete(int id);
+        Task Delete(Guid id);
         Task<CurrencyDto> Update(CurrencyDto currencyDto);
     }
 }

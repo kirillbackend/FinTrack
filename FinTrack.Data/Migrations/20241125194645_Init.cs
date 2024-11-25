@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FinTrack.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddUserIdByFinance : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,8 +15,7 @@ namespace FinTrack.Data.Migrations
                 name: "Currencies",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Symbol = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -31,8 +30,7 @@ namespace FinTrack.Data.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -51,9 +49,8 @@ namespace FinTrack.Data.Migrations
                 name: "Finances",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CurrencyId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -61,14 +58,15 @@ namespace FinTrack.Data.Migrations
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FinanceType = table.Column<int>(type: "int", nullable: false),
-                    FinanceCategoryType = table.Column<int>(type: "int", nullable: false)
+                    FinanceCategoryType = table.Column<int>(type: "int", nullable: false),
+                    CurrencyId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Finances", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Finances_Currencies_CurrencyId",
-                        column: x => x.CurrencyId,
+                        name: "FK_Finances_Currencies_CurrencyId1",
+                        column: x => x.CurrencyId1,
                         principalTable: "Currencies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -81,9 +79,9 @@ namespace FinTrack.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Finances_CurrencyId",
+                name: "IX_Finances_CurrencyId1",
                 table: "Finances",
-                column: "CurrencyId");
+                column: "CurrencyId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Finances_UserId",

@@ -6,9 +6,9 @@ namespace FinTrack.Services.Contracts
     public interface IUserService
     {
         Task<UserDto> GetByEmail(string email);
-        Task<UserDto> GetById(int id);
+        Task<UserDto> GetById(Guid id);
         Task<IEnumerable<UserDto>> GetUsers();
-        Task Delete(int id);
+        Task Delete(Guid id);
         Task<UserDto> Update(UserDto userDto);
         Task AddUser(UserDto userDto);
     }

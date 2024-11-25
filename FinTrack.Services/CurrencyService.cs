@@ -6,7 +6,6 @@ using FinTrack.Services.Mappers.Contracts;
 using Microsoft.Extensions.Logging;
 using FinTrack.Services.Exceptions;
 using FinTrack.Services.Dtos;
-using FinTrack.Services.Context;
 using FinTrack.Services.Context.Contracts;
 
 namespace FinTrack.Services
@@ -19,7 +18,7 @@ namespace FinTrack.Services
         {
         }
 
-        public async Task<CurrencyDto> GetCurrencyById(int id)
+        public async Task<CurrencyDto> GetCurrencyById(Guid id)
         {
             Logger.LogInformation($"CurrencyService.GetCurrencyById({id}) started");
 
@@ -67,12 +66,12 @@ namespace FinTrack.Services
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
 
             var currency = mapper.MapFromDto(currencyDto);
-            currencyRepository.Add(currency);
+            await currencyRepository.Add(currency);
 
             Logger.LogInformation("CurrencyService.AddCurrency completed");
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(Guid id)
         {
             Logger.LogInformation($"CurrencyService.Delete({id}) started");
 

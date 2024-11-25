@@ -5,9 +5,9 @@ namespace FinTrack.Data.Repositories.Contracts
 {
     public interface ICurrencyRepository : IRepository
     {
-        void Add(Currency entity);
-        Task Delete(int id);
-        Task<Currency> GetCurrencyById(int id);
+        Task Add(Currency entity);
+        Task Delete(Guid id);
+        Task<Currency> GetCurrencyById(Guid id);
         Task<IEnumerable<Currency>> GetCurrencies();
     }
 }

@@ -30,9 +30,9 @@ namespace FinTrack.RestApi.ActionFilters
                 return;
             }
 
-            _contextLocator.AddContext(new UserContext(emailClaim.Value, int.Parse(idClaim.Value), roleClaim.Value)
+            _contextLocator.AddContext(new UserContext(emailClaim.Value, Guid.Parse(idClaim.Value), roleClaim.Value)
             {
-                Id = Convert.ToInt32(context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value),
+                Id = Guid.Parse(context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value),
                 Email = context.HttpContext.User.FindFirst(ClaimTypes.Email)?.Value,
                 Role = context.HttpContext.User.FindFirst(ClaimTypes.Role)?.Value,
             });

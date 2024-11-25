@@ -12,13 +12,13 @@ namespace FinTrack.Data.Repositories
 
         }
 
-        public void Add(User entity)
+        public async Task Add(User entity)
         {
             Context.Add(entity);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(Guid id)
         {
             var user = await Context.Users.FirstOrDefaultAsync(i => i.Id == id);
 
@@ -36,7 +36,7 @@ namespace FinTrack.Data.Repositories
             return user;
         }
 
-        public async Task<User> GetById(int id)
+        public async Task<User> GetById(Guid id)
         {
             var user = await Context.Users.FirstOrDefaultAsync(u => u.Id == id);
             return user;

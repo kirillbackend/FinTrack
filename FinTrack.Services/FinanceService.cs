@@ -29,12 +29,12 @@ namespace FinTrack.Services
             var finance = mapper.MapFromDto(currencyDto);
             finance.CreatedDate = DateTime.UtcNow;
             finance.UpdatedDate = DateTime.UtcNow;
-            financeRepository.Add(finance);
+            await financeRepository.Add(finance);
 
             Logger.LogInformation($"FinanceService.AddFinance completed");
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(Guid id)
         {
             Logger.LogInformation($"FinanceService.Delete started");
 
@@ -62,7 +62,7 @@ namespace FinTrack.Services
             Logger.LogInformation($"FinanceService.Delete({id}) completed");
         }
 
-        public async Task<FinanceDto> GetFinanceById(int id)
+        public async Task<FinanceDto> GetFinanceById(Guid id)
         {
             Logger.LogInformation($"FinanceService.GetFinanceById({id}) started");
 

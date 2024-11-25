@@ -2,12 +2,12 @@
 {
     public class UserContext : Contracts.IContext
     {
-        public static UserContext Create(string email, int id, string role)
+        public static UserContext Create(string email, Guid id, string role)
         {
             return new UserContext(email, id, role);
         }
 
-        public UserContext(string email, int id, string role)
+        public UserContext(string email, Guid id, string role)
         {
             Id = id;
             Role = role;
@@ -16,7 +16,7 @@
 
         public string Email { get; set; }
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Role { get; set; }
     }

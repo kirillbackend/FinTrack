@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinTrack.Data.Migrations
 {
     [DbContext(typeof(FinTrackDataContext))]
-    [Migration("20241124143703_AddUserIdByFinance")]
-    partial class AddUserIdByFinance
+    [Migration("20241125194645_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,9 @@ namespace FinTrack.Data.Migrations
 
             modelBuilder.Entity("FinTrack.Model.Currency", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -55,11 +53,9 @@ namespace FinTrack.Data.Migrations
 
             modelBuilder.Entity("FinTrack.Model.Finance", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
@@ -69,6 +65,9 @@ namespace FinTrack.Data.Migrations
 
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("CurrencyId1")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -86,12 +85,12 @@ namespace FinTrack.Data.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CurrencyId");
+                    b.HasIndex("CurrencyId1");
 
                     b.HasIndex("UserId");
 
@@ -100,11 +99,9 @@ namespace FinTrack.Data.Migrations
 
             modelBuilder.Entity("FinTrack.Model.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -141,7 +138,7 @@ namespace FinTrack.Data.Migrations
                 {
                     b.HasOne("FinTrack.Model.Currency", "Currency")
                         .WithMany("Finances")
-                        .HasForeignKey("CurrencyId")
+                        .HasForeignKey("CurrencyId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

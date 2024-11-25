@@ -31,7 +31,7 @@ namespace FinTrack.Services
             Logger.LogInformation("UserService.AddUser completed");
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(Guid id)
         {
             Logger.LogInformation($"UserService.Delete({id} started)");
 
@@ -73,7 +73,7 @@ namespace FinTrack.Services
             return userDto;
         }
 
-        public async Task<UserDto> GetById(int id)
+        public async Task<UserDto> GetById(Guid id)
         {
             Logger.LogInformation($"UserService.GetById({id} started)");
 
