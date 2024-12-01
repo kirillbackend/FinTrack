@@ -11,24 +11,25 @@ namespace FinTrack.Data.Repositories
         {
         }
 
-        public void Add(Finance entity)
+        public async Task Add(Finance entity)
         {
             Context.Add(entity);
             Context.SaveChanges();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(Guid id)
         {
             var finance = await Context.Finances.FirstOrDefaultAsync(i => i.Id == id);
 
             if (finance != null)
             {
                 finance.IsDeleted = true;
+                finance.UpdatedDate = DateTime.UtcNow;
                 await Context.SaveChangesAsync();
             }
         }
 
-        public async Task<Finance> GetFinanceById(int id)
+        public async Task<Finance> GetFinanceById(Guid id)
         {
             var finance = await Context.Finances.FirstOrDefaultAsync(i => i.Id == id);
 

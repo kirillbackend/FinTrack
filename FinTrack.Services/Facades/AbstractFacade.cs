@@ -10,5 +10,7 @@ namespace FinTrack.Services.Facades
         {
             Logger = logger;
         }
+
+
     }
 }

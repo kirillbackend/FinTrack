@@ -4,6 +4,8 @@ using FinTrack.Services.Facades.Contracts;
 using FinTrack.Services.Facades;
 using FinTrack.Localization;
 using FinTrack.Services.Mappers;
+using FinTrack.Services.Context.Contracts;
+using FinTrack.Services.Context;
 
 namespace FinTrack.Services
 {
@@ -25,12 +27,13 @@ namespace FinTrack.Services
             builder.RegisterType<UserService>().As<IUserService>();
             builder.RegisterType<CurrencyService>().As<ICurrencyService>();
             builder.RegisterType<FinanceService>().As<IFinanceService>();
+            builder.RegisterType<ContextLocator>().As<IContextLocator>();
 
             //register facade
             builder.RegisterType<AuthFacade>().As<IAuthFacade>();
 
             Localization.ContainerConfiguration.RegisterTypes(builder);
-            builder.RegisterType<ContextLocator >().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<LocalizationContextLocator >().AsSelf().InstancePerLifetimeScope();
 
             Data.ContainerConfiguration.RegisterTypes(builder, settings.ConnectionStrings);
         }

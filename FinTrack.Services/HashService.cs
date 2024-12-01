@@ -9,10 +9,10 @@ namespace FinTrack.Services
     public class HashService : IHashService
     {
         private readonly char separator = ':';
-        private readonly ContextLocator _contextLocator;
+        private readonly LocalizationContextLocator _contextLocator;
         private readonly ILogger _logger;
 
-        public HashService(ContextLocator contextLocator, ILogger<HashService> logger)
+        public HashService(LocalizationContextLocator contextLocator, ILogger<HashService> logger)
         {
             _contextLocator = contextLocator;
             _logger = logger;

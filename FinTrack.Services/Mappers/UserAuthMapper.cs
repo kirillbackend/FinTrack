@@ -5,16 +5,13 @@ using FinTrack.Services.Mappers.Contracts;
 
 namespace FinTrack.Services.Mappers
 {
-    public class UserMapper : AbstractMapper<User, UserDto>, IUserMapper
+    public class UserAuthMapper : AbstractMapper<User, UserDto>, IUserAuthMapper
     {
         protected override AutoMapper.IMapper Configure()
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<UserDto, User>();
-
-                cfg.CreateMap<User, UserDto>()
-                 .ForMember(x => x.Password, y => y.Ignore());
+                cfg.CreateMap<UserDto, User>().ReverseMap();
             });
             return config.CreateMapper();
         }

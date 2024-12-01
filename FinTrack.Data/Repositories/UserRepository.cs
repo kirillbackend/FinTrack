@@ -12,16 +12,40 @@ namespace FinTrack.Data.Repositories
 
         }
 
-        public void Add(User entity)
+        public async Task Add(User entity)
         {
             Context.Add(entity);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
-        public async Task<User> GetUserByEmail(string email)
+        public async Task Delete(Guid id)
         {
-            var author = await Context.Users.FirstOrDefaultAsync(a => a.Email == email);
-            return author;
+            var user = await Context.Users.FirstOrDefaultAsync(i => i.Id == id);
+
+            if (user != null)
+            {
+                user.IsDeleted = true;
+                user.UpdatedDate = DateTime.UtcNow;
+                await Context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<User> GetByEmail(string email)
+        {
+            var user = await Context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return user;
+        }
+
+        public async Task<User> GetById(Guid id)
+        {
+            var user = await Context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            return user;
+        }
+
+        public async Task<IEnumerable<User>> GetUsers()
+        {
+            var users = await Context.Users.Where(u => u.IsDeleted == false).ToListAsync();
+            return users;
         }
     }
 }

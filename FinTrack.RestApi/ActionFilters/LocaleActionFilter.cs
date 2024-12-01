@@ -28,7 +28,7 @@ namespace FinTrack.RestApi.ActionFilters
             context.HttpContext.Request.Headers.TryGetValue(FinTrackHeaderNames.Locale, out var locale);
 
             _logger.LogInformation("Setting up scope");
-            var contextLocator = _lifetimeScope.Resolve<ContextLocator>();
+            var contextLocator = _lifetimeScope.Resolve<LocalizationContextLocator>();
             var localeContext = _contextFactory.CreateLocaleContext(!string.IsNullOrEmpty(locale.FirstOrDefault()) ? locale.Single() : "en");
             contextLocator.AddContext(localeContext);
 

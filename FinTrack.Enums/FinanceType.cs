@@ -1,9 +1,8 @@
-﻿
-namespace FinTrack.Enums
+﻿namespace FinTrack.Enums
 {
     public enum FinanceType
     {
         Expenses = 0,
-        Revenues = 0,
+        Revenues = 1,
     }
 }

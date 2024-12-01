@@ -138,4 +138,7 @@
   <data name="UserWasNotFound" xml:space="preserve">
     <value>User was not found</value>
   </data>
+  <data name="NoAccessData" xml:space="preserve">
+    <value>There is no access to the data.</value>
+  </data>
 </root>

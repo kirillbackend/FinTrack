@@ -6,22 +6,23 @@ using FinTrack.Services.Mappers.Contracts;
 using Microsoft.Extensions.Logging;
 using FinTrack.Services.Exceptions;
 using FinTrack.Services.Dtos;
+using FinTrack.Services.Context.Contracts;
 
 namespace FinTrack.Services
 {
     public class CurrencyService : AbstractService, ICurrencyService
     {
         public CurrencyService(ILogger<CurrencyService> logger, IMapperFactory mapperFactory
-            , IDataContextManager dataContextManager, ContextLocator contextLocator)
-            : base(logger, mapperFactory, dataContextManager, contextLocator)
+            , IDataContextManager dataContextManager, LocalizationContextLocator localization, IContextLocator contextLocator)
+            : base(logger, mapperFactory, dataContextManager, localization, contextLocator)
         {
         }
 
-        public async Task<CurrencyDto> GetCurrencyById(int id)
+        public async Task<CurrencyDto> GetCurrencyById(Guid id)
         {
             Logger.LogInformation($"CurrencyService.GetCurrencyById({id}) started");
 
-            var resourceProvider = ContextLocator.GetContext<LocaleContext>().ResourceProvider;
+            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
 
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
 
@@ -44,7 +45,7 @@ namespace FinTrack.Services
         {
             Logger.LogInformation($"CurrencyService.GetCurrencies started");
 
-            var resourceProvider = ContextLocator.GetContext<LocaleContext>().ResourceProvider;
+            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
 
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
 
@@ -65,16 +66,16 @@ namespace FinTrack.Services
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
 
             var currency = mapper.MapFromDto(currencyDto);
-            currencyRepository.Add(currency);
+            await currencyRepository.Add(currency);
 
             Logger.LogInformation("CurrencyService.AddCurrency completed");
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(Guid id)
         {
             Logger.LogInformation($"CurrencyService.Delete({id}) started");
 
-            var resourceProvider = ContextLocator.GetContext<LocaleContext>().ResourceProvider;
+            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
 
             var currency = await currencyRepository.GetCurrencyById(id);
@@ -94,7 +95,7 @@ namespace FinTrack.Services
         {
             Logger.LogInformation("CurrencyService.Update started");
 
-            var resourceProvider = ContextLocator.GetContext<LocaleContext>().ResourceProvider;
+            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
 

@@ -1,8 +1,10 @@
-﻿namespace FinTrack.Model
+﻿using FinTrack.Enums;
+
+namespace FinTrack.Model
 {
     public class User
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string Email { get; set; }
@@ -10,5 +12,8 @@
         public bool IsDeleted { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+        public UserRole UserRole { get; set; }
+
+        public List<Finance> Finances { get; set; }
     }
 }

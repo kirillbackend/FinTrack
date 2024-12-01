@@ -10,8 +10,9 @@ namespace FinTrack.Services.Mappers
         public static void Configure(ContainerBuilder builder)
         {
             builder.RegisterType<UserMapper>().As<IUserMapper>().SingleInstance();
+            builder.RegisterType<UserAuthMapper>().As<IUserAuthMapper>().SingleInstance();
             builder.RegisterType<CurrencyMapper>().As<ICurrencyMapper>().SingleInstance();
-            builder.RegisterType<FinanceMapper>().As<IFinanceMapper>().SingleInstance();
+            builder.RegisterType<FinanceMapper>().As<IFinanceMapper>().SingleInstance(); 
 
             // self-register
             builder.RegisterType<MapperFactory>().As<IMapperFactory>().SingleInstance();

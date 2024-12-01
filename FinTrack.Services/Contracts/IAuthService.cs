@@ -5,6 +5,6 @@ namespace FinTrack.Services.Contracts
     public interface IAuthService
     {
         Task SignUp(UserDto userDto);
-        Task<string> CreateToken(LoginDto loginDto);
+        Task<string> CreateToken(UserDto userDto);
     }
 }
