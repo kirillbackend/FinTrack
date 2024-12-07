@@ -16,10 +16,10 @@ namespace FinTrack.Services
 
         public Localization.LocalizationContextLocator LocalizationContext;
 
-        protected IContextLocator ContextLocator { get; private set; }
+        public ContextLocator ContextLocator;
 
         public AbstractService(ILogger logger, IMapperFactory mapperFactory, IDataContextManager dataContextManager
-            , Localization.LocalizationContextLocator localizationContext, IContextLocator contextLocator)
+            , Localization.LocalizationContextLocator localizationContext, ContextLocator contextLocator)
         {
             Logger = logger;
             MapperFactory = mapperFactory;

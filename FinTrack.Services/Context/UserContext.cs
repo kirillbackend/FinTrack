@@ -1,23 +1,34 @@
-﻿namespace FinTrack.Services.Context
+﻿using FinTrack.Services.Context.Contracts;
+
+namespace FinTrack.Services.Context
 {
-    public class UserContext : Contracts.IContext
+    public class UserContext : IContext
     {
-        public static UserContext Create(string email, Guid id, string role)
-        {
-            return new UserContext(email, id, role);
-        }
+        public string Email { get; set; }
+        public Guid Id { get; set; }
+        public string Role { get; set; }
+
 
         public UserContext(string email, Guid id, string role)
         {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentNullException("");
+            }
+
+            if (string.IsNullOrEmpty(id.ToString()))
+            {
+                throw new ArgumentNullException("id");
+            }
+
+            if (string.IsNullOrEmpty(role))
+            {
+                throw new ArgumentNullException("role");
+            }
+
             Id = id;
             Role = role;
             Email = email;
         }
-
-        public string Email { get; set; }
-
-        public Guid Id { get; set; }
-
-        public string Role { get; set; }
     }
 }

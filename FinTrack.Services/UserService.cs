@@ -6,14 +6,14 @@ using FinTrack.Services.Dtos;
 using FinTrack.Services.Mappers.Contracts;
 using Microsoft.Extensions.Logging;
 using FinTrack.Services.Exceptions;
-using FinTrack.Services.Context.Contracts;
+using FinTrack.Services.Context;
 
 namespace FinTrack.Services
 {
     public class UserService : AbstractService, IUserService
     {
         public UserService(ILogger<UserService> logger, IMapperFactory mapperFactory
-            , IDataContextManager dataContextManager, LocalizationContextLocator localizationContext, IContextLocator contextLocator)
+            , IDataContextManager dataContextManager, LocalizationContextLocator localizationContext, ContextLocator contextLocator)
             : base(logger, mapperFactory, dataContextManager, localizationContext, contextLocator)
         {
         }
@@ -80,6 +80,7 @@ namespace FinTrack.Services
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserMapper>();
+            
 
             if (UserContext.Id != id)
             {

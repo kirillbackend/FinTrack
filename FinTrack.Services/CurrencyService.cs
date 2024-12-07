@@ -6,14 +6,14 @@ using FinTrack.Services.Mappers.Contracts;
 using Microsoft.Extensions.Logging;
 using FinTrack.Services.Exceptions;
 using FinTrack.Services.Dtos;
-using FinTrack.Services.Context.Contracts;
+using FinTrack.Services.Context;
 
 namespace FinTrack.Services
 {
     public class CurrencyService : AbstractService, ICurrencyService
     {
         public CurrencyService(ILogger<CurrencyService> logger, IMapperFactory mapperFactory
-            , IDataContextManager dataContextManager, LocalizationContextLocator localization, IContextLocator contextLocator)
+            , IDataContextManager dataContextManager, LocalizationContextLocator localization, ContextLocator contextLocator)
             : base(logger, mapperFactory, dataContextManager, localization, contextLocator)
         {
         }

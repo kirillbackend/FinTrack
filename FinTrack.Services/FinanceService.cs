@@ -7,14 +7,13 @@ using FinTrack.Services.Mappers.Contracts;
 using Microsoft.Extensions.Logging;
 using FinTrack.Services.Exceptions;
 using FinTrack.Services.Context;
-using FinTrack.Services.Context.Contracts;
 
 namespace FinTrack.Services
 {
     public class FinanceService : AbstractService, IFinanceService
     {
         public FinanceService(ILogger<FinanceService> logger, IMapperFactory mapperFactory
-            , IDataContextManager dataContextManager, LocalizationContextLocator localization, IContextLocator contextLocator)
+            , IDataContextManager dataContextManager, LocalizationContextLocator localization, ContextLocator contextLocator)
             : base(logger, mapperFactory, dataContextManager, localization, contextLocator)
         {
         }

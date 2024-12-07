@@ -27,7 +27,9 @@ namespace FinTrack.Services
             builder.RegisterType<UserService>().As<IUserService>();
             builder.RegisterType<CurrencyService>().As<ICurrencyService>();
             builder.RegisterType<FinanceService>().As<IFinanceService>();
-            builder.RegisterType<ContextLocator>().As<IContextLocator>();
+            builder.RegisterType<Context.ContextFactory>().As<IContextFactory>();
+            builder.RegisterType<ContextLocator>().AsSelf().InstancePerLifetimeScope();
+
 
             //register facade
             builder.RegisterType<AuthFacade>().As<IAuthFacade>();

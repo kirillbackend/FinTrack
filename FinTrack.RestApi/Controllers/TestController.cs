@@ -13,6 +13,8 @@ namespace FinTrack.RestApi.Controllers
         {
         }
 
+
+        [AllowAnonymous]
         [HttpPost, Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Index(string testData)
         {

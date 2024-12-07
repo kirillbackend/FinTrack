@@ -1,20 +1,25 @@
-﻿using FinTrack.Services.Context.Contracts;
-using FinTrack.Services.Context;
+﻿using Autofac;
 using Microsoft.AspNetCore.Mvc.Filters;
+using FinTrack.Services.Context;
 using System.Security.Claims;
+using FinTrack.Services.Context.Contracts;
 
 namespace FinTrack.RestApi.ActionFilters
 {
-    public class UserContextActionFilter : IAuthorizationFilter
+    public class UserContextActionFilter : IAsyncAuthorizationFilter
     {
-        private IContextLocator _contextLocator;
+        private readonly ILifetimeScope _lifetimeScope;
+        private readonly IContextFactory _contextFactory;
 
-        public UserContextActionFilter(IContextLocator contextLocator)
+        public UserContextActionFilter(
+            ILifetimeScope lifetimeScope,
+            IContextFactory contextFactory)
         {
-            _contextLocator = contextLocator;
+            _lifetimeScope = lifetimeScope;
+            _contextFactory = contextFactory;
         }
 
-        public void OnAuthorization(AuthorizationFilterContext context)
+        public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
             if (context.HttpContext.User == null)
             {
@@ -30,12 +35,9 @@ namespace FinTrack.RestApi.ActionFilters
                 return;
             }
 
-            _contextLocator.AddContext(new UserContext(emailClaim.Value, Guid.Parse(idClaim.Value), roleClaim.Value)
-            {
-                Id = Guid.Parse(context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value),
-                Email = context.HttpContext.User.FindFirst(ClaimTypes.Email)?.Value,
-                Role = context.HttpContext.User.FindFirst(ClaimTypes.Role)?.Value,
-            });
+            var contextLocator = _lifetimeScope.Resolve<ContextLocator>();
+            var localeContext = _contextFactory.CreateLocaleContext(emailClaim.Value, Guid.Parse(idClaim.Value), roleClaim.Value);
+            contextLocator.AddContext(localeContext);
         }
     }
 }

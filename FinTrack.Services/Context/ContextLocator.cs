@@ -2,7 +2,7 @@
 
 namespace FinTrack.Services.Context
 {
-    internal class ContextLocator : IContextLocator
+    public class ContextLocator
     {
         private Dictionary<Type, IContext> _contexts = new Dictionary<Type, IContext>();
 
