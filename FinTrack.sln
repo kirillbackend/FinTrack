@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinTrack.RestApi", "FinTrack.RestApi\FinTrack.RestApi.csproj", "{F356F382-94A1-43FD-AD4A-1FBB335B54DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinTrack.RestApi", "FinTrack.RestApi\FinTrack.RestApi.csproj", "{F356F382-94A1-43FD-AD4A-1FBB335B54DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinTrack.Data", "FinTrack.Data\FinTrack.Data.csproj", "{014A6EB4-5B03-484A-8D2D-53117B34F3F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinTrack.Data", "FinTrack.Data\FinTrack.Data.csproj", "{014A6EB4-5B03-484A-8D2D-53117B34F3F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinTrack.Enums", "FinTrack.Enums\FinTrack.Enums.csproj", "{10535ECD-0950-4BD4-A672-D93727E7B287}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinTrack.Enums", "FinTrack.Enums\FinTrack.Enums.csproj", "{10535ECD-0950-4BD4-A672-D93727E7B287}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinTrack.Services", "FinTrack.Services\FinTrack.Services.csproj", "{09CEE2DF-30B4-4804-898C-1FAC5C8F0587}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinTrack.Services", "FinTrack.Services\FinTrack.Services.csproj", "{09CEE2DF-30B4-4804-898C-1FAC5C8F0587}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinTrack.Model", "FinTrack.Model\FinTrack.Model.csproj", "{806D9AA4-1203-4CD6-92F3-6691E1F4A556}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinTrack.Model", "FinTrack.Model\FinTrack.Model.csproj", "{806D9AA4-1203-4CD6-92F3-6691E1F4A556}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinTrack.Localization", "FinTrack.Localization\FinTrack.Localization.csproj", "{6038917B-07D3-46EF-9811-798ADCF972C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinTrack.Localization", "FinTrack.Localization\FinTrack.Localization.csproj", "{6038917B-07D3-46EF-9811-798ADCF972C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinTrack.Tests", "FinTrack.Tests\FinTrack.Tests.csproj", "{982891D4-9190-4965-AFC5-780779CDD106}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{6038917B-07D3-46EF-9811-798ADCF972C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6038917B-07D3-46EF-9811-798ADCF972C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6038917B-07D3-46EF-9811-798ADCF972C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{982891D4-9190-4965-AFC5-780779CDD106}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{982891D4-9190-4965-AFC5-780779CDD106}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{982891D4-9190-4965-AFC5-780779CDD106}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{982891D4-9190-4965-AFC5-780779CDD106}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
