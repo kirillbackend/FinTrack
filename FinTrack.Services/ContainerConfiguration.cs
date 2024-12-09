@@ -33,6 +33,7 @@ namespace FinTrack.Services
 
             //register facade
             builder.RegisterType<AuthFacade>().As<IAuthFacade>();
+            builder.RegisterType<UserFacade>().As<IUserFacade>();
 
             Localization.ContainerConfiguration.RegisterTypes(builder);
             builder.RegisterType<LocalizationContextLocator >().AsSelf().InstancePerLifetimeScope();

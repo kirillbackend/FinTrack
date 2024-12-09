@@ -31,8 +31,6 @@ namespace FinTrack.RestApi
                    .As(typeof(ILogger<>))
                    .SingleInstance();
 
-            //builder.RegisterType<UserContextActionFilter>().AsSelf();
-
             Services.ContainerConfiguration.RegisterTypes(builder, settings);
 
             Log.Information("FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed");

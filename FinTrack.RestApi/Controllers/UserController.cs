@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using FinTrack.Services.Exceptions;
 using FinTrack.Services.Dtos;
+using FinTrack.Services.Facades.Contracts;
 
 namespace FinTrack.RestApi.Controllers
 {
@@ -12,11 +13,13 @@ namespace FinTrack.RestApi.Controllers
     public class UserController : AbstractController
     {
         private readonly IUserService _userService;
+        private readonly IUserFacade _userFacade;
 
-        public UserController(ILogger<UserController> logger, IUserService userService)
+        public UserController(ILogger<UserController> logger, IUserService userService, IUserFacade userFacade)
             : base(logger)
         {
-            _userService = userService; 
+            _userService = userService;
+            _userFacade = userFacade;
         }
 
         [HttpGet]
@@ -73,6 +76,26 @@ namespace FinTrack.RestApi.Controllers
             catch (ValidationException ex)
             {
                 Logger.LogInformation("UserController.Post completed; invalid request");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("updatePassword")]
+        public async Task<IActionResult> UpdatePassword(string oldPassword, string newPassword)
+        {
+            try
+            {
+                Logger.LogInformation("UserController.UpdatePassword started");
+
+                await _userFacade.UpdatePassword(oldPassword, newPassword);
+
+                Logger.LogInformation("UserController.UpdatePassword completed");
+                return Ok();
+            }
+            catch (ValidationException ex)
+            {
+                Logger.LogInformation("UserController.UpdatePassword completle; invalid request");
                 return BadRequest(ex);
             }
         }

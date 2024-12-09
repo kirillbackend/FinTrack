@@ -119,7 +119,7 @@ namespace FinTrack.Services
 
         public async Task<UserDto> Update(UserDto userDto)
         {
-            Logger.LogInformation($"UserService.Update started)");
+            Logger.LogInformation("UserService.Update started)");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var repo = DataContextManager.CreateRepository<IUserRepository>();
@@ -127,7 +127,7 @@ namespace FinTrack.Services
 
             if (UserContext.Id != userDto.Id)
             {
-                Logger.LogWarning($"UserService.Update there is no access to the data.");
+                Logger.LogWarning("UserService.Update there is no access to the data.");
                 throw new ValidationException("No access data.", resourceProvider.Get("NoAccessData"));
             }
 
