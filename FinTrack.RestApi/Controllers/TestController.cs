@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using FinTrack.Services.Wrappers;
+using FinTrack.Services.Wrappers.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinTrack.RestApi.Controllers
@@ -8,9 +10,11 @@ namespace FinTrack.RestApi.Controllers
     [Authorize]
     public class TestController : AbstractController
     {
-        public TestController(ILogger<TestController> logger)
+        private readonly IFixerAPIWrapper _fixerAPIWrapper;
+        public TestController(ILogger<TestController> logger, IFixerAPIWrapper fixerAPIWrapper)
             : base(logger)
         {
+            _fixerAPIWrapper = fixerAPIWrapper;
         }
 
 
@@ -23,6 +27,8 @@ namespace FinTrack.RestApi.Controllers
                 Logger.LogInformation("TestController.Index started");
 
                 var result = "Profit" + testData + '!';
+
+                await _fixerAPIWrapper.LatestCurrency("RUB", new List<string> { "EUR", "USD" });
 
                 Logger.LogInformation("TestController.Index completed");
 

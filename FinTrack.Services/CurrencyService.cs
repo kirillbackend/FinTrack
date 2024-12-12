@@ -7,15 +7,18 @@ using Microsoft.Extensions.Logging;
 using FinTrack.Services.Exceptions;
 using FinTrack.Services.Dtos;
 using FinTrack.Services.Context;
+using FinTrack.Services.Wrappers.Contracts;
 
 namespace FinTrack.Services
 {
     public class CurrencyService : AbstractService, ICurrencyService
     {
+        private readonly IFixerAPIWrapper _fixerAPIWrapper;
         public CurrencyService(ILogger<CurrencyService> logger, IMapperFactory mapperFactory
-            , IDataContextManager dataContextManager, LocalizationContextLocator localization, ContextLocator contextLocator)
+            , IDataContextManager dataContextManager, LocalizationContextLocator localization, ContextLocator contextLocator, IFixerAPIWrapper fixerAPIWrapper)
             : base(logger, mapperFactory, dataContextManager, localization, contextLocator)
         {
+            _fixerAPIWrapper = fixerAPIWrapper;
         }
 
         public async Task<CurrencyDto> GetCurrencyById(Guid id)
@@ -112,6 +115,16 @@ namespace FinTrack.Services
 
             Logger.LogInformation("CurrencyService.Update completed");
             return currencyDto;
+        }
+
+        public async Task<decimal> ConvertCurrency(string to, string from, string amount)
+        {
+            Logger.LogInformation("CurrencyService.ConvertCurrency started");
+
+            var result = await _fixerAPIWrapper.ConvertCurrency(to, from, amount);
+
+            Logger.LogInformation("CurrencyService.ConvertCurrency completed");
+            return result;
         }
     }
 }

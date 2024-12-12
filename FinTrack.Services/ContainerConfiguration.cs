@@ -6,6 +6,8 @@ using FinTrack.Localization;
 using FinTrack.Services.Mappers;
 using FinTrack.Services.Context.Contracts;
 using FinTrack.Services.Context;
+using FinTrack.Services.Wrappers.Contracts;
+using FinTrack.Services.Wrappers;
 
 namespace FinTrack.Services
 {
@@ -30,6 +32,8 @@ namespace FinTrack.Services
             builder.RegisterType<Context.ContextFactory>().As<IContextFactory>();
             builder.RegisterType<ContextLocator>().AsSelf().InstancePerLifetimeScope();
 
+            //register wrapper
+            builder.RegisterType<FixerAPIWrapper>().As<IFixerAPIWrapper>();
 
             //register facade
             builder.RegisterType<AuthFacade>().As<IAuthFacade>();

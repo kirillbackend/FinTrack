@@ -9,5 +9,6 @@ namespace FinTrack.Services.Contracts
         Task AddCurrency(CurrencyDto currencyDto);
         Task Delete(Guid id);
         Task<CurrencyDto> Update(CurrencyDto currencyDto);
+        Task<decimal> ConvertCurrency(string to, string from, string amount);
     }
 }

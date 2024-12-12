@@ -114,5 +114,25 @@ namespace FinTrack.RestApi.Controllers
                 return BadRequest(ex);
             }
         }
+
+        [HttpPost]
+        [Route("convertCurrency")]
+        public async Task<IActionResult> ConvertCurrency(string to, string from, string amount)
+        {
+            try
+            {
+                Logger.LogInformation($"CurrencyController.ConvertCurrency started");
+
+                var result = await _currencyService.ConvertCurrency(to, from, amount);
+
+                Logger.LogInformation($"CurrencyController.ConvertCurrency completed");
+                return Ok(new { result = result, from = from, to = to, amount = amount });
+            }
+            catch (ValidationException ex)
+            {
+                Logger.LogInformation($"CurrencyController.ConvertCurrency completed; invalid request");
+                return BadRequest(ex);
+            }
+        }
     }
 }
