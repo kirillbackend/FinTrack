@@ -67,6 +67,11 @@ namespace FinTrack.RestApi
                 });
             });
 
+            services.AddStackExchangeRedisCache(options => {
+                options.Configuration = settings.ConnectionStrings.RedisDatabase;
+                options.InstanceName = settings.ConnectionStrings.RedisInstanceName;
+            });
+
             services.AddCors(options =>
             {
                 options.AddPolicy(_corsPolicyName, builder =>

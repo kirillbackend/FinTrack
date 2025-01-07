@@ -14,8 +14,10 @@ namespace FinTrack.Services
     public class CurrencyService : AbstractService, ICurrencyService
     {
         private readonly IFixerAPIWrapper _fixerAPIWrapper;
+
         public CurrencyService(ILogger<CurrencyService> logger, IMapperFactory mapperFactory
-            , IDataContextManager dataContextManager, LocalizationContextLocator localization, ContextLocator contextLocator, IFixerAPIWrapper fixerAPIWrapper)
+            , IDataContextManager dataContextManager, LocalizationContextLocator localization
+            , ContextLocator contextLocator, IFixerAPIWrapper fixerAPIWrapper)
             : base(logger, mapperFactory, dataContextManager, localization, contextLocator)
         {
             _fixerAPIWrapper = fixerAPIWrapper;

@@ -26,13 +26,11 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation("TestController.Index started");
 
-                var result = "Profit" + testData + '!';
-
-                await _fixerAPIWrapper.LatestCurrency("RUB", new List<string> { "EUR", "USD" });
+                var answer = await _fixerAPIWrapper.GetSymbols();
 
                 Logger.LogInformation("TestController.Index completed");
 
-                return Ok(result);
+                return Ok(answer);
             }
             catch (Exception ex)
             {

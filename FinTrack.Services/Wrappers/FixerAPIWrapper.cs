@@ -1,5 +1,6 @@
 ﻿using FinTrack.Model;
 using FinTrack.Services.Wrappers.Contracts;
+using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using RestSharp;
 
@@ -10,30 +11,51 @@ namespace FinTrack.Services.Wrappers
         private readonly string _apiKey = "Tb0vi4hOYG3mr49vsaXNGdE2dNXhDDyn";
         private readonly string _baseFixerURL = "https://api.apilayer.com/fixer";
         private readonly RestClientOptions _options;
+        private readonly IDistributedCache _cache;
 
-        public FixerAPIWrapper() 
+        public FixerAPIWrapper(IDistributedCache cache) 
         {
             _options = new RestClientOptions(_baseFixerURL) { };
+            _cache = cache;
         }
 
-        public async Task GetSymbols()
+        public async Task<Symbol> GetSymbols()
         {
             var client = new RestClient(_options);
             var sympolsUrl = "/symbols";
             var request = await CreateBaseGetRequest(sympolsUrl);
             var response = client.Execute(request);
+
+            var sumbols = await DeserializeResponse<Symbol>(response.Content);
+
+            return sumbols;
         }
 
         public async Task<decimal> ConvertCurrency(string to, string from, string amount)
         {
-            var client = new RestClient(_options);
-            var convertCurrencyUrl = $"/convert?to={to}&from={from}&amount={amount}";
-            var request = await CreateBaseGetRequest(convertCurrencyUrl);
-            var response = client.Execute(request);
+            var cashKey = to + from + amount;
+            var cash = await _cache.GetStringAsync(cashKey);
 
-            var result = await DeserializeResponse<ConvertCurrency>(response.Content);
+            if (cash == null)
+            {
+                var client = new RestClient(_options);
+                var convertCurrencyUrl = $"/convert?to={to}&from={from}&amount={amount}";
+                var request = await CreateBaseGetRequest(convertCurrencyUrl);
+                var response = client.Execute(request);
 
-            return Convert.ToDecimal(result.Result);
+                var currency = await DeserializeResponse<ConvertCurrency>(response.Content);
+
+                await _cache.SetStringAsync(cashKey, currency.Result.ToString(), new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
+                });
+
+                return decimal.Parse(currency.Result.Replace(".", ","));
+            }
+            else
+            {
+                return decimal.Parse(cash.Replace(".", ","));
+            }
         }
 
         public async Task LatestCurrency(string baseCurrency, List<string> symbols)
@@ -46,6 +68,7 @@ namespace FinTrack.Services.Wrappers
         }
 
         #region private metods
+
         private async Task<RestRequest> CreateBaseGetRequest(string url)
         {
             var request = new RestRequest(url, Method.Get);
