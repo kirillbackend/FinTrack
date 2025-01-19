@@ -1,0 +1,12 @@
+2025-01-18 19:59:29.594 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2025-01-18 19:59:32.823 +00:00 [INF] Now listening on: http://[::]:8080
+2025-01-18 19:59:32.828 +00:00 [INF] Now listening on: https://[::]:8081
+2025-01-18 19:59:32.833 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-18 19:59:32.835 +00:00 [INF] Hosting environment: Development
+2025-01-18 19:59:32.836 +00:00 [INF] Content root path: /app
+2025-01-18 21:31:54.143 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2025-01-18 21:31:56.363 +00:00 [INF] Now listening on: http://[::]:8080
+2025-01-18 21:31:56.370 +00:00 [INF] Now listening on: https://[::]:8081
+2025-01-18 21:31:56.375 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-18 21:31:56.377 +00:00 [INF] Hosting environment: Development
+2025-01-18 21:31:56.379 +00:00 [INF] Content root path: /app

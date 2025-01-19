@@ -1,0 +1,20 @@
+2025-01-19 09:22:58.765 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2025-01-19 09:23:04.351 +00:00 [INF] Now listening on: http://[::]:8080
+2025-01-19 09:23:04.362 +00:00 [INF] Now listening on: https://[::]:8081
+2025-01-19 09:23:04.369 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-19 09:23:04.372 +00:00 [INF] Hosting environment: Development
+2025-01-19 09:23:04.374 +00:00 [INF] Content root path: /app
+2025-01-19 09:23:40.111 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2025-01-19 09:23:40.117 +00:00 [INF] Setting up scope
+2025-01-19 09:24:05.359 +00:00 [INF] TestController.Index started
+2025-01-19 09:24:15.998 +00:00 [WRN] TestController.Index error!
+2025-01-19 09:25:40.418 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2025-01-19 09:25:43.636 +00:00 [INF] Now listening on: http://[::]:8080
+2025-01-19 09:25:43.654 +00:00 [INF] Now listening on: https://[::]:8081
+2025-01-19 09:25:43.665 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-19 09:25:43.668 +00:00 [INF] Hosting environment: Development
+2025-01-19 09:25:43.669 +00:00 [INF] Content root path: /app
+2025-01-19 09:26:01.060 +00:00 [INF] System.Security.Claims.ClaimsPrincipal
+2025-01-19 09:26:01.065 +00:00 [INF] Setting up scope
+2025-01-19 09:27:30.257 +00:00 [INF] TestController.Index started
+2025-01-19 09:27:41.438 +00:00 [WRN] TestController.Index error!

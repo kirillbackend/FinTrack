@@ -10,9 +10,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            string cadena = "96.23";
-
-            decimal NoDecimal = decimal.Parse(cadena.Replace(".", ","));
+            
         }
     }
 }

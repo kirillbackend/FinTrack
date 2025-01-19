@@ -24,6 +24,7 @@ namespace FinTrack.Services
             MapperFactory.Configure(builder);
 
             //register service
+            builder.RegisterType<SpamService>().As<ISpamService>();
             builder.RegisterType<AuthService>().As<IAuthService>();
             builder.RegisterType<HashService>().As<IHashService>();
             builder.RegisterType<UserService>().As<IUserService>();

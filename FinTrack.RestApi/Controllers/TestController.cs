@@ -1,4 +1,4 @@
-﻿using FinTrack.Services.Wrappers;
+﻿using FinTrack.Services.Contracts;
 using FinTrack.Services.Wrappers.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,26 +11,29 @@ namespace FinTrack.RestApi.Controllers
     public class TestController : AbstractController
     {
         private readonly IFixerAPIWrapper _fixerAPIWrapper;
-        public TestController(ILogger<TestController> logger, IFixerAPIWrapper fixerAPIWrapper)
+        private readonly ISpamService _spamService;
+        public TestController(ILogger<TestController> logger, IFixerAPIWrapper fixerAPIWrapper, ISpamService spamService)
             : base(logger)
         {
             _fixerAPIWrapper = fixerAPIWrapper;
+            _spamService = spamService;
         }
 
 
         [AllowAnonymous]
-        [HttpPost, Authorize(Roles = "Administrator")]
+        [HttpPost]
         public async Task<IActionResult> Index(string testData)
         {
             try
             {
                 Logger.LogInformation("TestController.Index started");
 
-                var answer = await _fixerAPIWrapper.GetSymbols();
+                await _spamService.Start(testData);
+                //var answer = await _spamService.GetSpam();
 
                 Logger.LogInformation("TestController.Index completed");
 
-                return Ok(answer);
+                return Ok();
             }
             catch (Exception ex)
             {
