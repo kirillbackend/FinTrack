@@ -13,5 +13,7 @@ namespace FinTrack.Services
         public string? Secret { get; set; }
 
         public int TokenExpireMinutes { get; set; }
+
+        public int RefreshTokenNumber { get; set; }
     }
 }

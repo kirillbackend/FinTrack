@@ -5,24 +5,26 @@ using FinTrack.Services.Context;
 using FinTrack.Services.Contracts;
 using FinTrack.Services.Dtos;
 using FinTrack.Services.Mappers.Contracts;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace FinTrack.Services
 {
     public class AuthService : AbstractService, IAuthService
     {
-        private readonly FinTrackServiceSettings _dailyPlannerServiceSettings;
+        private readonly FinTrackServiceSettings _settings;
 
-        public AuthService(ILogger<AuthService> logger, IMapperFactory mapperFactory
+        public AuthService(ILogger<AuthService> logger, IMapperFactory mapperFactory, IConfiguration configuration
             , IDataContextManager dataContextManager, LocalizationContextLocator localization, ContextLocator contextLocator
-            , FinTrackServiceSettings dailyPlannerServiceSettings)
+            , FinTrackServiceSettings settings)
             : base(logger, mapperFactory, dataContextManager, localization, contextLocator)
         {
-            _dailyPlannerServiceSettings = dailyPlannerServiceSettings;
+            _settings = settings;
         }
 
         public async Task SignUp(UserDto signUpDto)
@@ -50,7 +52,7 @@ namespace FinTrack.Services
                 new Claim(ClaimTypes.NameIdentifier, userDto.Id.ToString())
             };
 
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_dailyPlannerServiceSettings.Auth.Secret));
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Auth.Secret));
 
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
@@ -58,7 +60,7 @@ namespace FinTrack.Services
                     issuer: "https://localhost:5001",
                     audience: "https://localhost:5001",
                     claims: authClaims,
-                    expires: DateTime.Now.AddMinutes(_dailyPlannerServiceSettings.Auth.TokenExpireMinutes),
+                    expires: DateTime.Now.AddMinutes(_settings.Auth.TokenExpireMinutes),
                     signingCredentials: signinCredentials
                 );
 
@@ -66,6 +68,36 @@ namespace FinTrack.Services
 
             Logger.LogInformation("AuthService.CreateToken completed");
             return tokenString;
+        }
+
+        public async Task<string> CreateRefreshToken()
+        {
+            var randomNumber = new byte[_settings.Auth.RefreshTokenNumber];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(randomNumber);
+            return Convert.ToHexString(randomNumber);
+        }
+
+        public async Task<ClaimsPrincipal> GetPrincipalFromExpiredToken(string token)
+        {
+            SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Auth.Secret));
+            TokenValidationParameters validationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = "https://localhost:5001",
+                ValidAudience = "https://localhost:5001",
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Auth.Secret))
+            };
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken securityToken);
+            var jwtSecurityToken = securityToken as JwtSecurityToken;
+
+            if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+                throw new SecurityTokenException("Invalid token");
+            return principal;
         }
     }
 }
