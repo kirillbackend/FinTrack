@@ -3,6 +3,7 @@ using FinTrack.RestApi.Models;
 using FinTrack.Services.Dtos;
 using FinTrack.Services.Facades.Contracts;
 using FinTrack.Services.Exceptions;
+using FinTrack.Services.Contracts;
 
 namespace FinTrack.RestApi.Controllers
 {
@@ -12,7 +13,7 @@ namespace FinTrack.RestApi.Controllers
     {
         private readonly IAuthFacade _authFacade;
 
-        public AuthController(ILogger<AuthController> logger, IAuthFacade authFacade)
+        public AuthController(ILogger<AuthController> logger, IAuthFacade authFacade, IAuthService authService)
             : base(logger)
         {
             _authFacade = authFacade;
@@ -62,18 +63,52 @@ namespace FinTrack.RestApi.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var token = await _authFacade.LogIn(new LoginDto()
+                var (token, refreshToken) = await _authFacade.LogIn(new LoginDto()
                 {
                     Email = loginModel.Email,
                     Password = loginModel.Password,
                 });
 
                 Logger.LogInformation("AuthController.LogIn completed");
-                return Ok(token);
+                return Ok(new
+                {
+                    Token = token,
+                    RefreshToken = refreshToken
+                });
             }
             catch (ValidationException ex)
             {
                 Logger.LogWarning("AuthController.LogIn completed; invalid request");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("refresh")]
+        public async Task<IActionResult> Refresh([FromBody] RefreshTokenModel model)
+        {
+            try
+            {
+                Logger.LogInformation("AuthController.Refresh started");
+
+                if (!ModelState.IsValid)
+                {
+                    Logger.LogWarning($"AuthController.Refresh failed: {ModelState}");
+                    return BadRequest(ModelState);
+                }
+
+                var (token, refreshToken) = await _authFacade.RefreshToken(model.RefreshToken);
+
+                Logger.LogInformation("AuthController.Refresh completed");
+                return Ok(new
+                {
+                    Token = token,
+                    RefreshToken = refreshToken
+                });
+            }
+            catch (ValidationException ex)
+            {
+                Logger.LogWarning("AuthController.Refresh completed; invalid request");
                 return BadRequest(ex);
             }
         }

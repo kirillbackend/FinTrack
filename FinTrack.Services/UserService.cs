@@ -80,7 +80,6 @@ namespace FinTrack.Services
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserMapper>();
-            
 
             if (UserContext.Id != id)
             {

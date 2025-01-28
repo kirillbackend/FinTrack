@@ -141,4 +141,7 @@
   <data name="NoAccessData" xml:space="preserve">
     <value>There is no access to the data.</value>
   </data>
+  <data name="TokenWasNotFound" xml:space="preserve">
+    <value>Token was not found</value>
+  </data>
 </root>

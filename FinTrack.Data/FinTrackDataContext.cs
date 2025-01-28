@@ -29,5 +29,6 @@ namespace FinTrack.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Finance> Finances { get; set; }
+        public DbSet<AuthToken> AuthTokens { get; set; }
     }
 }

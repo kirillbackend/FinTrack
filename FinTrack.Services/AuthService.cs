@@ -1,6 +1,7 @@
 ﻿using FinTrack.Data.Contracts;
 using FinTrack.Data.Repositories.Contracts;
 using FinTrack.Localization;
+using FinTrack.Model;
 using FinTrack.Services.Context;
 using FinTrack.Services.Contracts;
 using FinTrack.Services.Dtos;
@@ -41,16 +42,21 @@ namespace FinTrack.Services
             Logger.LogInformation("AuthService.SignUp completed");
         }
 
-        public async Task<string> CreateToken(UserDto userDto)
+        public async Task<IEnumerable<Claim>> CreateClaims(UserDto userDto)
         {
-            Logger.LogInformation("AuthService.CreateToken started");
-
             var authClaims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, userDto.Email),
                 new Claim(ClaimTypes.Role, userDto.UserRole.ToString()),
                 new Claim(ClaimTypes.NameIdentifier, userDto.Id.ToString())
             };
+
+            return authClaims;
+        }
+
+        public async Task<string> CreateToken(IEnumerable<Claim> authClaims)
+        {
+            Logger.LogInformation("AuthService.CreateToken started");
 
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Auth.Secret));
 
@@ -70,11 +76,12 @@ namespace FinTrack.Services
             return tokenString;
         }
 
-        public async Task<string> CreateRefreshToken()
+        public async Task<string> GenerateRefreshToken()
         {
             var randomNumber = new byte[_settings.Auth.RefreshTokenNumber];
             using var rng = RandomNumberGenerator.Create();
             rng.GetBytes(randomNumber);
+
             return Convert.ToHexString(randomNumber);
         }
 
@@ -98,6 +105,27 @@ namespace FinTrack.Services
             if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
                 throw new SecurityTokenException("Invalid token");
             return principal;
+        }
+
+        public async Task<AuthToken> GetTokenByRefreshToken(string refreshToken)
+        {
+            var repo = DataContextManager.CreateRepository<IAuthTokenRepositoty>();
+
+            var authToken = await repo.GetByRefreshToken(refreshToken);
+
+            return authToken;
+        }
+
+        public async Task UpdateRefreshToken(AuthToken authToken)
+        {
+            authToken.RefreshTokenExpireTime = DateTime.Now.AddYears(1);
+            await DataContextManager.SaveAsync();
+        }
+
+        public async Task AddAuthToken(AuthToken authToken)
+        {
+            var repo = DataContextManager.CreateRepository<IAuthTokenRepositoty>();
+            await repo.Add(authToken);
         }
     }
 }
