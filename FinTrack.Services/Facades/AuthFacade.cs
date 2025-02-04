@@ -7,6 +7,8 @@ using FinTrack.Services.Exceptions;
 using FinTrack.Services.Mappers.Contracts;
 using FinTrack.Data.Contracts;
 using FinTrack.Services.Context;
+using ServiceStack;
+using FinTrack.Model;
 
 namespace FinTrack.Services.Facades
 {
@@ -53,7 +55,7 @@ namespace FinTrack.Services.Facades
         }
 
 
-        public async Task<string> LogIn(LoginDto loginDto)
+        public async Task<(string, string)> LogIn(LoginDto loginDto)
         {
             Logger.LogInformation("AuthFacade.LogIn started");
 
@@ -74,10 +76,51 @@ namespace FinTrack.Services.Facades
                 throw new ValidationException("Invalid password", resourceProvider.Get("InvalidPassword"));
             }
 
-            var token = await _authService.CreateToken(user);
+            var claims = await _authService.CreateClaims(user);
+            var token = await _authService.CreateToken(claims);
+
+            var authToken = new AuthToken()
+            {
+                RefreshToken = await _authService.GenerateRefreshToken(),
+                RefreshTokenExpireTime = DateTime.UtcNow.AddYears(1),
+                UserId = user.Id,
+            };
+
+            await _authService.AddAuthToken(authToken);
 
             Logger.LogInformation("AuthFacade.LogIn completed");
-            return token;
+            return (token, authToken.RefreshToken);
+        }
+
+        public async Task<(string, string)> RefreshToken(string refreshToken)
+        {
+            Logger.LogInformation("AuthFacade.RefreshToken started");
+
+            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
+            var authToken = await _authService.GetTokenByRefreshToken(refreshToken);
+
+            if (authToken == null)
+            {
+                Logger.LogWarning($"AuthFacade.RefreshToken token was not found.");
+                throw new ValidationException("Token was not found.", resourceProvider.Get("TokenWasNotFound"));
+            }
+
+            authToken.RefreshToken = await _authService.GenerateRefreshToken();
+            var user = await _userService.GetById(authToken.UserId);
+
+            if (user == null)
+            {
+                Logger.LogWarning($"AuthFacade.SingUp a userDto with that name has already been registered.");
+                throw new ValidationException("User was not found.", resourceProvider.Get("UserWasNotFound"));
+            }
+
+            var claims = await _authService.CreateClaims(user);
+            var token = await _authService.CreateToken(claims);
+            await _authService.UpdateRefreshToken(authToken);
+
+            Logger.LogInformation("AuthFacade.RefreshToken complited");
+
+            return (token, refreshToken);
         }
     }
 }
