@@ -12,11 +12,18 @@ namespace FinTrack.RestApi.Controllers
     {
         private readonly IFixerAPIWrapper _fixerAPIWrapper;
         private readonly ISpamService _spamService;
-        public TestController(ILogger<TestController> logger, IFixerAPIWrapper fixerAPIWrapper, ISpamService spamService)
+        private readonly ICurrencyService _currencyService; 
+
+        public TestController(
+            ILogger<TestController> logger
+            , IFixerAPIWrapper fixerAPIWrapper
+            , ISpamService spamService
+            , ICurrencyService currencyService)
             : base(logger)
         {
             _fixerAPIWrapper = fixerAPIWrapper;
             _spamService = spamService;
+            _currencyService = currencyService;
         }
 
 
@@ -28,12 +35,12 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation("TestController.Index started");
 
-                await _spamService.Start(testData);
-                //var answer = await _spamService.GetSpam();
+               await _currencyService.ProduceAsync(testData);
+               var result =  await _currencyService.StartAsync();
 
                 Logger.LogInformation("TestController.Index completed");
 
-                return Ok();
+                return Ok(result);
             }
             catch (Exception ex)
             {

@@ -8,18 +8,44 @@ using FinTrack.Services.Exceptions;
 using FinTrack.Services.Dtos;
 using FinTrack.Services.Context;
 using FinTrack.Services.Wrappers.Contracts;
+using Confluent.Kafka;
 
 namespace FinTrack.Services
 {
     public class CurrencyService : AbstractService, ICurrencyService
     {
         private readonly IFixerAPIWrapper _fixerAPIWrapper;
+        private readonly IProducer<Null, string> _producer;
+        private readonly IConsumer<Null, string> _consumer;
+        private readonly FinTrackServiceSettings _settings;
+        private const string RequestTopic = "conwersionRequestTopic";
+        private const string ResponceTopic = "conwersionResponceTopic";
 
         public CurrencyService(ILogger<CurrencyService> logger, IMapperFactory mapperFactory
             , IDataContextManager dataContextManager, LocalizationContextLocator localization
-            , ContextLocator contextLocator, IFixerAPIWrapper fixerAPIWrapper)
+            , ContextLocator contextLocator, IFixerAPIWrapper fixerAPIWrapper, FinTrackServiceSettings settings)
             : base(logger, mapperFactory, dataContextManager, localization, contextLocator)
         {
+            _settings = settings;
+
+            var consumerConfig = new ConsumerConfig
+            {
+                BootstrapServers = _settings.Kafka.BootstrapServers,
+                AutoOffsetReset = AutoOffsetReset.Earliest,
+                ClientId = _settings.Kafka.ClientId,
+                GroupId = _settings.Kafka.ConvertResultGroupId,
+                BrokerAddressFamily = BrokerAddressFamily.V4,
+            };
+
+            var producerConfig = new ProducerConfig()
+            {
+                BootstrapServers = _settings.Kafka.BootstrapServers,
+                ClientId = _settings.Kafka.ClientId,
+                BrokerAddressFamily = BrokerAddressFamily.V4,
+            };
+
+            _consumer = new ConsumerBuilder<Null, string>(consumerConfig).Build();
+            _producer = new ProducerBuilder<Null, string>(producerConfig).Build();
             _fixerAPIWrapper = fixerAPIWrapper;
         }
 
@@ -91,9 +117,9 @@ namespace FinTrack.Services
                 throw new ValidationException("Currency was not found.", resourceProvider.Get("CurrencyWasNotFound"));
             }
 
-            await currencyRepository.Delete(id);  
+            await currencyRepository.Delete(id);
 
-            Logger.LogInformation($"CurrencyService.Delete({id})  completed"); 
+            Logger.LogInformation($"CurrencyService.Delete({id})  completed");
         }
 
         public async Task<CurrencyDto> Update(CurrencyDto currencyDto)
@@ -127,6 +153,37 @@ namespace FinTrack.Services
 
             Logger.LogInformation("CurrencyService.ConvertCurrency completed");
             return result;
+        }
+
+
+
+
+        public async Task ProduceAsync(string message)
+        {
+            var kafkamessage = new Message<Null, string> { Value = message, };
+
+            await _producer.ProduceAsync(RequestTopic, kafkamessage);
+        }
+
+
+        public async Task<string> StartAsync()
+        {
+            _consumer.Subscribe(ResponceTopic);
+            var result = string.Empty;
+            try
+            {
+                do
+                {
+                    var consumeResult = _consumer.Consume();
+                    result = consumeResult.Message.Value;
+                } while (string.IsNullOrEmpty(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
