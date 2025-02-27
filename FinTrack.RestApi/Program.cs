@@ -15,16 +15,16 @@ namespace FinTrack.RestApi
                         .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
                         .AddEnvironmentVariables("FinTrack_");
               })
-          .ConfigureWebHostDefaults(webHostBuilder => {
-              webHostBuilder
-               .UseContentRoot(Directory.GetCurrentDirectory())
-              .UseIISIntegration()
-               .UseStartup<Startup>();
-          })
-           .UseSerilog((hostContext, services, configuration) => {
+              .ConfigureWebHostDefaults(webHostBuilder => {
+                  webHostBuilder
+                   .UseContentRoot(Directory.GetCurrentDirectory())
+                  .UseIISIntegration()
+                   .UseStartup<Startup>();
+              })
+              .UseSerilog((hostContext, services, configuration) => {
                configuration.WriteTo.Console();
-           })
-           .Build();
+              })
+             .Build();
 
             host.Run();
         }

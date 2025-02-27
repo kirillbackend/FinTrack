@@ -127,7 +127,6 @@ namespace FinTrack.Services
                 throw new ValidationException("Finance was not found.", resourceProvider.Get("FinanceWasNotFound"));
             }
 
-
             var mapper = MapperFactory.GetMapper<IFinanceMapper>();
 
             mapper.MapFromDto(financeDto, destination: finance);

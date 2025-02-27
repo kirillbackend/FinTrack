@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinTrack.Model", "FinTrack.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinTrack.Localization", "FinTrack.Localization\FinTrack.Localization.csproj", "{6038917B-07D3-46EF-9811-798ADCF972C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinTrack.Tests", "FinTrack.Tests\FinTrack.Tests.csproj", "{982891D4-9190-4965-AFC5-780779CDD106}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinTrack.Tests", "FinTrack.Tests\FinTrack.Tests.csproj", "{982891D4-9190-4965-AFC5-780779CDD106}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

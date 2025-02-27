@@ -1,7 +1,10 @@
-﻿using FinTrack.Services.Contracts;
+﻿using FinTrack.Services;
+using FinTrack.Services.Contracts;
+using FinTrack.Services.Kafka.Contracts;
 using FinTrack.Services.Wrappers.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime;
 
 namespace FinTrack.RestApi.Controllers
 {
@@ -11,12 +14,20 @@ namespace FinTrack.RestApi.Controllers
     public class TestController : AbstractController
     {
         private readonly IFixerAPIWrapper _fixerAPIWrapper;
-        private readonly ISpamService _spamService;
-        public TestController(ILogger<TestController> logger, IFixerAPIWrapper fixerAPIWrapper, ISpamService spamService)
+        private readonly ICurrencyService _currencyService;
+        private readonly ICurrencyExchangeKafkaProducer _kafkaProducer;
+
+        public TestController(
+            ILogger<TestController> logger
+            , IFixerAPIWrapper fixerAPIWrapper
+            , ICurrencyService currencyService
+            , ICurrencyExchangeKafkaProducer kafkaProducer
+            )
             : base(logger)
         {
             _fixerAPIWrapper = fixerAPIWrapper;
-            _spamService = spamService;
+            _currencyService = currencyService;
+            _kafkaProducer = kafkaProducer;
         }
 
 
@@ -27,9 +38,11 @@ namespace FinTrack.RestApi.Controllers
             try
             {
                 Logger.LogInformation("TestController.Index started");
-
-                await _spamService.Start(testData);
-                //var answer = await _spamService.GetSpam();
+                await _kafkaProducer.ProduceAsync("fintrackcurrencyexchanger-topic", new Confluent.Kafka.Message<string, string>
+                {
+                    Key = DateTime.Now.ToString(),
+                    Value = testData
+                });
 
                 Logger.LogInformation("TestController.Index completed");
 

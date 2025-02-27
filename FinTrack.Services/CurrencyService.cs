@@ -28,9 +28,7 @@ namespace FinTrack.Services
             Logger.LogInformation($"CurrencyService.GetCurrencyById({id}) started");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
-
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
-
             var currency = await currencyRepository.GetCurrencyById(id);
 
             if (currency == null)
@@ -51,11 +49,8 @@ namespace FinTrack.Services
             Logger.LogInformation($"CurrencyService.GetCurrencies started");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
-
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
-
             var currency = await currencyRepository.GetCurrencies();
-
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
             var currenciesDto = mapper.MapCollectionToDto(currency);
 
@@ -69,7 +64,6 @@ namespace FinTrack.Services
 
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
-
             var currency = mapper.MapFromDto(currencyDto);
             await currencyRepository.Add(currency);
 
@@ -82,7 +76,6 @@ namespace FinTrack.Services
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
-
             var currency = await currencyRepository.GetCurrencyById(id);
 
             if (currency == null)
@@ -91,9 +84,9 @@ namespace FinTrack.Services
                 throw new ValidationException("Currency was not found.", resourceProvider.Get("CurrencyWasNotFound"));
             }
 
-            await currencyRepository.Delete(id);  
+            await currencyRepository.Delete(id);
 
-            Logger.LogInformation($"CurrencyService.Delete({id})  completed"); 
+            Logger.LogInformation($"CurrencyService.Delete({id})  completed");
         }
 
         public async Task<CurrencyDto> Update(CurrencyDto currencyDto)
@@ -103,7 +96,6 @@ namespace FinTrack.Services
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
-
             var currency = await currencyRepository.GetCurrencyById(currencyDto.Id);
 
             if (currency == null)
