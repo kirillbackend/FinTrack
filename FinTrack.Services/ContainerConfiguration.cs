@@ -8,6 +8,8 @@ using FinTrack.Services.Context.Contracts;
 using FinTrack.Services.Context;
 using FinTrack.Services.Wrappers.Contracts;
 using FinTrack.Services.Wrappers;
+using FinTrack.Services.Kafka;
+using FinTrack.Services.Kafka.Contracts;
 
 namespace FinTrack.Services
 {
@@ -24,7 +26,6 @@ namespace FinTrack.Services
             MapperFactory.Configure(builder);
 
             //register service
-            builder.RegisterType<SpamService>().As<ISpamService>();
             builder.RegisterType<AuthService>().As<IAuthService>();
             builder.RegisterType<HashService>().As<IHashService>();
             builder.RegisterType<UserService>().As<IUserService>();
@@ -32,6 +33,7 @@ namespace FinTrack.Services
             builder.RegisterType<FinanceService>().As<IFinanceService>();
             builder.RegisterType<Context.ContextFactory>().As<IContextFactory>();
             builder.RegisterType<ContextLocator>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<CurrencyExchangeKafkaProducer>().As<ICurrencyExchangeKafkaProducer>();
 
             //register wrapper
             builder.RegisterType<FixerAPIWrapper>().As<IFixerAPIWrapper>();

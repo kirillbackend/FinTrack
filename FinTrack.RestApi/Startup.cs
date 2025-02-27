@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using FinTrack.RestApi.ActionFilters;
+using FinTrack.Services.Kafka;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -26,6 +27,8 @@ namespace FinTrack.RestApi
         public void ConfigureServices(IServiceCollection services)
         {
             var settings = _configuration.Get<ApiSettings>();
+
+            services.AddHostedService<CurrencyExchangeKafkaConsumer>();
 
             services.AddControllers(options =>
             {

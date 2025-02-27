@@ -1,45 +1,4 @@
 services:
-  zookeeper:
-    image: confluentinc/cp-zookeeper:7.2.1
-    hostname: zookeeper
-    container_name: fintrakc.zookeeper
-    ports:
-      - "2181:2181"
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-
-  kafka:
-    image: confluentinc/cp-server:7.2.1
-    hostname: kafka
-    container_name: fintrakc.kafka
-    depends_on:
-      - zookeeper
-    ports:
-      - "9092:9092"
-      - "9997:9997"
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_CONFLUENT_BALANCER_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-      KAFKA_JMX_PORT: 9997
-      KAFKA_JMX_HOSTNAME: kafka
-
-  kafka-ui:
-    container_name: fintrakc.kafka-ui
-    image: provectuslabs/kafka-ui:latest
-    ports:
-      - 8082:8080
-    environment:
-      DYNAMIC_CONFIG_ENABLED: true
-
   redis:
     image: redis:latest
     container_name: fintrack.redis
@@ -78,22 +37,7 @@ services:
     restart: unless-stopped
     tty: true
     stdin_open: true
-
-  # rabbitmq:
-  #   image: rabbitmq:4.0-management
-  #   container_name: rabbitmq_fintrack
-  #   hostname: fintrack_rabbitmq
-  #   restart: always
-  #   environment:
-  #     - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
-  #     - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
-  #     - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
-  #   volumes:
-  #     - ./rabbitmq:/var/lib/rabbitmq
-  #   ports:
-  #     - 15672:15672
-  #     - 5672:5672
-
+    
   fintrack-api:
     container_name: fintrack.api
     build:

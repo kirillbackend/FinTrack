@@ -1,7 +1,10 @@
-﻿using FinTrack.Services.Contracts;
+﻿using FinTrack.Services;
+using FinTrack.Services.Contracts;
+using FinTrack.Services.Kafka.Contracts;
 using FinTrack.Services.Wrappers.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime;
 
 namespace FinTrack.RestApi.Controllers
 {
@@ -11,19 +14,20 @@ namespace FinTrack.RestApi.Controllers
     public class TestController : AbstractController
     {
         private readonly IFixerAPIWrapper _fixerAPIWrapper;
-        private readonly ISpamService _spamService;
-        private readonly ICurrencyService _currencyService; 
+        private readonly ICurrencyService _currencyService;
+        private readonly ICurrencyExchangeKafkaProducer _kafkaProducer;
 
         public TestController(
             ILogger<TestController> logger
             , IFixerAPIWrapper fixerAPIWrapper
-            , ISpamService spamService
-            , ICurrencyService currencyService)
+            , ICurrencyService currencyService
+            , ICurrencyExchangeKafkaProducer kafkaProducer
+            )
             : base(logger)
         {
             _fixerAPIWrapper = fixerAPIWrapper;
-            _spamService = spamService;
             _currencyService = currencyService;
+            _kafkaProducer = kafkaProducer;
         }
 
 
@@ -34,13 +38,15 @@ namespace FinTrack.RestApi.Controllers
             try
             {
                 Logger.LogInformation("TestController.Index started");
-
-               await _currencyService.ProduceAsync(testData);
-               var result =  await _currencyService.StartAsync();
+                await _kafkaProducer.ProduceAsync("fintrackcurrencyexchanger-topic", new Confluent.Kafka.Message<string, string>
+                {
+                    Key = DateTime.Now.ToString(),
+                    Value = testData
+                });
 
                 Logger.LogInformation("TestController.Index completed");
 
-                return Ok(result);
+                return Ok();
             }
             catch (Exception ex)
             {
