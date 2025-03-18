@@ -25,26 +25,26 @@ namespace FinTrack.RestApi.Controllers
         {
             try
             {
-                Logger.LogInformation("AuthController.SingUp started");
+                Logger.LogInformation("AuthController.SingUpAsync started");
 
                 if (!ModelState.IsValid)
                 {
-                    Logger.LogWarning($"AuthController.SingUp failed: {ModelState}");
+                    Logger.LogWarning($"AuthController.SingUpAsync failed: {ModelState}");
                     return BadRequest(ModelState);
                 }
 
-                await _authFacade.SingUp(new SignUpDto()
+                await _authFacade.SingUpAsync(new SignUpDto()
                 {
                     Email = model.Email,
                     Password = model.Password,
                 });
 
-                Logger.LogInformation("AuthController.SingUp completed; success");
+                Logger.LogInformation("AuthController.SingUpAsync completed; success");
                 return Ok("The user is registered.");
             }
             catch (ValidationException ex)
             {
-                Logger.LogInformation("AuthController.SingUp completed; invalid request");
+                Logger.LogInformation("AuthController.SingUpAsync completed; invalid request");
                 return BadRequest(ex);
             }
         }
@@ -55,21 +55,21 @@ namespace FinTrack.RestApi.Controllers
         {
             try
             {
-                Logger.LogInformation("AuthController.LogIn started");
+                Logger.LogInformation("AuthController.LogInAsync started");
 
                 if (!ModelState.IsValid)
                 {
-                    Logger.LogWarning($"AuthController.LogIn failed: {ModelState}");
+                    Logger.LogWarning($"AuthController.LogInAsync failed: {ModelState}");
                     return BadRequest(ModelState);
                 }
 
-                var (token, refreshToken) = await _authFacade.LogIn(new LoginDto()
+                var (token, refreshToken) = await _authFacade.LogInAsync(new LoginDto()
                 {
                     Email = loginModel.Email,
                     Password = loginModel.Password,
                 });
 
-                Logger.LogInformation("AuthController.LogIn completed");
+                Logger.LogInformation("AuthController.LogInAsync completed");
                 return Ok(new
                 {
                     Token = token,
@@ -78,7 +78,7 @@ namespace FinTrack.RestApi.Controllers
             }
             catch (ValidationException ex)
             {
-                Logger.LogWarning("AuthController.LogIn completed; invalid request");
+                Logger.LogWarning("AuthController.LogInAsync completed; invalid request");
                 return BadRequest(ex);
             }
         }
@@ -97,7 +97,7 @@ namespace FinTrack.RestApi.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var (token, refreshToken) = await _authFacade.RefreshToken(model.RefreshToken);
+                var (token, refreshToken) = await _authFacade.RefreshTokenAsync(model.RefreshToken);
 
                 Logger.LogInformation("AuthController.Refresh completed");
                 return Ok(new

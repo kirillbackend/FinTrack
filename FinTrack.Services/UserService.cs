@@ -18,22 +18,22 @@ namespace FinTrack.Services
         {
         }
 
-        public async Task AddUser(UserDto userDto)
+        public async Task AddUserAsync(UserDto userDto)
         {
-            Logger.LogInformation("UserService.AddUser started");
+            Logger.LogInformation("UserService.AddUserAsync started");
 
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserMapper>();
 
             var user = mapper.MapFromDto(userDto);
-            repo.Add(user);
+            await repo.AddAsync(user);
 
-            Logger.LogInformation("UserService.AddUser completed");
+            Logger.LogInformation("UserService.AddUserAsync completed");
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            Logger.LogInformation($"UserService.Delete({id} started)");
+            Logger.LogInformation($"UserService.DeleteAsync({id} started)");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var repo = DataContextManager.CreateRepository<IUserRepository>();
@@ -41,41 +41,41 @@ namespace FinTrack.Services
 
             if (UserContext.Id != id)
             {
-                Logger.LogWarning($"UserService.Delete there is no access to the data.");
+                Logger.LogWarning($"UserService.DeleteAsync there is no access to the data.");
                 throw new ValidationException("No access data.", resourceProvider.Get("NoAccessData"));
             }
 
-            var user = await repo.GetById(id);
+            var user = await repo.GetByIdAsync(id);
 
             if (user == null)
             {
-                Logger.LogWarning($"UserService.Delete the user was not found. Id : {id}");
+                Logger.LogWarning($"UserService.DeleteAsync the user was not found. Id : {id}");
                 throw new ValidationException("User was not found.", resourceProvider.Get("UserWasNotFound"));
             }
 
-            await repo.Delete(id);
+            await repo.DeleteAsync(id);
 
-            Logger.LogInformation($"UserService.Delete({id}) completed");
+            Logger.LogInformation($"UserService.DeleteAsync({id}) completed");
         }
 
-        public async Task<UserDto> GetByEmail(string email)
+        public async Task<UserDto> GetByEmailAsync(string email)
         {
-            Logger.LogInformation("UserService.GetByEmail started");
+            Logger.LogInformation("UserService.GetByEmailAsync started");
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
 
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserAuthMapper>();
 
-            var user = await repo.GetByEmail(email);
+            var user = await repo.GetByEmailAsync(email);
             var userDto = mapper.MapToDto(user);
 
-            Logger.LogInformation("UserService.GetByEmail completed");
+            Logger.LogInformation("UserService.GetByEmailAsync completed");
             return userDto;
         }
 
-        public async Task<UserDto> GetById(Guid id)
+        public async Task<UserDto> GetByIdAsync(Guid id)
         {
-            Logger.LogInformation($"UserService.GetById({id} started)");
+            Logger.LogInformation($"UserService.GetByIdAsync({id} started)");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var repo = DataContextManager.CreateRepository<IUserRepository>();
@@ -83,42 +83,42 @@ namespace FinTrack.Services
 
             if (UserContext.Id != id)
             {
-                Logger.LogWarning($"UserService.GetById there is no access to the data.");
+                Logger.LogWarning($"UserService.GetByIdAsync there is no access to the data.");
                 throw new ValidationException("No access data.", resourceProvider.Get("NoAccessData"));
             }
 
-            var user = await repo.GetById(id);
+            var user = await repo.GetByIdAsync(id);
 
             if (user == null)
             {
-                Logger.LogWarning($"UserService.GetById the user was not found. Id : {id}");
+                Logger.LogWarning($"UserService.GetByIdAsync the user was not found. Id : {id}");
                 throw new ValidationException("User was not found.", resourceProvider.Get("UserWasNotFound"));
             }
 
             var userDto = mapper.MapToDto(user);
 
-            Logger.LogInformation($"UserService.GetById({id}) completed");
+            Logger.LogInformation($"UserService.GetByIdAsync({id}) completed");
             return userDto;
         }
 
         public async Task<IEnumerable<UserDto>> GetUsers()
         {
-            Logger.LogInformation("UserService.GetUsers started");
+            Logger.LogInformation("UserService.GetUsersAsync started");
 
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserMapper>();
 
-            var users = await repo.GetUsers();
+            var users = await repo.GetUsersAsync();
 
             var usersDto = mapper.MapCollectionToDto(users);
 
-            Logger.LogInformation($"UserService.GetUsers completed");
+            Logger.LogInformation($"UserService.GetUsersAsync completed");
             return usersDto;
         }
 
-        public async Task<UserDto> Update(UserDto userDto)
+        public async Task<UserDto> UpdateAsync(UserDto userDto)
         {
-            Logger.LogInformation("UserService.Update started)");
+            Logger.LogInformation("UserService.UpdateAsync started)");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var repo = DataContextManager.CreateRepository<IUserRepository>();
@@ -126,22 +126,22 @@ namespace FinTrack.Services
 
             if (UserContext.Id != userDto.Id)
             {
-                Logger.LogWarning("UserService.Update there is no access to the data.");
+                Logger.LogWarning("UserService.UpdateAsync there is no access to the data.");
                 throw new ValidationException("No access data.", resourceProvider.Get("NoAccessData"));
             }
 
-            var user = await repo.GetById(userDto.Id);
+            var user = await repo.GetByIdAsync(userDto.Id);
 
             if (user == null)
             {
-                Logger.LogWarning($"UserService.Update the user was not found.");
+                Logger.LogWarning($"UserService.UpdateAsync the user was not found.");
                 throw new ValidationException("User was not found.", resourceProvider.Get("UserWasNotFound"));
             }
 
             mapper.MapFromDto(userDto, destination: user);
             await DataContextManager.SaveAsync();
 
-            Logger.LogInformation($"UserService.Update completed");
+            Logger.LogInformation($"UserService.UpdateAsync completed");
             return userDto;
         }
     }

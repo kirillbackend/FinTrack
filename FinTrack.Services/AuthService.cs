@@ -28,18 +28,18 @@ namespace FinTrack.Services
             _settings = settings;
         }
 
-        public async Task SignUp(UserDto signUpDto)
+        public async Task SignUpAsync(UserDto signUpDto)
         {
-            Logger.LogInformation("AuthService.SignUp started");
+            Logger.LogInformation("AuthService.SignUpAsync started");
 
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var signUpMapper = MapperFactory.GetMapper<IUserMapper>();
 
             var user = signUpMapper.MapFromDto(signUpDto);
 
-            repo.Add(user);
+            await repo.AddAsync(user);
 
-            Logger.LogInformation("AuthService.SignUp completed");
+            Logger.LogInformation("AuthService.SignUpAsync completed");
         }
 
         public async Task<IEnumerable<Claim>> CreateClaims(UserDto userDto)
@@ -107,25 +107,25 @@ namespace FinTrack.Services
             return principal;
         }
 
-        public async Task<AuthToken> GetTokenByRefreshToken(string refreshToken)
+        public async Task<AuthToken> GetTokenByRefreshTokenAsync(string refreshToken)
         {
             var repo = DataContextManager.CreateRepository<IAuthTokenRepositoty>();
 
-            var authToken = await repo.GetByRefreshToken(refreshToken);
+            var authToken = await repo.GetByRefreshTokenAsync(refreshToken);
 
             return authToken;
         }
 
-        public async Task UpdateRefreshToken(AuthToken authToken)
+        public async Task UpdateRefreshTokenAsync(AuthToken authToken)
         {
             authToken.RefreshTokenExpireTime = DateTime.Now.AddYears(1);
             await DataContextManager.SaveAsync();
         }
 
-        public async Task AddAuthToken(AuthToken authToken)
+        public async Task AddAuthTokenAsync(AuthToken authToken)
         {
             var repo = DataContextManager.CreateRepository<IAuthTokenRepositoty>();
-            await repo.Add(authToken);
+            await repo.AddAsync(authToken);
         }
     }
 }

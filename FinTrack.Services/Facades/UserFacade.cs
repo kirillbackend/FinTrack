@@ -23,18 +23,18 @@ namespace FinTrack.Services.Facades
             _hashService = hashService;
         }
 
-        public async Task UpdatePassword(string oldPassword, string newPassword)
+        public async Task UpdatePasswordAsync(string oldPassword, string newPassword)
         {
-            Logger.LogInformation("UserFacade.UpdatePassword started)");
+            Logger.LogInformation("UserFacade.UpdatePasswordAsync started)");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
 
             var repo = DataContextManager.CreateRepository<IUserRepository>();
-            var user = await repo.GetById(UserContext.Id);
+            var user = await repo.GetByIdAsync(UserContext.Id);
 
             if (user == null)
             {
-                Logger.LogWarning($"UserFacade.UpdatePassword a user was not found");
+                Logger.LogWarning($"UserFacade.UpdatePasswordAsync a user was not found");
                 throw new ValidationException("User was not found.", resourceProvider.Get("UserWasNotFound"));
             }
 
@@ -42,7 +42,7 @@ namespace FinTrack.Services.Facades
 
             if (!isCorretPassWord)
             {
-                Logger.LogWarning("UserFacade.UpdatePassword completed. Invalid password");
+                Logger.LogWarning("UserFacade.UpdatePasswordAsync completed. Invalid password");
                 throw new ValidationException("Invalid password", resourceProvider.Get("InvalidPassword"));
             }
             else

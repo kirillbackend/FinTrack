@@ -27,7 +27,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation($"FinanceController.Get({id}) started");
 
-                var finance = await _financeService.GetFinanceById(id); 
+                var finance = await _financeService.GetFinanceByIdAsync(id); 
 
                 Logger.LogInformation($"FinanceController.Get({id}) completed");
                 return Ok(finance);
@@ -46,7 +46,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation($"FinanceController.Get started");
 
-                var finances = await _financeService.GetFinances();
+                var finances = await _financeService.GetFinancesAsync();
 
                 Logger.LogInformation($"FinanceController.Get completed");
                 return Ok(finances);
@@ -65,7 +65,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation("FinanceController.Post started");
 
-                await _financeService.AddFinance(financeDto);
+                await _financeService.AddFinanceAsync(financeDto);
 
                 Logger.LogInformation("FinanceController.Post completed");
                 return Ok();
@@ -84,7 +84,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation("FinanceController.Put started");
 
-                var finance = await _financeService.Update(financeDto);
+                var finance = await _financeService.UpdateAsync(financeDto);
 
                 Logger.LogInformation("FinanceController.Put completed");
                 return Ok(finance);
@@ -101,16 +101,16 @@ namespace FinTrack.RestApi.Controllers
         {
             try
             {
-                Logger.LogInformation($"FinanceController.Delete({id}) started");
+                Logger.LogInformation($"FinanceController.DeleteAsync({id}) started");
 
-                await _financeService.Delete(id);
+                await _financeService.DeleteAsync(id);
 
-                Logger.LogInformation($"FinanceController.Delete({id}) completed");
+                Logger.LogInformation($"FinanceController.DeleteAsync({id}) completed");
                 return NoContent();
             }
             catch (ValidationException ex)
             {
-                Logger.LogWarning($"FinanceController.Delete({id}) completed; invalid request");
+                Logger.LogWarning($"FinanceController.DeleteAsync({id}) completed; invalid request");
                 return BadRequest(ex);
             }
         }

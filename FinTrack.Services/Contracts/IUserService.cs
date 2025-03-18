@@ -5,11 +5,11 @@ namespace FinTrack.Services.Contracts
 {
     public interface IUserService
     {
-        Task<UserDto> GetByEmail(string email);
-        Task<UserDto> GetById(Guid id);
+        Task<UserDto> GetByEmailAsync(string email);
+        Task<UserDto> GetByIdAsync(Guid id);
         Task<IEnumerable<UserDto>> GetUsers();
-        Task Delete(Guid id);
-        Task<UserDto> Update(UserDto userDto);
-        Task AddUser(UserDto userDto);
+        Task DeleteAsync(Guid id);
+        Task<UserDto> UpdateAsync(UserDto userDto);
+        Task AddUserAsync(UserDto userDto);
     }
 }

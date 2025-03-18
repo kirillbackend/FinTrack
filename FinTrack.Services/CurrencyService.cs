@@ -23,101 +23,101 @@ namespace FinTrack.Services
             _fixerAPIWrapper = fixerAPIWrapper;
         }
 
-        public async Task<CurrencyDto> GetCurrencyById(Guid id)
+        public async Task<CurrencyDto> GetCurrencyByIdAsync(Guid id)
         {
-            Logger.LogInformation($"CurrencyService.GetCurrencyById({id}) started");
+            Logger.LogInformation($"CurrencyService.GetCurrencyByIdAsync({id}) started");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
-            var currency = await currencyRepository.GetCurrencyById(id);
+            var currency = await currencyRepository.GetCurrencyByIdAsync(id);
 
             if (currency == null)
             {
-                Logger.LogWarning($"CurrencyService.GetCurrencyById the currency was not found. Id : {id}");
+                Logger.LogWarning($"CurrencyService.GetCurrencyByIdAsync the currency was not found. Id : {id}");
                 throw new ValidationException("Currency was not found.", resourceProvider.Get("CurrencyWasNotFound"));
             }
 
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
             var currencyDto = mapper.MapToDto(currency);
 
-            Logger.LogInformation($"CurrencyService.GetCurrencyById({id}) completed");
+            Logger.LogInformation($"CurrencyService.GetCurrencyByIdAsync({id}) completed");
             return currencyDto;
         }
 
-        public async Task<IEnumerable<CurrencyDto>> GetCurrencies()
+        public async Task<IEnumerable<CurrencyDto>> GetCurrenciesAsync()
         {
-            Logger.LogInformation($"CurrencyService.GetCurrencies started");
+            Logger.LogInformation($"CurrencyService.GetCurrenciesAsync started");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
-            var currency = await currencyRepository.GetCurrencies();
+            var currency = await currencyRepository.GetCurrenciesAsync();
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
             var currenciesDto = mapper.MapCollectionToDto(currency);
 
-            Logger.LogInformation($"CurrencyService.GetCurrencies completed");
+            Logger.LogInformation($"CurrencyService.GetCurrenciesAsync completed");
             return currenciesDto;
         }
 
-        public async Task AddCurrency(CurrencyDto currencyDto)
+        public async Task AddCurrencyAsync(CurrencyDto currencyDto)
         {
-            Logger.LogInformation("CurrencyService.AddCurrency started");
+            Logger.LogInformation("CurrencyService.AddCurrencyAsync started");
 
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
             var currency = mapper.MapFromDto(currencyDto);
-            await currencyRepository.Add(currency);
+            await currencyRepository.AddAsync(currency);
 
-            Logger.LogInformation("CurrencyService.AddCurrency completed");
+            Logger.LogInformation("CurrencyService.AddCurrencyAsync completed");
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            Logger.LogInformation($"CurrencyService.Delete({id}) started");
+            Logger.LogInformation($"CurrencyService.DeleteAsync({id}) started");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
-            var currency = await currencyRepository.GetCurrencyById(id);
+            var currency = await currencyRepository.GetCurrencyByIdAsync(id);
 
             if (currency == null)
             {
-                Logger.LogWarning($"CurrencyService.Delete the currency was not found. Id : {id}");
+                Logger.LogWarning($"CurrencyService.DeleteAsync the currency was not found. Id : {id}");
                 throw new ValidationException("Currency was not found.", resourceProvider.Get("CurrencyWasNotFound"));
             }
 
-            await currencyRepository.Delete(id);
+            await currencyRepository.DeleteAsync(id);
 
-            Logger.LogInformation($"CurrencyService.Delete({id})  completed");
+            Logger.LogInformation($"CurrencyService.DeleteAsync({id})  completed");
         }
 
-        public async Task<CurrencyDto> Update(CurrencyDto currencyDto)
+        public async Task<CurrencyDto> UpdateAsync(CurrencyDto currencyDto)
         {
-            Logger.LogInformation("CurrencyService.Update started");
+            Logger.LogInformation("CurrencyService.UpdateAsync started");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
-            var currency = await currencyRepository.GetCurrencyById(currencyDto.Id);
+            var currency = await currencyRepository.GetCurrencyByIdAsync(currencyDto.Id);
 
             if (currency == null)
             {
-                Logger.LogWarning($"CurrencyService.Update the currency was not found. Id : {currencyDto.Id}");
+                Logger.LogWarning($"CurrencyService.UpdateAsync the currency was not found. Id : {currencyDto.Id}");
                 throw new ValidationException("Currency was not found.", resourceProvider.Get("CurrencyWasNotFound"));
             }
 
             mapper.MapFromDto(currencyDto, destination: currency);
             await DataContextManager.SaveAsync();
 
-            Logger.LogInformation("CurrencyService.Update completed");
+            Logger.LogInformation("CurrencyService.UpdateAsync completed");
             return currencyDto;
         }
 
-        public async Task<decimal> ConvertCurrency(string to, string from, string amount)
+        public async Task<decimal> ConvertCurrencyAsync(string to, string from, string amount)
         {
-            Logger.LogInformation("CurrencyService.ConvertCurrency started");
+            Logger.LogInformation("CurrencyService.ConvertCurrencyAsync started");
 
-            var result = await _fixerAPIWrapper.ConvertCurrency(to, from, amount);
+            var result = await _fixerAPIWrapper.ConvertCurrencyAsync(to, from, amount);
 
-            Logger.LogInformation("CurrencyService.ConvertCurrency completed");
+            Logger.LogInformation("CurrencyService.ConvertCurrencyAsync completed");
             return result;
         }
     }

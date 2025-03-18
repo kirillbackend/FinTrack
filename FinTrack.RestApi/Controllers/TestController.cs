@@ -1,10 +1,8 @@
-﻿using FinTrack.Services;
-using FinTrack.Services.Contracts;
+﻿using FinTrack.Services.Contracts;
 using FinTrack.Services.Kafka.Contracts;
 using FinTrack.Services.Wrappers.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime;
 
 namespace FinTrack.RestApi.Controllers
 {

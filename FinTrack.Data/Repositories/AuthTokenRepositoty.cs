@@ -11,13 +11,13 @@ namespace FinTrack.Data.Repositories
         {
         }
 
-        public async Task Add(AuthToken entity)
+        public async Task AddAsync(AuthToken entity)
         {
             Context.Add(entity);
             await Context.SaveChangesAsync();
         }
 
-        public async Task<AuthToken> GetByRefreshToken(string refreshToken)
+        public async Task<AuthToken> GetByRefreshTokenAsync(string refreshToken)
         {
             var token = await Context.AuthTokens.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
             return token;

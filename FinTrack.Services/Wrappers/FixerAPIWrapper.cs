@@ -19,7 +19,7 @@ namespace FinTrack.Services.Wrappers
             _cache = cache;
         }
 
-        public async Task<Symbol> GetSymbols()
+        public async Task<Symbol> GetSymbolsAsync()
         {
             var client = new RestClient(_options);
             var sympolsUrl = "/symbols";
@@ -31,7 +31,7 @@ namespace FinTrack.Services.Wrappers
             return sumbols;
         }
 
-        public async Task<decimal> ConvertCurrency(string to, string from, string amount)
+        public async Task<decimal> ConvertCurrencyAsync(string to, string from, string amount)
         {
             var cashKey = to + from + amount;
             var cash = await _cache.GetStringAsync(cashKey);
@@ -58,7 +58,7 @@ namespace FinTrack.Services.Wrappers
             }
         }
 
-        public async Task LatestCurrency(string baseCurrency, List<string> symbols)
+        public async Task LatestCurrencyAsync(string baseCurrency, List<string> symbols)
         {
             var client = new RestClient(_options);
             var symbol = string.Join(", ", symbols);

@@ -30,7 +30,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation($"UserController.Get({id}) started");
 
-                var user = await _userService.GetById(id);
+                var user = await _userService.GetByIdAsync(id);
 
                 Logger.LogInformation($"UserController.Get({id}) completed");
                 return Ok(user);
@@ -68,7 +68,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation("UserController.Post started");
 
-                await _userService.AddUser(userDto);
+                await _userService.AddUserAsync(userDto);
 
                 Logger.LogInformation("UserController.Post completed");
                 return Ok();
@@ -86,16 +86,16 @@ namespace FinTrack.RestApi.Controllers
         {
             try
             {
-                Logger.LogInformation("UserController.UpdatePassword started");
+                Logger.LogInformation("UserController.UpdatePasswordAsync started");
 
-                await _userFacade.UpdatePassword(oldPassword, newPassword);
+                await _userFacade.UpdatePasswordAsync(oldPassword, newPassword);
 
-                Logger.LogInformation("UserController.UpdatePassword completed");
+                Logger.LogInformation("UserController.UpdatePasswordAsync completed");
                 return Ok();
             }
             catch (ValidationException ex)
             {
-                Logger.LogInformation("UserController.UpdatePassword completle; invalid request");
+                Logger.LogInformation("UserController.UpdatePasswordAsync completle; invalid request");
                 return BadRequest(ex);
             }
         }
@@ -107,7 +107,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation("UserController.Put started");
 
-                var user = await _userService.Update(userDto);
+                var user = await _userService.UpdateAsync(userDto);
 
                 Logger.LogInformation("UserController.Put completed");
                 return Ok(user);
@@ -124,16 +124,16 @@ namespace FinTrack.RestApi.Controllers
         {
             try
             {
-                Logger.LogInformation("UserController.Delete started");
+                Logger.LogInformation("UserController.DeleteAsync started");
 
-                await _userService.Delete(id);
+                await _userService.DeleteAsync(id);
 
-                Logger.LogInformation("UserController.Delete completed");
+                Logger.LogInformation("UserController.DeleteAsync completed");
                 return NoContent();
             }
             catch (ValidationException ex)
             {
-                Logger.LogInformation("UserController.Delete completed; invalid request");
+                Logger.LogInformation("UserController.DeleteAsync completed; invalid request");
                 return BadRequest(ex);
             }
         }

@@ -5,9 +5,9 @@ namespace FinTrack.Data.Repositories.Contracts
 {
     public interface IFinanceRepository : IRepository
     {
-        Task Add(Finance entity);
-        Task Delete(Guid id);
-        Task<Finance> GetFinanceById(Guid id);
-        Task<IEnumerable<Finance>> GetFinances();
+        Task AddAssync(Finance entity);
+        Task DeleteAsync(Guid id);
+        Task<Finance> GetFinanceByIdAsync(Guid id);
+        Task<IEnumerable<Finance>> GetFinancesAsync();
     }
 }

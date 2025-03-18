@@ -18,9 +18,9 @@ namespace FinTrack.Services
         {
         }
 
-        public async Task AddFinance(FinanceDto currencyDto)
+        public async Task AddFinanceAsync(FinanceDto currencyDto)
         {
-            Logger.LogInformation($"FinanceService.AddFinance started");
+            Logger.LogInformation($"FinanceService.AddFinanceAsync started");
 
             var financeRepository = DataContextManager.CreateRepository<IFinanceRepository>();
             var mapper = MapperFactory.GetMapper<IFinanceMapper>();
@@ -28,102 +28,102 @@ namespace FinTrack.Services
             var finance = mapper.MapFromDto(currencyDto);
             finance.CreatedDate = DateTime.UtcNow;
             finance.UpdatedDate = DateTime.UtcNow;
-            await financeRepository.Add(finance);
+            await financeRepository.AddAssync(finance);
 
-            Logger.LogInformation($"FinanceService.AddFinance completed");
+            Logger.LogInformation($"FinanceService.AddFinanceAsync completed");
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            Logger.LogInformation($"FinanceService.Delete started");
+            Logger.LogInformation($"FinanceService.DeleteAsync started");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var financeRepository = DataContextManager.CreateRepository<IFinanceRepository>();
 
-            var finance = await financeRepository.GetFinanceById(id);
+            var finance = await financeRepository.GetFinanceByIdAsync(id);
 
             if (UserContext.Id != finance.UserId)
             {
-                Logger.LogWarning($"FinanceService.Delete there is no access to the data.");
+                Logger.LogWarning($"FinanceService.DeleteAsync there is no access to the data.");
                 throw new ValidationException("No access data.", resourceProvider.Get("NoAccessData"));
             }
 
-            await financeRepository.Delete(id);
+            await financeRepository.DeleteAsync(id);
 
             if (finance == null)
             {
-                Logger.LogWarning($"FinanceService.Delete the finance was not found. Id : {id}");
+                Logger.LogWarning($"FinanceService.DeleteAsync the finance was not found. Id : {id}");
                 throw new ValidationException("Finance was not found.", resourceProvider.Get("FinanceWasNotFound"));
             }
 
-            await financeRepository.Delete(id);
+            await financeRepository.DeleteAsync(id);
 
-            Logger.LogInformation($"FinanceService.Delete({id}) completed");
+            Logger.LogInformation($"FinanceService.DeleteAsync({id}) completed");
         }
 
-        public async Task<FinanceDto> GetFinanceById(Guid id)
+        public async Task<FinanceDto> GetFinanceByIdAsync(Guid id)
         {
-            Logger.LogInformation($"FinanceService.GetFinanceById({id}) started");
+            Logger.LogInformation($"FinanceService.GetFinanceByIdAsync({id}) started");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
 
             var financeRepository = DataContextManager.CreateRepository<IFinanceRepository>();
 
-            var finance = await financeRepository.GetFinanceById(id);
+            var finance = await financeRepository.GetFinanceByIdAsync(id);
 
             if (UserContext.Id != finance.UserId)
             {
-                Logger.LogWarning($"FinanceService.GetFinanceById there is no access to the data.");
+                Logger.LogWarning($"FinanceService.GetFinanceByIdAsync there is no access to the data.");
                 throw new ValidationException("No access data.", resourceProvider.Get("NoAccessData"));
             }
 
             if (finance == null)
             {
-                Logger.LogWarning($"FinanceService.GetFinanceById the finance was not found. Id : {id}");
+                Logger.LogWarning($"FinanceService.GetFinanceByIdAsync the finance was not found. Id : {id}");
                 throw new ValidationException("Finance was not found.", resourceProvider.Get("FinanceWasNotFound"));
             }
 
             var mapper = MapperFactory.GetMapper<IFinanceMapper>();
             var financeDto = mapper.MapToDto(finance);
 
-            Logger.LogInformation($"FinanceService.GetFinanceById({id}) completed");
+            Logger.LogInformation($"FinanceService.GetFinanceByIdAsync({id}) completed");
             return financeDto;
         }
 
-        public async Task<IEnumerable<FinanceDto>> GetFinances()
+        public async Task<IEnumerable<FinanceDto>> GetFinancesAsync()
         {
-            Logger.LogInformation($"FinanceService.GetFinances started");
+            Logger.LogInformation($"FinanceService.GetFinancesAsync started");
 
             var financeRepository = DataContextManager.CreateRepository<IFinanceRepository>();
             var mapper = MapperFactory.GetMapper<IFinanceMapper>();
 
-            var finances = await financeRepository.GetFinances();
+            var finances = await financeRepository.GetFinancesAsync();
 
             var financesDto = mapper.MapCollectionToDto(finances);
 
-            Logger.LogInformation($"FinanceService.GetFinances completed");
+            Logger.LogInformation($"FinanceService.GetFinancesAsync completed");
             return financesDto;
         }
 
-        public async Task<FinanceDto> Update(FinanceDto financeDto)
+        public async Task<FinanceDto> UpdateAsync(FinanceDto financeDto)
         {
-            Logger.LogInformation($"FinanceService.Update started");
+            Logger.LogInformation($"FinanceService.UpdateAsync started");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
 
             var financeRepository = DataContextManager.CreateRepository<IFinanceRepository>();
 
-            var finance = await financeRepository.GetFinanceById(financeDto.Id);
+            var finance = await financeRepository.GetFinanceByIdAsync(financeDto.Id);
 
             if (UserContext.Id != finance.UserId)
             {
-                Logger.LogWarning($"FinanceService.Update there is no access to the data.");
+                Logger.LogWarning($"FinanceService.UpdateAsync there is no access to the data.");
                 throw new ValidationException("No access data.", resourceProvider.Get("NoAccessData"));
             }
 
             if (finance == null)
             {
-                Logger.LogWarning($"FinanceService.Update the finance was not found. Id : {financeDto.Id}");
+                Logger.LogWarning($"FinanceService.UpdateAsync the finance was not found. Id : {financeDto.Id}");
                 throw new ValidationException("Finance was not found.", resourceProvider.Get("FinanceWasNotFound"));
             }
 
@@ -133,7 +133,7 @@ namespace FinTrack.Services
             finance.UpdatedDate = DateTime.UtcNow;
             await DataContextManager.SaveAsync();
 
-            Logger.LogInformation($"FinanceService.Update completed");
+            Logger.LogInformation($"FinanceService.UpdateAsync completed");
             return financeDto;
         }
     }

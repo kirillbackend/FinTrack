@@ -20,7 +20,6 @@ namespace FinTrack.Services.Kafka
             }, stoppingToken);
         }
 
-
         public async Task ConsumeAsync(string topic, CancellationToken stoppingToken)
         {
             var config = new ConsumerConfig

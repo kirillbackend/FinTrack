@@ -27,7 +27,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation($"CurrencyController.Get({id}) started");
 
-                var currency = await _currencyService.GetCurrencyById(id);
+                var currency = await _currencyService.GetCurrencyByIdAsync(id);
 
                 Logger.LogInformation($"CurrencyController.Get({id}) completed");
                 return Ok(currency);
@@ -46,7 +46,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation($"CurrencyController.Get started");
 
-                var currency = await _currencyService.GetCurrencies();
+                var currency = await _currencyService.GetCurrenciesAsync();
 
                 Logger.LogInformation($"CurrencyController.Get completed");
                 return Ok(currency);
@@ -65,7 +65,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation($"CurrencyController.Post started");
 
-                await _currencyService.AddCurrency(currencyDto);
+                await _currencyService.AddCurrencyAsync(currencyDto);
 
                 Logger.LogInformation($"CurrencyController.Post completed");
                 return Ok();
@@ -84,7 +84,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation($"CurrencyController.Put started");
 
-                var currency = await _currencyService.Update(currencyDto);
+                var currency = await _currencyService.UpdateAsync(currencyDto);
 
                 Logger.LogInformation($"CurrencyController.Put completed");
                 return Ok(currency);
@@ -101,16 +101,16 @@ namespace FinTrack.RestApi.Controllers
         {
             try
             {
-                Logger.LogInformation($"CurrencyController.Delete({id}) started");
+                Logger.LogInformation($"CurrencyController.DeleteAsync({id}) started");
 
-                await _currencyService.Delete(id);
+                await _currencyService.DeleteAsync(id);
 
-                Logger.LogInformation($"CurrencyController.Delete({id}) completed");
+                Logger.LogInformation($"CurrencyController.DeleteAsync({id}) completed");
                 return NoContent();
             }
             catch (ValidationException ex)
             {
-                Logger.LogInformation($"CurrencyController.Delete completed; invalid request");
+                Logger.LogInformation($"CurrencyController.DeleteAsync completed; invalid request");
                 return BadRequest(ex);
             }
         }
@@ -121,16 +121,16 @@ namespace FinTrack.RestApi.Controllers
         {
             try
             {
-                Logger.LogInformation($"CurrencyController.ConvertCurrency started");
+                Logger.LogInformation($"CurrencyController.ConvertCurrencyAsync started");
 
-                var result = await _currencyService.ConvertCurrency(to, from, amount);
+                var result = await _currencyService.ConvertCurrencyAsync(to, from, amount);
 
-                Logger.LogInformation($"CurrencyController.ConvertCurrency completed");
+                Logger.LogInformation($"CurrencyController.ConvertCurrencyAsync completed");
                 return Ok(new { result = result, from = from, to = to, amount = amount });
             }
             catch (ValidationException ex)
             {
-                Logger.LogInformation($"CurrencyController.ConvertCurrency completed; invalid request");
+                Logger.LogInformation($"CurrencyController.ConvertCurrencyAsync completed; invalid request");
                 return BadRequest(ex);
             }
         }

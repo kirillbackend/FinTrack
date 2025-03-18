@@ -12,13 +12,13 @@ namespace FinTrack.Data.Repositories
 
         }
 
-        public async Task Add(Currency entity)
+        public async Task AddAsync(Currency entity)
         {
             Context.Add(entity);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             var currency = await Context.Currencies.FirstOrDefaultAsync(i => i.Id == id);
 
@@ -29,13 +29,13 @@ namespace FinTrack.Data.Repositories
             }
         }
 
-        public async Task<Currency> GetCurrencyById(Guid id)
+        public async Task<Currency> GetCurrencyByIdAsync(Guid id)
         {
             var currency = await Context.Currencies.FirstOrDefaultAsync(i => i.Id == id);
             return currency;
         }
 
-        public async Task<IEnumerable<Currency>> GetCurrencies()
+        public async Task<IEnumerable<Currency>> GetCurrenciesAsync()
         {
             var currency = await Context.Currencies.Where(i => i.IsDeleted == false).ToListAsync();
             return currency;

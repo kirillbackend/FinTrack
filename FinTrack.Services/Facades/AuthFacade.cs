@@ -28,16 +28,16 @@ namespace FinTrack.Services.Facades
             _userService = userService;
         }
 
-        public async Task SingUp(SignUpDto singUpDto)
+        public async Task SingUpAsync(SignUpDto singUpDto)
         {
-            Logger.LogInformation("AuthFacade.SingUp started");
+            Logger.LogInformation("AuthFacade.SingUpAsync started");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
-            var userDto = await _userService.GetByEmail(singUpDto.Email);
+            var userDto = await _userService.GetByEmailAsync(singUpDto.Email);
 
             if (userDto != null)
             {
-                Logger.LogWarning($"AuthFacade.SingUp a userDto with that name has already been registered. Username : {singUpDto.Email}");
+                Logger.LogWarning($"AuthFacade.SingUpAsync a userDto with that name has already been registered. Username : {singUpDto.Email}");
                 throw new ValidationException("User has already been registered.", resourceProvider.Get("UserRegistered"));
             }
 
@@ -49,22 +49,22 @@ namespace FinTrack.Services.Facades
                 UpdatedDate = DateTime.UtcNow
             };
 
-            await _authService.SignUp(userDto);
+            await _authService.SignUpAsync(userDto);
 
-            Logger.LogInformation("AuthFacade.SingUp completed");
+            Logger.LogInformation("AuthFacade.SingUpAsync completed");
         }
 
 
-        public async Task<(string, string)> LogIn(LoginDto loginDto)
+        public async Task<(string, string)> LogInAsync(LoginDto loginDto)
         {
-            Logger.LogInformation("AuthFacade.LogIn started");
+            Logger.LogInformation("AuthFacade.LogInAsync started");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
-            var user = await _userService.GetByEmail(loginDto.Email);
+            var user = await _userService.GetByEmailAsync(loginDto.Email);
 
             if (user == null)
             {
-                Logger.LogWarning($"AuthFacade.SingUp a userDto with that name has already been registered. Username : {loginDto.Email}");
+                Logger.LogWarning($"AuthFacade.SingUpAsync a userDto with that name has already been registered. Username : {loginDto.Email}");
                 throw new ValidationException("User was not found.", resourceProvider.Get("UserWasNotFound"));
             }
 
@@ -72,7 +72,7 @@ namespace FinTrack.Services.Facades
 
             if (!isCorretPassWord)
             {
-                Logger.LogWarning("AuthFacade.LogIn completed. Invalid password");
+                Logger.LogWarning("AuthFacade.LogInAsync completed. Invalid password");
                 throw new ValidationException("Invalid password", resourceProvider.Get("InvalidPassword"));
             }
 
@@ -86,39 +86,39 @@ namespace FinTrack.Services.Facades
                 UserId = user.Id,
             };
 
-            await _authService.AddAuthToken(authToken);
+            await _authService.AddAuthTokenAsync(authToken);
 
-            Logger.LogInformation("AuthFacade.LogIn completed");
+            Logger.LogInformation("AuthFacade.LogInAsync completed");
             return (token, authToken.RefreshToken);
         }
 
-        public async Task<(string, string)> RefreshToken(string refreshToken)
+        public async Task<(string, string)> RefreshTokenAsync(string refreshToken)
         {
-            Logger.LogInformation("AuthFacade.RefreshToken started");
+            Logger.LogInformation("AuthFacade.RefreshTokenAsync started");
 
             var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
-            var authToken = await _authService.GetTokenByRefreshToken(refreshToken);
+            var authToken = await _authService.GetTokenByRefreshTokenAsync(refreshToken);
 
             if (authToken == null)
             {
-                Logger.LogWarning($"AuthFacade.RefreshToken token was not found.");
+                Logger.LogWarning($"AuthFacade.RefreshTokenAsync token was not found.");
                 throw new ValidationException("Token was not found.", resourceProvider.Get("TokenWasNotFound"));
             }
 
             authToken.RefreshToken = await _authService.GenerateRefreshToken();
-            var user = await _userService.GetById(authToken.UserId);
+            var user = await _userService.GetByIdAsync(authToken.UserId);
 
             if (user == null)
             {
-                Logger.LogWarning($"AuthFacade.SingUp a userDto with that name has already been registered.");
+                Logger.LogWarning($"AuthFacade.SingUpAsync a userDto with that name has already been registered.");
                 throw new ValidationException("User was not found.", resourceProvider.Get("UserWasNotFound"));
             }
 
             var claims = await _authService.CreateClaims(user);
             var token = await _authService.CreateToken(claims);
-            await _authService.UpdateRefreshToken(authToken);
+            await _authService.UpdateRefreshTokenAsync(authToken);
 
-            Logger.LogInformation("AuthFacade.RefreshToken complited");
+            Logger.LogInformation("AuthFacade.RefreshTokenAsync complited");
 
             return (token, refreshToken);
         }
