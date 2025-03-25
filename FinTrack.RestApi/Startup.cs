@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using FinTrack.Services;
+using FinTrack.RestApi.ActionFilters;
+using FinTrack.Services.Kafka;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -27,12 +28,12 @@ namespace FinTrack.RestApi
         {
             var settings = _configuration.Get<ApiSettings>();
 
+            services.AddHostedService<CurrencyExchangeKafkaConsumer>();
+
             services.AddControllers(options =>
             {
-                //todo: add action filters
-                //options.Filters.Add<LocaleActionFilter>();
-
-                //options.Filters.Add<OrganizationActionFilter>();
+                options.Filters.Add<UserContextActionFilter>();
+                options.Filters.Add<LocaleActionFilter>();
             })
             .AddNewtonsoftJson(options =>
             {
@@ -69,6 +70,11 @@ namespace FinTrack.RestApi
                 });
             });
 
+            services.AddStackExchangeRedisCache(options => {
+                options.Configuration = settings.ConnectionStrings.RedisDatabase;
+                options.InstanceName = settings.ConnectionStrings.RedisInstanceName;
+            });
+
             services.AddCors(options =>
             {
                 options.AddPolicy(_corsPolicyName, builder =>
@@ -100,9 +106,6 @@ namespace FinTrack.RestApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-            //Todo Add UseCustomExceptionHandler
-            //app.UseCustomExceptionHandler();
-
             app.UseRouting();
             app.UseCors(_corsPolicyName);
             app.UseAuthentication();
@@ -128,13 +131,10 @@ namespace FinTrack.RestApi
         public void ConfigureContainer(ContainerBuilder builder)
         {
             var options = _configuration.Get<ApiSettings>();
-            ContainerConfiguration.RegisterTypes(builder, options);
+            ContainerConfiguration.ResisterTypes(builder, options);
 
-
-            //todo add action filters
             // register filters
-            //builder.RegisterType<OrganizationActionFilter>().AsSelf();
-            //builder.RegisterType<ExceptionHandler>().AsSelf();
+            builder.RegisterType<UserContextActionFilter>().AsSelf();
         }
     }
 }
