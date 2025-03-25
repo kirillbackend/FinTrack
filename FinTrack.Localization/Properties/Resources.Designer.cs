@@ -97,11 +97,29 @@ namespace FinTrack.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no access to the data..
+        /// </summary>
+        internal static string NoAccessData {
+            get {
+                return ResourceManager.GetString("NoAccessData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password is null.
         /// </summary>
         internal static string PasswordIsNull {
             get {
                 return ResourceManager.GetString("PasswordIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token was not found.
+        /// </summary>
+        internal static string TokenWasNotFound {
+            get {
+                return ResourceManager.GetString("TokenWasNotFound", resourceCulture);
             }
         }
         
