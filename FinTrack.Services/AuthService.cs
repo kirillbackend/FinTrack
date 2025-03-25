@@ -1,8 +1,8 @@
 ﻿using FinTrack.Data.Contracts;
 using FinTrack.Data.Repositories.Contracts;
-using FinTrack.Localization;
 using FinTrack.Model;
 using FinTrack.Services.Context;
+using FinTrack.Services.Context.Contracts;
 using FinTrack.Services.Contracts;
 using FinTrack.Services.Dtos;
 using FinTrack.Services.Mappers.Contracts;
@@ -21,9 +21,8 @@ namespace FinTrack.Services
         private readonly FinTrackServiceSettings _settings;
 
         public AuthService(ILogger<AuthService> logger, IMapperFactory mapperFactory, IConfiguration configuration
-            , IDataContextManager dataContextManager, LocalizationContextLocator localization, ContextLocator contextLocator
-            , FinTrackServiceSettings settings)
-            : base(logger, mapperFactory, dataContextManager, localization, contextLocator)
+            , IDataContextManager dataContextManager, FinTrackServiceSettings settings)
+            : base(logger, mapperFactory, dataContextManager)
         {
             _settings = settings;
         }

@@ -2,7 +2,7 @@
 
 namespace FinTrack.Localization
 {
-    public class LocalizationContextLocator
+    public class LocalizationContextLocator : ILocalizationContextLocator
     {
         private Dictionary<Type, IContext> _contexts = new Dictionary<Type, IContext>();
 

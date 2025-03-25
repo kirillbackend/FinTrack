@@ -14,18 +14,16 @@ namespace FinTrack.RestApi.Controllers
         private readonly IFixerAPIWrapper _fixerAPIWrapper;
         private readonly ICurrencyService _currencyService;
         private readonly ICurrencyExchangeKafkaProducer _kafkaProducer;
+        private readonly IHashService _hashService;
 
-        public TestController(
-            ILogger<TestController> logger
-            , IFixerAPIWrapper fixerAPIWrapper
-            , ICurrencyService currencyService
-            , ICurrencyExchangeKafkaProducer kafkaProducer
-            )
+        public TestController(ILogger<TestController> logger, IFixerAPIWrapper fixerAPIWrapper, ICurrencyService currencyService, ICurrencyExchangeKafkaProducer kafkaProducer,
+            IHashService hashService)
             : base(logger)
         {
             _fixerAPIWrapper = fixerAPIWrapper;
             _currencyService = currencyService;
             _kafkaProducer = kafkaProducer;
+            _hashService = hashService;
         }
 
 
@@ -36,11 +34,8 @@ namespace FinTrack.RestApi.Controllers
             try
             {
                 Logger.LogInformation("TestController.Index started");
-                await _kafkaProducer.ProduceAsync("fintrackcurrencyexchanger-topic", new Confluent.Kafka.Message<string, string>
-                {
-                    Key = DateTime.Now.ToString(),
-                    Value = testData
-                });
+
+
 
                 Logger.LogInformation("TestController.Index completed");
 

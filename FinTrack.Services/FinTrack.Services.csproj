@@ -28,7 +28,6 @@
   <ItemGroup>
     <ProjectReference Include="..\FinTrack.Data\FinTrack.Data.csproj" />
     <ProjectReference Include="..\FinTrack.Enums\FinTrack.Enums.csproj" />
-    <ProjectReference Include="..\FinTrack.Localization\FinTrack.Localization.csproj" />
     <ProjectReference Include="..\FinTrack.Model\FinTrack.Model.csproj" />
   </ItemGroup>
 

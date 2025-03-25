@@ -33,7 +33,6 @@ namespace FinTrack.RestApi
             services.AddControllers(options =>
             {
                 options.Filters.Add<UserContextActionFilter>();
-                options.Filters.Add<LocaleActionFilter>();
             })
             .AddNewtonsoftJson(options =>
             {

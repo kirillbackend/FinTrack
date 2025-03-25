@@ -38,7 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FinTrack.Localization\FinTrack.Localization.csproj" />
     <ProjectReference Include="..\FinTrack.Services\FinTrack.Services.csproj" />
   </ItemGroup>
 

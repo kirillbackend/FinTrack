@@ -1,7 +1,7 @@
 ﻿using FinTrack.Data.Contracts;
 using FinTrack.Data.Repositories.Contracts;
-using FinTrack.Localization;
 using FinTrack.Services.Context;
+using FinTrack.Services.Context.Contracts;
 using FinTrack.Services.Contracts;
 using FinTrack.Services.Exceptions;
 using FinTrack.Services.Facades.Contracts;
@@ -12,30 +12,29 @@ namespace FinTrack.Services.Facades
 {
     public class UserFacade : AbstractFacade, IUserFacade
     {
-        private readonly IUserService _userService;
         private readonly IHashService _hashService;
+        private readonly IContextLocator _contextLocator;
 
         public UserFacade(ILogger<UserFacade> logger, IMapperFactory mapperFactory, IDataContextManager dataContextManager
-            , LocalizationContextLocator localizationContext, ContextLocator contextLocator, IUserService userService, IHashService hashService)
-            : base(logger, mapperFactory, dataContextManager, localizationContext, contextLocator)
+            , IHashService hashService, IContextLocator contextLocator)
+            : base(logger, mapperFactory, dataContextManager)
         {
-            _userService = userService;
             _hashService = hashService;
+            _contextLocator = contextLocator;
         }
 
         public async Task UpdatePasswordAsync(string oldPassword, string newPassword)
         {
             Logger.LogInformation("UserFacade.UpdatePasswordAsync started)");
 
-            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
-
             var repo = DataContextManager.CreateRepository<IUserRepository>();
-            var user = await repo.GetByIdAsync(UserContext.Id);
+            var userContext = _contextLocator.Get<UserContext>();
+            var user = await repo.GetByIdAsync(userContext.Id);
 
             if (user == null)
             {
                 Logger.LogWarning($"UserFacade.UpdatePasswordAsync a user was not found");
-                throw new ValidationException("User was not found.", resourceProvider.Get("UserWasNotFound"));
+                throw new ValidationException("User was not found.");
             }
 
             var isCorretPassWord = await _hashService.VerifyHashedPassword(user.Password, oldPassword);
@@ -43,7 +42,7 @@ namespace FinTrack.Services.Facades
             if (!isCorretPassWord)
             {
                 Logger.LogWarning("UserFacade.UpdatePasswordAsync completed. Invalid password");
-                throw new ValidationException("Invalid password", resourceProvider.Get("InvalidPassword"));
+                throw new ValidationException("Invalid password");
             }
             else
             {

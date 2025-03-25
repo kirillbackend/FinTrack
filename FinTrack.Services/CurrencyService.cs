@@ -1,12 +1,10 @@
 ﻿using FinTrack.Data.Contracts;
 using FinTrack.Data.Repositories.Contracts;
-using FinTrack.Localization;
 using FinTrack.Services.Contracts;
 using FinTrack.Services.Mappers.Contracts;
 using Microsoft.Extensions.Logging;
 using FinTrack.Services.Exceptions;
 using FinTrack.Services.Dtos;
-using FinTrack.Services.Context;
 using FinTrack.Services.Wrappers.Contracts;
 
 namespace FinTrack.Services
@@ -16,9 +14,8 @@ namespace FinTrack.Services
         private readonly IFixerAPIWrapper _fixerAPIWrapper;
 
         public CurrencyService(ILogger<CurrencyService> logger, IMapperFactory mapperFactory
-            , IDataContextManager dataContextManager, LocalizationContextLocator localization
-            , ContextLocator contextLocator, IFixerAPIWrapper fixerAPIWrapper)
-            : base(logger, mapperFactory, dataContextManager, localization, contextLocator)
+            , IDataContextManager dataContextManager, IFixerAPIWrapper fixerAPIWrapper)
+            : base(logger, mapperFactory, dataContextManager)
         {
             _fixerAPIWrapper = fixerAPIWrapper;
         }
@@ -27,14 +24,13 @@ namespace FinTrack.Services
         {
             Logger.LogInformation($"CurrencyService.GetCurrencyByIdAsync({id}) started");
 
-            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
             var currency = await currencyRepository.GetCurrencyByIdAsync(id);
 
             if (currency == null)
             {
                 Logger.LogWarning($"CurrencyService.GetCurrencyByIdAsync the currency was not found. Id : {id}");
-                throw new ValidationException("Currency was not found.", resourceProvider.Get("CurrencyWasNotFound"));
+                throw new ValidationException("Currency was not found.");
             }
 
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
@@ -48,7 +44,6 @@ namespace FinTrack.Services
         {
             Logger.LogInformation($"CurrencyService.GetCurrenciesAsync started");
 
-            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
             var currency = await currencyRepository.GetCurrenciesAsync();
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
@@ -74,14 +69,13 @@ namespace FinTrack.Services
         {
             Logger.LogInformation($"CurrencyService.DeleteAsync({id}) started");
 
-            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
             var currency = await currencyRepository.GetCurrencyByIdAsync(id);
 
             if (currency == null)
             {
                 Logger.LogWarning($"CurrencyService.DeleteAsync the currency was not found. Id : {id}");
-                throw new ValidationException("Currency was not found.", resourceProvider.Get("CurrencyWasNotFound"));
+                throw new ValidationException("Currency was not found.");
             }
 
             await currencyRepository.DeleteAsync(id);
@@ -93,7 +87,6 @@ namespace FinTrack.Services
         {
             Logger.LogInformation("CurrencyService.UpdateAsync started");
 
-            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
             var currency = await currencyRepository.GetCurrencyByIdAsync(currencyDto.Id);
@@ -101,7 +94,7 @@ namespace FinTrack.Services
             if (currency == null)
             {
                 Logger.LogWarning($"CurrencyService.UpdateAsync the currency was not found. Id : {currencyDto.Id}");
-                throw new ValidationException("Currency was not found.", resourceProvider.Get("CurrencyWasNotFound"));
+                throw new ValidationException("Currency was not found.");
             }
 
             mapper.MapFromDto(currencyDto, destination: currency);

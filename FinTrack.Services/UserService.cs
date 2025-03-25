@@ -1,21 +1,24 @@
 ﻿using FinTrack.Data.Contracts;
 using FinTrack.Data.Repositories.Contracts;
-using FinTrack.Localization;
 using FinTrack.Services.Contracts;
 using FinTrack.Services.Dtos;
 using FinTrack.Services.Mappers.Contracts;
 using Microsoft.Extensions.Logging;
 using FinTrack.Services.Exceptions;
 using FinTrack.Services.Context;
+using FinTrack.Services.Context.Contracts;
 
 namespace FinTrack.Services
 {
     public class UserService : AbstractService, IUserService
     {
+        private readonly IContextLocator _contextLocator;
+
         public UserService(ILogger<UserService> logger, IMapperFactory mapperFactory
-            , IDataContextManager dataContextManager, LocalizationContextLocator localizationContext, ContextLocator contextLocator)
-            : base(logger, mapperFactory, dataContextManager, localizationContext, contextLocator)
+            , IDataContextManager dataContextManager, IContextLocator contextLocator)
+            : base(logger, mapperFactory, dataContextManager)
         {
+            _contextLocator = contextLocator;
         }
 
         public async Task AddUserAsync(UserDto userDto)
@@ -35,14 +38,15 @@ namespace FinTrack.Services
         {
             Logger.LogInformation($"UserService.DeleteAsync({id} started)");
 
-            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserMapper>();
 
-            if (UserContext.Id != id)
+            var userContext = _contextLocator.Get<UserContext>();
+
+            if (userContext.Id != id)
             {
                 Logger.LogWarning($"UserService.DeleteAsync there is no access to the data.");
-                throw new ValidationException("No access data.", resourceProvider.Get("NoAccessData"));
+                throw new ValidationException("No access data.");
             }
 
             var user = await repo.GetByIdAsync(id);
@@ -50,7 +54,7 @@ namespace FinTrack.Services
             if (user == null)
             {
                 Logger.LogWarning($"UserService.DeleteAsync the user was not found. Id : {id}");
-                throw new ValidationException("User was not found.", resourceProvider.Get("UserWasNotFound"));
+                throw new ValidationException("User was not found.");
             }
 
             await repo.DeleteAsync(id);
@@ -61,7 +65,6 @@ namespace FinTrack.Services
         public async Task<UserDto> GetByEmailAsync(string email)
         {
             Logger.LogInformation("UserService.GetByEmailAsync started");
-            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
 
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserAuthMapper>();
@@ -77,14 +80,15 @@ namespace FinTrack.Services
         {
             Logger.LogInformation($"UserService.GetByIdAsync({id} started)");
 
-            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserMapper>();
 
-            if (UserContext.Id != id)
+            var userContext = _contextLocator.Get<UserContext>();
+
+            if (userContext.Id != id)
             {
                 Logger.LogWarning($"UserService.GetByIdAsync there is no access to the data.");
-                throw new ValidationException("No access data.", resourceProvider.Get("NoAccessData"));
+                throw new ValidationException("No access data.");
             }
 
             var user = await repo.GetByIdAsync(id);
@@ -92,7 +96,7 @@ namespace FinTrack.Services
             if (user == null)
             {
                 Logger.LogWarning($"UserService.GetByIdAsync the user was not found. Id : {id}");
-                throw new ValidationException("User was not found.", resourceProvider.Get("UserWasNotFound"));
+                throw new ValidationException("User was not found.");
             }
 
             var userDto = mapper.MapToDto(user);
@@ -120,14 +124,15 @@ namespace FinTrack.Services
         {
             Logger.LogInformation("UserService.UpdateAsync started)");
 
-            var resourceProvider = LocalizationContext.GetContext<LocaleContext>().ResourceProvider;
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserMapper>();
 
-            if (UserContext.Id != userDto.Id)
+            var userContext = _contextLocator.Get<UserContext>();
+
+            if (userContext.Id != userDto.Id)
             {
                 Logger.LogWarning("UserService.UpdateAsync there is no access to the data.");
-                throw new ValidationException("No access data.", resourceProvider.Get("NoAccessData"));
+                throw new ValidationException("No access data.");
             }
 
             var user = await repo.GetByIdAsync(userDto.Id);
@@ -135,7 +140,7 @@ namespace FinTrack.Services
             if (user == null)
             {
                 Logger.LogWarning($"UserService.UpdateAsync the user was not found.");
-                throw new ValidationException("User was not found.", resourceProvider.Get("UserWasNotFound"));
+                throw new ValidationException("User was not found.");
             }
 
             mapper.MapFromDto(userDto, destination: user);
