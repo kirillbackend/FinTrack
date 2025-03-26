@@ -38,6 +38,8 @@ namespace FinTrack.Services
                 hash = algoritm.ComputeHash(Encoding.UTF8.GetBytes(string.Join(Convert.ToHexString(salt), Convert.ToHexString(key))));
             }
 
+            ////test
+
             _logger.LogInformation("HashService.CreateHashPassword completed");
             return string.Join(separator, Convert.ToHexString(salt), Convert.ToHexString(hash));
         }
