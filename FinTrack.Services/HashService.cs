@@ -42,7 +42,6 @@ namespace FinTrack.Services
             return string.Join(separator, Convert.ToHexString(salt), Convert.ToHexString(hash));
         }
 
-
         public async Task<bool> VerifyHashedPassword(string hashPassword, string password)
         {
             _logger.LogInformation("HashService.VerifyHashedPassword started");
