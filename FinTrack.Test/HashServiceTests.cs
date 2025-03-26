@@ -26,8 +26,7 @@ namespace FinTrack.Test
             var result = await _hashService.CreateHashPassword(testPasswopd);
 
             //Assert
-            //Assert.NotNull(result);
-            Assert.Null(result);
+            Assert.NotNull(result);
         }
 
 
