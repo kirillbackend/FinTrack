@@ -19,7 +19,9 @@ namespace FinTrack.Data.Repositories
 
         public async Task DeleteAsync(Guid id)
         {
-            var finance = await Context.Finances.FirstOrDefaultAsync(i => i.Id == id);
+            IQueryable<Finance> query = Context.Finances;
+
+            var finance = await query.FirstOrDefaultAsync(i => i.Id == id);
 
             if (finance != null)
             {
@@ -31,14 +33,16 @@ namespace FinTrack.Data.Repositories
 
         public async Task<Finance> GetFinanceByIdAsync(Guid id)
         {
-            var finance = await Context.Finances.FirstOrDefaultAsync(i => i.Id == id);
+            IQueryable<Finance> query = Context.Finances;
+            var finance = await query.FirstOrDefaultAsync(i => i.Id == id);
 
             return finance;
         }
 
         public async Task<IEnumerable<Finance>> GetFinancesAsync()
         {
-            var finances = await Context.Finances.Where(i => i.IsDeleted == false).ToListAsync();
+            IQueryable<Finance> query = Context.Finances;
+            var finances = await query.Where(i => !i.IsDeleted).ToListAsync();
 
             return finances;
         }

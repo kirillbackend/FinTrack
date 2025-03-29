@@ -19,7 +19,9 @@ namespace FinTrack.Data.Repositories
 
         public async Task<AuthToken> GetByRefreshTokenAsync(string refreshToken)
         {
-            var token = await Context.AuthTokens.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
+            IQueryable<AuthToken> query = Context.AuthTokens;
+            var token = await query.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
+
             return token;
         }
     }
