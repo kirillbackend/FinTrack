@@ -7,7 +7,7 @@ namespace FinTrack.Services
 {
     public class HashService : IHashService
     {
-        private readonly char separator = ':';
+        private const char _separator = ':';
         private readonly ILogger _logger;
 
         public HashService(ILogger<HashService> logger)
@@ -39,7 +39,7 @@ namespace FinTrack.Services
             }
 
             _logger.LogInformation("HashService.CreateHashPassword completed");
-            return string.Join(separator, Convert.ToHexString(salt), Convert.ToHexString(hash));
+            return string.Join(_separator, Convert.ToHexString(salt), Convert.ToHexString(hash));
         }
 
         public async Task<bool> VerifyHashedPassword(string hashPassword, string password)
@@ -60,7 +60,7 @@ namespace FinTrack.Services
                 return false;
             }
 
-            var array = hashPassword.Split(separator);
+            var array = hashPassword.Split(_separator);
 
             using (SHA256 algoritm = SHA256.Create())
             {

@@ -20,7 +20,8 @@ namespace FinTrack.Data.Repositories
 
         public async Task DeleteAsync(Guid id)
         {
-            var currency = await Context.Currencies.FirstOrDefaultAsync(i => i.Id == id);
+            IQueryable<Currency> query = Context.Currencies;
+            var currency = await query.FirstOrDefaultAsync(i => i.Id == id);
 
             if (currency != null)
             {
@@ -31,13 +32,17 @@ namespace FinTrack.Data.Repositories
 
         public async Task<Currency> GetCurrencyByIdAsync(Guid id)
         {
-            var currency = await Context.Currencies.FirstOrDefaultAsync(i => i.Id == id);
+            IQueryable<Currency> query = Context.Currencies;
+            var currency = await query.FirstOrDefaultAsync(i => i.Id == id);
+
             return currency;
         }
 
         public async Task<IEnumerable<Currency>> GetCurrenciesAsync()
         {
-            var currency = await Context.Currencies.Where(i => i.IsDeleted == false).ToListAsync();
+            IQueryable<Currency> query = Context.Currencies.Where(i => !i.IsDeleted);
+            var currency = await query.ToListAsync();
+
             return currency;
         }
     }
