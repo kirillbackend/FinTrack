@@ -3,7 +3,6 @@ using FinTrack.RestApi.Models;
 using FinTrack.Services.Dtos;
 using FinTrack.Services.Facades.Contracts;
 using FinTrack.Services.Exceptions;
-using FinTrack.Services.Contracts;
 
 namespace FinTrack.RestApi.Controllers
 {
@@ -13,7 +12,7 @@ namespace FinTrack.RestApi.Controllers
     {
         private readonly IAuthFacade _authFacade;
 
-        public AuthController(ILogger<AuthController> logger, IAuthFacade authFacade, IAuthService authService)
+        public AuthController(ILogger<AuthController> logger, IAuthFacade authFacade)
             : base(logger)
         {
             _authFacade = authFacade;

@@ -7,18 +7,23 @@ using Microsoft.Extensions.Logging;
 using FinTrack.Services.Exceptions;
 using FinTrack.Services.Context;
 using FinTrack.Services.Context.Contracts;
+using Microsoft.Extensions.Caching.Distributed;
+using FinTrack.Model;
+using Newtonsoft.Json;
+using Azure;
 
 namespace FinTrack.Services
 {
     public class UserService : AbstractService, IUserService
     {
         private readonly IContextLocator _contextLocator;
+        private readonly IDistributedCache _cache;
 
-        public UserService(ILogger<UserService> logger, IMapperFactory mapperFactory
-            , IDataContextManager dataContextManager, IContextLocator contextLocator)
+        public UserService(ILogger<UserService> logger, IMapperFactory mapperFactory, IDataContextManager dataContextManager, IContextLocator contextLocator, IDistributedCache cache)
             : base(logger, mapperFactory, dataContextManager)
         {
             _contextLocator = contextLocator;
+            _cache = cache;
         }
 
         public async Task AddUserAsync(UserDto userDto)
@@ -69,7 +74,29 @@ namespace FinTrack.Services
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserAuthMapper>();
 
-            var user = await repo.GetByEmailAsync(email);
+            User? user = null;
+            var cashKey = email;
+            var cash = await _cache.GetStringAsync(cashKey);
+
+            if (cash != null)
+            {
+                user = JsonConvert.DeserializeObject<User>(cash);
+            }
+            else
+            {
+                user = await repo.GetByEmailAsync(email);
+
+                if (user != null)
+                {
+                    cash = JsonConvert.SerializeObject(user);
+
+                    await _cache.SetStringAsync(cashKey, cash, new DistributedCacheEntryOptions
+                    {
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
+                    });
+                }
+            }
+
             var userDto = mapper.MapToDto(user);
 
             Logger.LogInformation("UserService.GetByEmailAsync completed");
@@ -82,7 +109,6 @@ namespace FinTrack.Services
 
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserMapper>();
-
             var userContext = _contextLocator.Get<UserContext>();
 
             if (userContext.Id != id)
@@ -91,12 +117,30 @@ namespace FinTrack.Services
                 throw new ValidationException("No access data.");
             }
 
-            var user = await repo.GetByIdAsync(id);
+            User? user = null;
+            var cashKey = id.ToString();
+            var cash = await _cache.GetStringAsync(cashKey);
 
-            if (user == null)
+            if (cash != null)
             {
-                Logger.LogWarning($"UserService.GetByIdAsync the user was not found. Id : {id}");
-                throw new ValidationException("User was not found.");
+                user = JsonConvert.DeserializeObject<User>(cash);
+            }
+            else
+            {
+                user = await repo.GetByIdAsync(id);
+
+                if (user == null)
+                {
+                    Logger.LogWarning($"UserService.GetByIdAsync the user was not found. Id : {id}");
+                    throw new ValidationException("User was not found.");
+                }
+
+                cash = JsonConvert.SerializeObject(user);
+
+                await _cache.SetStringAsync(cashKey, cash, new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
+                });
             }
 
             var userDto = mapper.MapToDto(user);

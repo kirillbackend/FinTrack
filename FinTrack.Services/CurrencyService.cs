@@ -5,19 +5,26 @@ using FinTrack.Services.Mappers.Contracts;
 using Microsoft.Extensions.Logging;
 using FinTrack.Services.Exceptions;
 using FinTrack.Services.Dtos;
-using FinTrack.Services.Wrappers.Contracts;
+using FinTrack.Model;
+using Microsoft.Extensions.Caching.Distributed;
+using FinTrack.Services.Kafka.Contracts;
+using FinTrack.Services.Kafka;
 
 namespace FinTrack.Services
 {
     public class CurrencyService : AbstractService, ICurrencyService
     {
-        private readonly IFixerAPIWrapper _fixerAPIWrapper;
+        private readonly IDistributedCache _cache;
+        private readonly ICurrencyExchangeKafkaProducer _kafkaProducer;
+        private const char _separator = ':';
 
-        public CurrencyService(ILogger<CurrencyService> logger, IMapperFactory mapperFactory
-            , IDataContextManager dataContextManager, IFixerAPIWrapper fixerAPIWrapper)
+        public CurrencyService(ILogger<CurrencyService> logger, IMapperFactory mapperFactory, IDataContextManager dataContextManager, IDistributedCache cache,
+            ICurrencyExchangeKafkaProducer kafkaProducer
+            )
             : base(logger, mapperFactory, dataContextManager)
         {
-            _fixerAPIWrapper = fixerAPIWrapper;
+            _kafkaProducer = kafkaProducer; 
+            _cache = cache;
         }
 
         public async Task<CurrencyDto> GetCurrencyByIdAsync(Guid id)
@@ -108,10 +115,38 @@ namespace FinTrack.Services
         {
             Logger.LogInformation("CurrencyService.ConvertCurrencyAsync started");
 
-            var result = await _fixerAPIWrapper.ConvertCurrencyAsync(to, from, amount);
+            var cashKey = to + _separator + from + _separator + amount;
+            var cash = await _cache.GetStringAsync(cashKey);
 
-            Logger.LogInformation("CurrencyService.ConvertCurrencyAsync completed");
-            return result;
+            if (cash == null)
+            {
+                await _kafkaProducer.ProduceAsync("fintrackcurrencyexchanger-topic", new Confluent.Kafka.Message<string, string>
+                {
+                    Key = DateTime.Now.ToString(),
+                    Value = cashKey
+                });
+
+                _kafkaProducer.Dispose();
+
+                var stoppingToken = new CancellationToken();
+
+                //var consumer = new CurrencyExchangeKafkaConsumer();
+
+                var result = 0; //await _kafkaConsumer.ConsumeAsync("fintrackcurrencyexchanger-topic", stoppingToken);
+
+                await _cache.SetStringAsync(cashKey, result.ToString(), new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
+                });
+
+                Logger.LogInformation("CurrencyService.ConvertCurrencyAsync completed");
+                return decimal.Parse(result.ToString());
+            }
+            else
+            {
+                return decimal.Parse(cash.Replace(".", ","));
+            }
+
         }
     }
 }

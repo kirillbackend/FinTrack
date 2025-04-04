@@ -20,7 +20,7 @@ namespace FinTrack.Services.Kafka
             }, stoppingToken);
         }
 
-        public async Task ConsumeAsync(string topic, CancellationToken stoppingToken)
+        public async Task<string> ConsumeAsync(string topic, CancellationToken stoppingToken)
         {
             var config = new ConsumerConfig
             {
@@ -31,15 +31,18 @@ namespace FinTrack.Services.Kafka
 
             using var consumer = new ConsumerBuilder<string, string>(config).Build();
             consumer.Subscribe(topic);
+            var result = string.Empty;
 
             while (!stoppingToken.IsCancellationRequested)
             {
                 var consumerResult = consumer.Consume(stoppingToken);
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Key = {consumerResult.Message.Key} \nValue = {consumerResult.Message.Value}");
+                result = consumerResult.Message.Value;
             }
 
             consumer.Close();
+            return result;
         }
     }
 }

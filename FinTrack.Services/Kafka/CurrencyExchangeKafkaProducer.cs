@@ -24,7 +24,13 @@ namespace FinTrack.Services.Kafka
 
         public Task ProduceAsync(string topic, Message<string, string> message)
         {
+
            return _producer.ProduceAsync(topic, message);
+        }
+
+        public void Dispose()
+        {
+            _producer.Dispose();
         }
     }
 }

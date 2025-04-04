@@ -28,7 +28,7 @@ namespace FinTrack.RestApi
         {
             var settings = _configuration.Get<ApiSettings>();
 
-            services.AddHostedService<CurrencyExchangeKafkaConsumer>();
+            //services.AddHostedService<CurrencyExchangeKafkaConsumer>();
 
             services.AddControllers(options =>
             {

@@ -10,34 +10,40 @@ namespace FinTrack.RestApi.ActionFilters
     {
         private readonly ILifetimeScope _lifetimeScope;
         private readonly IContextFactory _contextFactory;
+        private readonly IContextLocator _iContextLocator;
 
-        public UserContextActionFilter(
-            ILifetimeScope lifetimeScope,
-            IContextFactory contextFactory)
+        public UserContextActionFilter(ILifetimeScope lifetimeScope, IContextFactory contextFactory, IContextLocator iContextLocator)
         {
             _lifetimeScope = lifetimeScope;
             _contextFactory = contextFactory;
+            _iContextLocator = iContextLocator;
         }
 
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
-            if (context.HttpContext.User == null)
+            try
             {
-                return;
+                if (context.HttpContext.User == null)
+                {
+                    return;
+                }
+
+                var emailClaim = context.HttpContext.User.FindFirst(ClaimTypes.Email);
+                var idClaim = context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+                var roleClaim = context.HttpContext.User.FindFirst(ClaimTypes.Role);
+
+                if (emailClaim == null || idClaim == null || roleClaim == null)
+                {
+                    return;
+                }
+
+                var localeContext = _contextFactory.CreateLocaleContext(emailClaim.Value, Guid.Parse(idClaim.Value), roleClaim.Value);
+                _iContextLocator.AddContext(localeContext);
             }
-
-            var emailClaim = context.HttpContext.User.FindFirst(ClaimTypes.Email);
-            var idClaim = context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
-            var roleClaim = context.HttpContext.User.FindFirst(ClaimTypes.Role);
-
-            if (emailClaim == null || idClaim == null || roleClaim == null)
+            catch (Exception ex)
             {
-                return;
+                throw new Exception(ex.Message);
             }
-
-            var contextLocator = _lifetimeScope.Resolve<ContextLocator>();
-            var localeContext = _contextFactory.CreateLocaleContext(emailClaim.Value, Guid.Parse(idClaim.Value), roleClaim.Value);
-            contextLocator.AddContext(localeContext);
         }
     }
 }

@@ -1,0 +1,44 @@
+2025-03-29 15:42:09.463 +00:00 [INF] FinTrack.RestApi.ContainerConfiguration.RegisterTypes completed
+2025-03-29 15:42:10.805 +00:00 [INF] Now listening on: http://[::]:8080
+2025-03-29 15:42:10.808 +00:00 [INF] Now listening on: https://[::]:8081
+2025-03-29 15:42:10.810 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-29 15:42:10.811 +00:00 [INF] Hosting environment: Development
+2025-03-29 15:42:10.811 +00:00 [INF] Content root path: /app
+2025-03-29 15:42:57.416 +00:00 [INF] AuthController.LogInAsync started
+2025-03-29 15:42:57.420 +00:00 [INF] AuthFacade.LogInAsync started
+2025-03-29 15:42:57.421 +00:00 [INF] UserService.GetByEmailAsync started
+2025-03-29 15:42:59.416 +00:00 [INF] UserService.GetByEmailAsync completed
+2025-03-29 15:42:59.418 +00:00 [INF] HashService.VerifyHashedPassword started
+2025-03-29 15:42:59.419 +00:00 [INF] HashService.VerifyHashedPassword completed
+2025-03-29 15:42:59.421 +00:00 [INF] AuthService.CreateToken started
+2025-03-29 15:42:59.468 +00:00 [INF] AuthService.CreateToken completed
+2025-03-29 15:42:59.574 +00:00 [INF] AuthFacade.LogInAsync completed
+2025-03-29 15:42:59.574 +00:00 [INF] AuthController.LogInAsync completed
+2025-03-29 15:43:17.944 +00:00 [INF] TestController.Index started
+2025-03-29 15:43:17.945 +00:00 [INF] TestController.Index completed
+2025-03-29 15:43:37.545 +00:00 [INF] CurrencyController.ConvertCurrencyAsync started
+2025-03-29 15:43:37.547 +00:00 [INF] CurrencyService.ConvertCurrencyAsync started
+2025-03-29 15:43:43.958 +00:00 [ERR] Connection id "0HNBER12Q1PGP", Request id "0HNBER12Q1PGP:00000017": An unhandled exception was thrown by the application.
+StackExchange.Redis.RedisConnectionException: The message timed out in the backlog attempting to send because no connection became available (5000ms) - Last Connection Exception: UnableToConnect on localhost:6379/Interactive, Initializing/NotStarted, last: NONE, origin: BeginConnectAsync, outstanding: 0, last-read: 0s ago, last-write: 0s ago, keep-alive: 60s, state: Connecting, mgr: 10 of 10 available, last-heartbeat: never, global: 0s ago, v: 2.7.27.49176, command=HMGET, timeout: 5000, inst: 0, qu: 0, qs: 0, aw: False, bw: CheckingForTimeout, last-in: 0, cur-in: 0, sync-ops: 0, async-ops: 1, serverEndpoint: localhost:6379, conn-sec: n/a, aoc: 0, mc: 1/1/0, mgr: 10 of 10 available, clientName: 8ef6a995c68b(SE.Redis-v2.7.27.49176), IOCP: (Busy=0,Free=1000,Min=1,Max=1000), WORKER: (Busy=1,Free=32766,Min=16,Max=32767), POOL: (Threads=12,QueuedItems=0,CompletedItems=716,Timers=17), v: 2.7.27.49176 (Please take a look at this article for some common client-side issues that can cause timeouts: https://stackexchange.github.io/StackExchange.Redis/Timeouts)
+ ---> StackExchange.Redis.RedisConnectionException: UnableToConnect on localhost:6379/Interactive, Initializing/NotStarted, last: NONE, origin: BeginConnectAsync, outstanding: 0, last-read: 0s ago, last-write: 0s ago, keep-alive: 60s, state: Connecting, mgr: 10 of 10 available, last-heartbeat: never, global: 0s ago, v: 2.7.27.49176
+   --- End of inner exception stack trace ---
+   at Microsoft.Extensions.Caching.StackExchangeRedis.RedisCache.GetAndRefreshAsync(String key, Boolean getData, CancellationToken token)
+   at Microsoft.Extensions.Caching.StackExchangeRedis.RedisCache.GetAsync(String key, CancellationToken token)
+   at Microsoft.Extensions.Caching.Distributed.DistributedCacheExtensions.GetStringAsync(IDistributedCache cache, String key, CancellationToken token)
+   at FinTrack.Services.Wrappers.FixerAPIWrapper.ConvertCurrencyAsync(String to, String from, String amount) in D:\Projects\FinTrack\FinTrack.Services\Wrappers\FixerAPIWrapper.cs:line 37
+   at FinTrack.Services.CurrencyService.ConvertCurrencyAsync(String to, String from, String amount) in D:\Projects\FinTrack\FinTrack.Services\CurrencyService.cs:line 111
+   at FinTrack.RestApi.Controllers.CurrencyController.ConvertCurrency(String to, String from, String amount) in D:\Projects\FinTrack\FinTrack.RestApi\Controllers\CurrencyController.cs:line 126
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
