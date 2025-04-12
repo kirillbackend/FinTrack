@@ -54,7 +54,7 @@ namespace FinTrack.Services
                 throw new ValidationException("No access data.");
             }
 
-            var user = await repo.GetByIdAsync(id);
+            var user = await repo.GetAsync(id);
 
             if (user == null)
             {
@@ -105,7 +105,7 @@ namespace FinTrack.Services
 
         public async Task<UserDto> GetByIdAsync(Guid id)
         {
-            Logger.LogInformation($"UserService.GetByIdAsync({id} started)");
+            Logger.LogInformation($"UserService.GetAsync({id} started)");
 
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserMapper>();
@@ -113,7 +113,7 @@ namespace FinTrack.Services
 
             if (userContext.Id != id)
             {
-                Logger.LogWarning($"UserService.GetByIdAsync there is no access to the data.");
+                Logger.LogWarning($"UserService.GetAsync there is no access to the data.");
                 throw new ValidationException("No access data.");
             }
 
@@ -127,11 +127,11 @@ namespace FinTrack.Services
             }
             else
             {
-                user = await repo.GetByIdAsync(id);
+                user = await repo.GetAsync(id);
 
                 if (user == null)
                 {
-                    Logger.LogWarning($"UserService.GetByIdAsync the user was not found. Id : {id}");
+                    Logger.LogWarning($"UserService.GetAsync the user was not found. Id : {id}");
                     throw new ValidationException("User was not found.");
                 }
 
@@ -145,22 +145,22 @@ namespace FinTrack.Services
 
             var userDto = mapper.MapToDto(user);
 
-            Logger.LogInformation($"UserService.GetByIdAsync({id}) completed");
+            Logger.LogInformation($"UserService.GetAsync({id}) completed");
             return userDto;
         }
 
         public async Task<IEnumerable<UserDto>> GetUsers()
         {
-            Logger.LogInformation("UserService.GetUsersAsync started");
+            Logger.LogInformation("UserService.GetAsync started");
 
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var mapper = MapperFactory.GetMapper<IUserMapper>();
 
-            var users = await repo.GetUsersAsync();
+            var users = await repo.GetAsync();
 
             var usersDto = mapper.MapCollectionToDto(users);
 
-            Logger.LogInformation($"UserService.GetUsersAsync completed");
+            Logger.LogInformation($"UserService.GetAsync completed");
             return usersDto;
         }
 
@@ -179,7 +179,7 @@ namespace FinTrack.Services
                 throw new ValidationException("No access data.");
             }
 
-            var user = await repo.GetByIdAsync(userDto.Id);
+            var user = await repo.GetAsync(userDto.Id);
 
             if (user == null)
             {

@@ -7,7 +7,7 @@ namespace FinTrack.Model
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public decimal Amount { get; set; }
-        public int CurrencyId { get; set; }
+        public Guid CurrencyId { get; set; }
         public bool IsDeleted { get; set; }
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; }

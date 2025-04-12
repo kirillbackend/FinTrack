@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using FinTrack.Services.Exceptions;
 using FinTrack.Services.Context;
 using FinTrack.Services.Context.Contracts;
+using FinTrack.Model;
 
 namespace FinTrack.Services
 {
@@ -20,14 +21,25 @@ namespace FinTrack.Services
             _contextLocator = contextLocator;
         }
 
-        public async Task AddFinanceAsync(FinanceDto currencyDto)
+        public async Task AddFinanceAsync(FinanceDto financeDto)
         {
+
             Logger.LogInformation($"FinanceService.AddFinanceAsync started");
 
             var financeRepository = DataContextManager.CreateRepository<IFinanceRepository>();
+            var currencyRepositoty = DataContextManager.CreateRepository<ICurrencyRepository>();
             var mapper = MapperFactory.GetMapper<IFinanceMapper>();
 
-            var finance = mapper.MapFromDto(currencyDto);
+            var currency =  await currencyRepositoty.GetAsync(financeDto.CurrencyId);
+
+            if (currency == null)
+            {
+                Logger.LogWarning($"FinanceService.AddFinanceAsync the currency was not found. CurrencyId : {financeDto.CurrencyId}");
+                throw new ValidationException("Currency was not found.");
+            }
+
+            var finance = mapper.MapFromDto(financeDto);
+            finance.Id = new Guid();
             finance.CreatedDate = DateTime.UtcNow;
             finance.UpdatedDate = DateTime.UtcNow;
             await financeRepository.AddAssync(finance);
@@ -41,7 +53,7 @@ namespace FinTrack.Services
 
             var financeRepository = DataContextManager.CreateRepository<IFinanceRepository>();
 
-            var finance = await financeRepository.GetFinanceByIdAsync(id);
+            var finance = await financeRepository.GetAsync(id);
 
             var userContext = _contextLocator.Get<UserContext>();
 
@@ -66,45 +78,45 @@ namespace FinTrack.Services
 
         public async Task<FinanceDto> GetFinanceByIdAsync(Guid id)
         {
-            Logger.LogInformation($"FinanceService.GetFinanceByIdAsync({id}) started");
+            Logger.LogInformation($"FinanceService.GetAsync({id}) started");
 
             var financeRepository = DataContextManager.CreateRepository<IFinanceRepository>();
 
-            var finance = await financeRepository.GetFinanceByIdAsync(id);
+            var finance = await financeRepository.GetAsync(id);
 
             var userContext = _contextLocator.Get<UserContext>();
 
             if (userContext.Id != finance.UserId)
             {
-                Logger.LogWarning($"FinanceService.GetFinanceByIdAsync there is no access to the data.");
+                Logger.LogWarning($"FinanceService.GetAsync there is no access to the data.");
                 throw new ValidationException("No access data.");
             }
 
             if (finance == null)
             {
-                Logger.LogWarning($"FinanceService.GetFinanceByIdAsync the finance was not found. Id : {id}");
+                Logger.LogWarning($"FinanceService.GetAsync the finance was not found. Id : {id}");
                 throw new ValidationException("Finance was not found.");
             }
 
             var mapper = MapperFactory.GetMapper<IFinanceMapper>();
             var financeDto = mapper.MapToDto(finance);
 
-            Logger.LogInformation($"FinanceService.GetFinanceByIdAsync({id}) completed");
+            Logger.LogInformation($"FinanceService.GetAsync({id}) completed");
             return financeDto;
         }
 
         public async Task<IEnumerable<FinanceDto>> GetFinancesAsync()
         {
-            Logger.LogInformation($"FinanceService.GetFinancesAsync started");
+            Logger.LogInformation($"FinanceService.GetAsync started");
 
             var financeRepository = DataContextManager.CreateRepository<IFinanceRepository>();
             var mapper = MapperFactory.GetMapper<IFinanceMapper>();
 
-            var finances = await financeRepository.GetFinancesAsync();
+            var finances = await financeRepository.GetAsync();
 
             var financesDto = mapper.MapCollectionToDto(finances);
 
-            Logger.LogInformation($"FinanceService.GetFinancesAsync completed");
+            Logger.LogInformation($"FinanceService.GetAsync completed");
             return financesDto;
         }
 
@@ -114,7 +126,7 @@ namespace FinTrack.Services
 
             var financeRepository = DataContextManager.CreateRepository<IFinanceRepository>();
 
-            var finance = await financeRepository.GetFinanceByIdAsync(financeDto.Id);
+            var finance = await financeRepository.GetAsync(financeDto.Id);
 
             var userContext = _contextLocator.Get<UserContext>();
 

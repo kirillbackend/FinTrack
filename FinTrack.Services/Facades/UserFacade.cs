@@ -29,7 +29,7 @@ namespace FinTrack.Services.Facades
 
             var repo = DataContextManager.CreateRepository<IUserRepository>();
             var userContext = _contextLocator.Get<UserContext>();
-            var user = await repo.GetByIdAsync(userContext.Id);
+            var user = await repo.GetAsync(userContext.Id);
 
             if (user == null)
             {

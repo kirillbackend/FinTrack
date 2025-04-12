@@ -1,4 +1,5 @@
 ﻿using FinTrack.Enums;
+using FinTrack.Model;
 
 namespace FinTrack.Services.Dtos
 {

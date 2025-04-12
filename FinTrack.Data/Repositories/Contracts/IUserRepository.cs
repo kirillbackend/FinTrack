@@ -7,8 +7,8 @@ namespace FinTrack.Data.Repositories.Contracts
     {
         Task AddAsync(User entity);
         Task DeleteAsync(Guid id);
-        Task<User> GetByIdAsync(Guid id);
-        Task<IEnumerable<User>> GetUsersAsync();
+        Task<User> GetAsync(Guid id);
+        Task<IEnumerable<User>> GetAsync();
         Task<User> GetByEmailAsync(string email);
     }
 }

@@ -133,7 +133,7 @@ namespace FinTrack.RestApi
             ContainerConfiguration.ResisterTypes(builder, options);
 
             // register filters
-            builder.RegisterType<UserContextActionFilter>().AsSelf();
+            builder.RegisterType<UserContextActionFilter>().AsSelf().InstancePerLifetimeScope();
         }
     }
 }

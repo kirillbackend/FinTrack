@@ -40,7 +40,7 @@ namespace FinTrack.Data.Repositories
             return user;
         }
 
-        public async Task<User> GetByIdAsync(Guid id)
+        public async Task<User> GetAsync(Guid id)
         {
             IQueryable<User> query = Context.Users;
             var user = await query.FirstOrDefaultAsync(u => u.Id == id);
@@ -48,7 +48,7 @@ namespace FinTrack.Data.Repositories
             return user;
         }
 
-        public async Task<IEnumerable<User>> GetUsersAsync()
+        public async Task<IEnumerable<User>> GetAsync()
         {
             IQueryable<User> query = Context.Users.Where(u => u!.IsDeleted);
             var users = await query.ToListAsync();

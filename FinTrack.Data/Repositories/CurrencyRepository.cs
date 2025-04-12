@@ -30,7 +30,7 @@ namespace FinTrack.Data.Repositories
             }
         }
 
-        public async Task<Currency> GetCurrencyByIdAsync(Guid id)
+        public async Task<Currency> GetAsync(Guid id)
         {
             IQueryable<Currency> query = Context.Currencies;
             var currency = await query.FirstOrDefaultAsync(i => i.Id == id);
@@ -38,7 +38,7 @@ namespace FinTrack.Data.Repositories
             return currency;
         }
 
-        public async Task<IEnumerable<Currency>> GetCurrenciesAsync()
+        public async Task<IEnumerable<Currency>> GetAsync()
         {
             IQueryable<Currency> query = Context.Currencies.Where(i => !i.IsDeleted);
             var currency = await query.ToListAsync();

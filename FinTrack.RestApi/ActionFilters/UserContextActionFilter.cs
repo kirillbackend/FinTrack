@@ -8,13 +8,11 @@ namespace FinTrack.RestApi.ActionFilters
 {
     public class UserContextActionFilter : IAsyncAuthorizationFilter
     {
-        private readonly ILifetimeScope _lifetimeScope;
         private readonly IContextFactory _contextFactory;
         private readonly IContextLocator _iContextLocator;
 
-        public UserContextActionFilter(ILifetimeScope lifetimeScope, IContextFactory contextFactory, IContextLocator iContextLocator)
+        public UserContextActionFilter(IContextFactory contextFactory, IContextLocator iContextLocator)
         {
-            _lifetimeScope = lifetimeScope;
             _contextFactory = contextFactory;
             _iContextLocator = iContextLocator;
         }

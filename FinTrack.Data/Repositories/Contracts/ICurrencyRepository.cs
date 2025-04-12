@@ -7,7 +7,7 @@ namespace FinTrack.Data.Repositories.Contracts
     {
         Task AddAsync(Currency entity);
         Task DeleteAsync(Guid id);
-        Task<Currency> GetCurrencyByIdAsync(Guid id);
-        Task<IEnumerable<Currency>> GetCurrenciesAsync();
+        Task<Currency> GetAsync(Guid id);
+        Task<IEnumerable<Currency>> GetAsync();
     }
 }

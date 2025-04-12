@@ -31,7 +31,7 @@ namespace FinTrack.Data.Repositories
             }
         }
 
-        public async Task<Finance> GetFinanceByIdAsync(Guid id)
+        public async Task<Finance> GetAsync(Guid id)
         {
             IQueryable<Finance> query = Context.Finances;
             var finance = await query.FirstOrDefaultAsync(i => i.Id == id);
@@ -39,7 +39,7 @@ namespace FinTrack.Data.Repositories
             return finance;
         }
 
-        public async Task<IEnumerable<Finance>> GetFinancesAsync()
+        public async Task<IEnumerable<Finance>> GetAsync()
         {
             IQueryable<Finance> query = Context.Finances;
             var finances = await query.Where(i => !i.IsDeleted).ToListAsync();
