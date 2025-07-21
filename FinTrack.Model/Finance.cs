@@ -13,8 +13,9 @@ namespace FinTrack.Model
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public FinanceType FinanceType { get; set; }
-        public FinanceCategoryType FinanceCategoryType { get; set; }
+        public Guid CategoryId { get; set; }
 
+        public Category Category { get; set; }
         public Currency Currency { get; set; }
         public User User { get; set; }
     }

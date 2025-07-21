@@ -35,7 +35,12 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation("TestController.Index started");
 
+                var type = _fixerAPIWrapper.GetType();
 
+                foreach (var fixer in type.GetMembers())
+                {
+                    var res = fixer.DeclaringType;
+                }
 
                 Logger.LogInformation("TestController.Index completed");
 

@@ -7,5 +7,7 @@ namespace FinTrack.Model
         public Guid UserId { get; set; }
         public DateTime RefreshTokenExpireTime { get; set; }
         public string RefreshToken { get; set; }
+
+        public User User { get; set; }
     }
 }

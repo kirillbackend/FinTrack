@@ -151,5 +151,19 @@ namespace FinTrack.Services
             Logger.LogInformation($"FinanceService.UpdateAsync completed");
             return financeDto;
         }
+
+        public async Task AddCategoryAsync(Guid financeId, Guid categoryId)
+        {
+            Logger.LogInformation($"FinanceService.AddCategoryAsync started");
+
+            var financeRepository = DataContextManager.CreateRepository<IFinanceRepository>();
+            var finance = await financeRepository.GetAsync(financeId);
+
+            finance.CategoryId = categoryId;
+            finance.UpdatedDate = DateTime.UtcNow;
+            await DataContextManager.SaveAsync();
+
+            Logger.LogInformation($"FinanceService.AddCategoryAsync completed");
+        }
     }
 }

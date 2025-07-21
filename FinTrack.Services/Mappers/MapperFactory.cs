@@ -13,6 +13,7 @@ namespace FinTrack.Services.Mappers
             builder.RegisterType<UserAuthMapper>().As<IUserAuthMapper>().SingleInstance();
             builder.RegisterType<CurrencyMapper>().As<ICurrencyMapper>().SingleInstance();
             builder.RegisterType<FinanceMapper>().As<IFinanceMapper>().SingleInstance(); 
+            builder.RegisterType<CategoryMapper>().As<ICategoryMapper>().SingleInstance();
 
             // self-register
             builder.RegisterType<MapperFactory>().As<IMapperFactory>().SingleInstance();

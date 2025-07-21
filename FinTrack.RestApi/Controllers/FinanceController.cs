@@ -27,7 +27,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation($"FinanceController.Get({id}) started");
 
-                var finance = await _financeService.GetFinanceByIdAsync(id); 
+                var finance = await _financeService.GetFinanceByIdAsync(id);
 
                 Logger.LogInformation($"FinanceController.Get({id}) completed");
                 return Ok(finance);
@@ -101,17 +101,33 @@ namespace FinTrack.RestApi.Controllers
         {
             try
             {
-                Logger.LogInformation($"FinanceController.DeleteAsync({id}) started");
+                Logger.LogInformation($"FinanceController.Delete({id}) started");
 
                 await _financeService.DeleteAsync(id);
 
-                Logger.LogInformation($"FinanceController.DeleteAsync({id}) completed");
+                Logger.LogInformation($"FinanceController.Delete({id}) completed");
                 return NoContent();
             }
             catch (ValidationException ex)
             {
-                Logger.LogWarning($"FinanceController.DeleteAsync({id}) completed; invalid request");
+                Logger.LogWarning($"FinanceController.Delete({id}) completed; invalid request");
                 return BadRequest(ex);
+            }
+        }
+
+        [HttpPatch]
+        [Route("{financeId}/category/{categoryId}")]
+        public async Task<IActionResult> Patch(Guid financeId, Guid categoryId)
+        {
+            try
+            {
+                await _financeService.AddCategoryAsync(financeId, categoryId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWarning($"FinanceController.UpdateCategory completed; {ex.Message}");
+                return BadRequest(ex.Message);
             }
         }
     }

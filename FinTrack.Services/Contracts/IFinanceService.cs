@@ -9,5 +9,6 @@ namespace FinTrack.Services.Contracts
         Task AddFinanceAsync(FinanceDto currencyDto);
         Task DeleteAsync(Guid id);
         Task<FinanceDto> UpdateAsync(FinanceDto currencyDto);
+        Task AddCategoryAsync(Guid financeId, Guid categoryId);
     }
 }

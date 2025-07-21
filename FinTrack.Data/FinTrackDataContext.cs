@@ -15,6 +15,7 @@ namespace FinTrack.Data
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Finance> Finances { get; set; }
         public DbSet<AuthToken> AuthTokens { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         public FinTrackDataContext(DbConnectionSettings settings)
         {

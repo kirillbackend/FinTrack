@@ -62,7 +62,7 @@ namespace FinTrack.Services
 
         public async Task AddCurrencyAsync(CurrencyDto currencyDto)
         {
-            Logger.LogInformation("CurrencyService.AddCurrencyAsync started");
+            Logger.LogInformation("CurrencyService.AddAsync started");
 
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
@@ -72,7 +72,7 @@ namespace FinTrack.Services
 
             await currencyRepository.AddAsync(currency);
 
-            Logger.LogInformation("CurrencyService.AddCurrencyAsync completed");
+            Logger.LogInformation("CurrencyService.AddAsync completed");
         }
 
         public async Task DeleteAsync(Guid id)
