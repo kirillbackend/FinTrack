@@ -1,5 +1,4 @@
 ﻿using FinTrack.Enums;
-using FinTrack.Model;
 
 namespace FinTrack.Services.Dtos
 {
@@ -14,6 +13,6 @@ namespace FinTrack.Services.Dtos
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public FinanceType FinanceType { get; set; }
-        public FinanceCategoryType FinanceCategoryType { get; set; }
+        public Guid CategoryId { get; set; }
     }
 }
