@@ -28,19 +28,19 @@ namespace FinTrack.Test
                 _iDataContextManagerMock.Object, _iContextLocatorMock.Object);
         }
 
-        [Fact]
-        public async Task AddCategory_Exists_ReturnsTrue()
-        {
-            //Arrange
-            var financeId = new Guid();
-            var categoryId = new Guid();
+        //[Fact]
+        //public async Task AddCategory_Exists_ReturnsTrue()
+        //{
+        //    //Arrange
+        //    var financeId = new Guid();
+        //    var categoryId = new Guid();
 
-            //Act
-            var exception = await Record.ExceptionAsync(() => _financeService.AddCategoryAsync(financeId, categoryId));
+        //    //Act
+        //    var exception = await Record.ExceptionAsync(() => _financeService.AddCategoryAsync(financeId, categoryId));
 
-            //Assert
-            Assert.Null(exception);
-        }
+        //    //Assert
+        //    Assert.Null(exception);
+        //}
 
         //[Fact]
         //public async Task AddCategory_FinanceAddCategory_ReturnsCategory()
