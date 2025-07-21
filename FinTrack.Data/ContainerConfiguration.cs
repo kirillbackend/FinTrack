@@ -18,6 +18,7 @@ namespace FinTrack.Data
             builder.RegisterType<CurrencyRepository>().As<ICurrencyRepository>();
             builder.RegisterType<FinanceRepository>().As<IFinanceRepository>();
             builder.RegisterType<AuthTokenRepositoty>().As<IAuthTokenRepositoty>();
+            builder.RegisterType<CategoryRepositoty>().As<ICategoryRepositoty>();
         }
     }
 }
