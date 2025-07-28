@@ -10,9 +10,13 @@ namespace FinTrack.Services
 {
     public class CategoryService : AbstractService, ICategoryService
     {
-        public CategoryService(ILogger<CategoryService> logger, IMapperFactory mapperFactory, IDataContextManager dataContextManager)
+        private readonly IValidatorService _validatorService;
+
+        public CategoryService(ILogger<CategoryService> logger, IMapperFactory mapperFactory
+            , IDataContextManager dataContextManager, IValidatorService validatorService)
             : base(logger, mapperFactory, dataContextManager)
         {
+            _validatorService = validatorService;
         }
 
         public async Task AddAsync(CategoryDto categoryDto)
@@ -22,7 +26,7 @@ namespace FinTrack.Services
 
             var categoty = categotyMapper.MapFromDto(categoryDto);
 
-            await CategoryValidate(categoty);
+            await _validatorService.CategoryValidate(categoty);
 
             await categoryRepository.AddAssync(categoty);
         }
@@ -40,7 +44,7 @@ namespace FinTrack.Services
 
             var categoty = await categoryRepository.GetAsync(id);
 
-            await CategoryValidate(categoty);
+            await _validatorService.CategoryValidate(categoty);
 
             var categotyDto = categotyMapper.MapToDto(categoty);
 
@@ -68,7 +72,7 @@ namespace FinTrack.Services
 
             var categoty = await categoryRepository.GetAsync(categoryDto.Id);
 
-            await CategoryValidate(categoty);
+            await _validatorService.CategoryValidate(categoty);
 
             categotyMapper.MapFromDto(categoryDto, destination: categoty);
             categoty.UpdatedDate = DateTime.UtcNow;
@@ -77,21 +81,16 @@ namespace FinTrack.Services
             return categoryDto;
         }
 
-        public async Task CategoryValidate(Category category)
-        {
-            if (category == null)
-                throw new ArgumentNullException(nameof(category));
 
-            if (string.IsNullOrEmpty(category.Name))
-                throw new ArgumentNullException(nameof(category.Name));
-        }
-
-        public async Task CategoriesValidate(IEnumerable<Category> categories)
+        #region private metods
+        private async Task CategoriesValidate(IEnumerable<Category> categories)
         {
             foreach (var category in categories)
             {
-                await CategoryValidate(category);
+                await _validatorService.CategoryValidate(category);
             } 
         }
+
+        #endregion
     }
 }
