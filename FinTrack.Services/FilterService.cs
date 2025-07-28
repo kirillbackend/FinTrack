@@ -17,7 +17,7 @@ namespace FinTrack.Services
                 [ReportType.Week] = () => predicate = predicate.And(i => i.CreatedDate >= DateTime.Today && i.CreatedDate < DateTime.Today.AddDays(7)),
                 [ReportType.Month] = () => predicate = predicate.And(i => i.CreatedDate >= DateTime.Today && i.CreatedDate < DateTime.Today.AddMonths(1)),
                 [ReportType.Year] = () => predicate = predicate.And(i => i.CreatedDate >= DateTime.Today && i.CreatedDate < DateTime.Today.AddYears(1)),
-                [ReportType.All] = () => { } // Ничего не делаем для All
+                [ReportType.All] = () => { }
             };
 
             predicate = predicate.And(i => i.UserId == userId);
