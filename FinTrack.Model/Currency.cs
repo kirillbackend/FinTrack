@@ -9,6 +9,6 @@ namespace FinTrack.Model
         public string Symbol { get; set; }
         public bool IsDeleted { get; set; }
 
-        public List<Finance> Finances { get; set; } 
+        public IEnumerable<Finance> Finances { get; set; } 
     }
 }

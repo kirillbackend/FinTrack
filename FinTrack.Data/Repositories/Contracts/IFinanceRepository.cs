@@ -1,5 +1,6 @@
 ﻿using FinTrack.Data.Contracts;
 using FinTrack.Model;
+using System.Linq.Expressions;
 
 namespace FinTrack.Data.Repositories.Contracts
 {
@@ -8,6 +9,6 @@ namespace FinTrack.Data.Repositories.Contracts
         Task AddAssync(Finance entity);
         Task DeleteAsync(Guid id);
         Task<Finance> GetAsync(Guid id);
-        Task<IEnumerable<Finance>> GetAsync();
+        Task<IEnumerable<Finance>> GetAsync(Expression<Func<Finance, bool>> expression = null);
     }
 }

@@ -1,4 +1,6 @@
-﻿using FinTrack.Services.Dtos;
+﻿using FinTrack.Enums;
+using FinTrack.Model;
+using FinTrack.Services.Dtos;
 
 namespace FinTrack.Services.Contracts
 {
@@ -10,5 +12,6 @@ namespace FinTrack.Services.Contracts
         Task DeleteAsync(Guid id);
         Task<FinanceDto> UpdateAsync(FinanceDto currencyDto);
         Task AddCategoryAsync(Guid financeId, Guid categoryId);
+        Task<Report> GetReport(Guid userId, ReportType reportType);
     }
 }

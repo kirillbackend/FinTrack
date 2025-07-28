@@ -34,7 +34,7 @@ namespace FinTrack.Data.Repositories
         {
             IQueryable<Category> query = Context.Categories;
              
-            var category = await query.FirstOrDefaultAsync<Category>(i => i.Id == id);
+            var category = await query.FirstOrDefaultAsync(i => i.Id == id);
 
             return category;
         }

@@ -31,6 +31,8 @@ namespace FinTrack.Services
             builder.RegisterType<CurrencyService>().As<ICurrencyService>();
             builder.RegisterType<FinanceService>().As<IFinanceService>();
             builder.RegisterType<CategoryService>().As<ICategoryService>();
+            builder.RegisterType<FilterService>().As<IFilterService>();
+            builder.RegisterType<ReportService>().As<IReportService>();
             builder.RegisterType<ContextFactory>().As<IContextFactory>();
             builder.RegisterType<ContextLocator>().As<IContextLocator>().InstancePerLifetimeScope();
             builder.RegisterType<CurrencyExchangeKafkaProducer>().As<ICurrencyExchangeKafkaProducer>();

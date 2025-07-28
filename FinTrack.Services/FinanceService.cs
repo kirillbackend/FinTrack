@@ -1,24 +1,30 @@
 ﻿using FinTrack.Data.Contracts;
 using FinTrack.Data.Repositories.Contracts;
-using FinTrack.Services.Contracts;
-using FinTrack.Services.Dtos;
-using FinTrack.Services.Mappers.Contracts;
-using Microsoft.Extensions.Logging;
-using FinTrack.Services.Exceptions;
+using FinTrack.Enums;
+using FinTrack.Model;
 using FinTrack.Services.Context;
 using FinTrack.Services.Context.Contracts;
-using FinTrack.Model;
+using FinTrack.Services.Contracts;
+using FinTrack.Services.Dtos;
+using FinTrack.Services.Exceptions;
+using FinTrack.Services.Mappers.Contracts;
+using Microsoft.Extensions.Logging;
 
 namespace FinTrack.Services
 {
     public class FinanceService : AbstractService, IFinanceService
     {
         private readonly IContextLocator _contextLocator;
+        private readonly IFilterService _filterService;
+        private readonly IReportService _reportService;
 
-        public FinanceService(ILogger<FinanceService> logger, IMapperFactory mapperFactory, IDataContextManager dataContextManager, IContextLocator contextLocator)
+        public FinanceService(ILogger<FinanceService> logger, IMapperFactory mapperFactory, IDataContextManager dataContextManager
+            , IContextLocator contextLocator, IFilterService filterService, IReportService reportService)
             : base(logger, mapperFactory, dataContextManager)
         {
             _contextLocator = contextLocator;
+            _filterService = filterService;
+            _reportService = reportService;
         }
 
         public async Task AddFinanceAsync(FinanceDto financeDto)
@@ -157,13 +163,27 @@ namespace FinTrack.Services
             Logger.LogInformation($"FinanceService.AddCategoryAsync started");
 
             var financeRepository = DataContextManager.CreateRepository<IFinanceRepository>();
-            var finance = await financeRepository.GetAsync(financeId);
 
+            var finance = await financeRepository.GetAsync(financeId);
             finance.CategoryId = categoryId;
             finance.UpdatedDate = DateTime.UtcNow;
             await DataContextManager.SaveAsync();
 
             Logger.LogInformation($"FinanceService.AddCategoryAsync completed");
+        }
+
+        public async Task<Report> GetReport(Guid userId, ReportType reportType)
+        {
+            Logger.LogInformation($"FinanceService.GetReport started");
+
+            var financeRepository = DataContextManager.CreateRepository<IFinanceRepository>();
+
+            var filter = await _filterService.CreateReportFilter(userId, reportType);
+            var finances =await financeRepository.GetAsync(filter);
+            var report = await _reportService.CreateReport(finances);
+
+            Logger.LogInformation($"FinanceService.GetReport completed");
+            return report;
         }
     }
 }

@@ -4,6 +4,7 @@ using FinTrack.Services.Mappers.Contracts;
 using Microsoft.Extensions.Logging;
 using FinTrack.Data.Contracts;
 using FinTrack.Services.Context.Contracts;
+using FinTrack.Services.Contracts;
 
 namespace FinTrack.Test
 {
@@ -13,6 +14,8 @@ namespace FinTrack.Test
         private readonly Mock<IMapperFactory> _iMapperFactoryMock;
         private readonly Mock<IDataContextManager> _iDataContextManagerMock;
         private readonly Mock<IContextLocator> _iContextLocatorMock;
+        private readonly Mock<IFilterService> _iFilterServiceMock;
+        private readonly Mock<IReportService> _iReportService;
 
         private readonly FinanceService _financeService;
 
@@ -22,10 +25,12 @@ namespace FinTrack.Test
             _iMapperFactoryMock = new Mock<IMapperFactory>();
             _iDataContextManagerMock = new Mock<IDataContextManager>();
             _iContextLocatorMock = new Mock<IContextLocator>();
+            _iFilterServiceMock = new Mock<IFilterService>();
+            _iReportService = new Mock<IReportService>();
 
             _financeService = new FinanceService(
                 _logMock.Object, _iMapperFactoryMock.Object, 
-                _iDataContextManagerMock.Object, _iContextLocatorMock.Object);
+                _iDataContextManagerMock.Object, _iContextLocatorMock.Object, _iFilterServiceMock.Object, _iReportService.Object);
         }
 
         //[Fact]
