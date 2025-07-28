@@ -9,7 +9,7 @@ namespace FinTrack.Test
 {
     public class CategoryServiceTests
     {
-        private readonly Mock<ILogger<FinanceService>> _logMock;
+        private readonly Mock<ILogger<CategoryService>> _logMock;
         private readonly Mock<IMapperFactory> _iMapperFactoryMock;
         private readonly Mock<IDataContextManager> _iDataContextManagerMock;
 
@@ -17,7 +17,7 @@ namespace FinTrack.Test
 
         public CategoryServiceTests()
         {
-            _logMock = new Mock<ILogger<FinanceService>>();
+            _logMock = new Mock<ILogger<CategoryService>>();
             _iMapperFactoryMock = new Mock<IMapperFactory>();
             _iDataContextManagerMock = new Mock<IDataContextManager>();
 

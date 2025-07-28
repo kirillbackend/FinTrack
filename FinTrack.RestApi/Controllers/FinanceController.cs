@@ -1,8 +1,9 @@
-﻿using FinTrack.Services.Contracts;
+﻿using FinTrack.Enums;
+using FinTrack.Services.Contracts;
+using FinTrack.Services.Dtos;
+using FinTrack.Services.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using FinTrack.Services.Exceptions;
-using FinTrack.Services.Dtos;
 
 namespace FinTrack.RestApi.Controllers
 {
@@ -54,6 +55,25 @@ namespace FinTrack.RestApi.Controllers
             catch (ValidationException ex)
             {
                 Logger.LogWarning("FinanceController.Get completed; invalid request");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("{userId}/report/{reportType}")]
+        public async Task<IActionResult> Get(Guid userId, ReportType reportType)
+        {
+            try
+            {
+                Logger.LogInformation("FinanceController.report started");
+
+                var report = await _financeService.GetReport(userId, reportType);
+
+                Logger.LogInformation("FinanceController.report completed");
+                return Ok(report);
+            }
+            catch (Exception ex)
+            {
                 return BadRequest(ex);
             }
         }

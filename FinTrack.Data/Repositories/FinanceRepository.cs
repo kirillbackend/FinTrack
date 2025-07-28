@@ -1,6 +1,7 @@
 ﻿using FinTrack.Data.Repositories.Contracts;
 using FinTrack.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace FinTrack.Data.Repositories
 {
@@ -39,10 +40,10 @@ namespace FinTrack.Data.Repositories
             return finance;
         }
 
-        public async Task<IEnumerable<Finance>> GetAsync()
+        public async Task<IEnumerable<Finance>> GetAsync(Expression<Func<Finance, bool>> expression = null)
         {
             IQueryable<Finance> query = Context.Finances;
-            var finances = await query.Where(i => !i.IsDeleted).ToListAsync();
+            var finances = await query.Where(expression).ToListAsync();
 
             return finances;
         }
