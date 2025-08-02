@@ -17,14 +17,16 @@ namespace FinTrack.Services
         private readonly IContextLocator _contextLocator;
         private readonly IFilterService _filterService;
         private readonly IReportService _reportService;
+        private readonly IValidatorService _validatorService;
 
         public FinanceService(ILogger<FinanceService> logger, IMapperFactory mapperFactory, IDataContextManager dataContextManager
-            , IContextLocator contextLocator, IFilterService filterService, IReportService reportService)
+            , IContextLocator contextLocator, IFilterService filterService, IReportService reportService, IValidatorService validatorService)
             : base(logger, mapperFactory, dataContextManager)
         {
             _contextLocator = contextLocator;
             _filterService = filterService;
             _reportService = reportService;
+            _validatorService = validatorService;
         }
 
         public async Task AddFinanceAsync(FinanceDto financeDto)
@@ -38,11 +40,7 @@ namespace FinTrack.Services
 
             var currency =  await currencyRepositoty.GetAsync(financeDto.CurrencyId);
 
-            if (currency == null)
-            {
-                Logger.LogWarning($"FinanceService.AddFinanceAsync the currency was not found. CurrencyId : {financeDto.CurrencyId}");
-                throw new ValidationException("Currency was not found.");
-            }
+            await _validatorService.CurrencyValidate(currency);
 
             var finance = mapper.MapFromDto(financeDto);
             finance.Id = new Guid();
