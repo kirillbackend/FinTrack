@@ -3,12 +3,9 @@ using FinTrack.Data.Repositories.Contracts;
 using FinTrack.Services.Contracts;
 using FinTrack.Services.Mappers.Contracts;
 using Microsoft.Extensions.Logging;
-using FinTrack.Services.Exceptions;
 using FinTrack.Services.Dtos;
-using FinTrack.Model;
 using Microsoft.Extensions.Caching.Distributed;
 using FinTrack.Services.Kafka.Contracts;
-using FinTrack.Services.Kafka;
 
 namespace FinTrack.Services
 {
@@ -16,15 +13,16 @@ namespace FinTrack.Services
     {
         private readonly IDistributedCache _cache;
         private readonly ICurrencyExchangeKafkaProducer _kafkaProducer;
+        private readonly IValidatorService _validatorService;
         private const char _separator = ':';
 
         public CurrencyService(ILogger<CurrencyService> logger, IMapperFactory mapperFactory, IDataContextManager dataContextManager, IDistributedCache cache,
-            ICurrencyExchangeKafkaProducer kafkaProducer
-            )
+            ICurrencyExchangeKafkaProducer kafkaProducer, IValidatorService validatorService)
             : base(logger, mapperFactory, dataContextManager)
         {
             _kafkaProducer = kafkaProducer; 
             _cache = cache;
+            _validatorService = validatorService;
         }
 
         public async Task<CurrencyDto> GetCurrencyByIdAsync(Guid id)
@@ -32,15 +30,10 @@ namespace FinTrack.Services
             Logger.LogInformation($"CurrencyService.GetAsync({id}) started");
 
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
-            var currency = await currencyRepository.GetAsync(id);
-
-            if (currency == null)
-            {
-                Logger.LogWarning($"CurrencyService.GetAsync the currency was not found. Id : {id}");
-                throw new ValidationException("Currency was not found.");
-            }
-
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
+
+            var currency = await currencyRepository.GetAsync(id);
+            await _validatorService.CurrencyValidate(currency);
             var currencyDto = mapper.MapToDto(currency);
 
             Logger.LogInformation($"CurrencyService.GetAsync({id}) completed");
@@ -52,8 +45,9 @@ namespace FinTrack.Services
             Logger.LogInformation($"CurrencyService.GetAsync started");
 
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
-            var currency = await currencyRepository.GetAsync();
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
+
+            var currency = await currencyRepository.GetAsync();
             var currenciesDto = mapper.MapCollectionToDto(currency);
 
             Logger.LogInformation($"CurrencyService.GetAsync completed");
@@ -66,10 +60,9 @@ namespace FinTrack.Services
 
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
+
             var currency = mapper.MapFromDto(currencyDto);
-
             currency.Id = new Guid();
-
             await currencyRepository.AddAsync(currency);
 
             Logger.LogInformation("CurrencyService.AddAsync completed");
@@ -80,14 +73,9 @@ namespace FinTrack.Services
             Logger.LogInformation($"CurrencyService.DeleteAsync({id}) started");
 
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
+
             var currency = await currencyRepository.GetAsync(id);
-
-            if (currency == null)
-            {
-                Logger.LogWarning($"CurrencyService.DeleteAsync the currency was not found. Id : {id}");
-                throw new ValidationException("Currency was not found.");
-            }
-
+            await _validatorService.CurrencyValidate(currency);
             await currencyRepository.DeleteAsync(id);
 
             Logger.LogInformation($"CurrencyService.DeleteAsync({id})  completed");
@@ -99,14 +87,9 @@ namespace FinTrack.Services
 
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
+
             var currency = await currencyRepository.GetAsync(currencyDto.Id);
-
-            if (currency == null)
-            {
-                Logger.LogWarning($"CurrencyService.UpdateAsync the currency was not found. Id : {currencyDto.Id}");
-                throw new ValidationException("Currency was not found.");
-            }
-
+            await _validatorService.CurrencyValidate(currency);
             mapper.MapFromDto(currencyDto, destination: currency);
             await DataContextManager.SaveAsync();
 

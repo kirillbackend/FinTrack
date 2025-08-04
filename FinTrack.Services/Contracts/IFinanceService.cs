@@ -6,12 +6,12 @@ namespace FinTrack.Services.Contracts
 {
     public interface IFinanceService
     {
-        Task<FinanceDto> GetFinanceByIdAsync(Guid id);
-        Task<IEnumerable<FinanceDto>> GetFinancesAsync();
-        Task AddFinanceAsync(FinanceDto currencyDto);
+        Task<FinanceDto> GetAsync(Guid id);
+        Task<IEnumerable<FinanceDto>> GetAsync();
+        Task AddAsync(FinanceDto currencyDto);
         Task DeleteAsync(Guid id);
         Task<FinanceDto> UpdateAsync(FinanceDto currencyDto);
         Task AddCategoryAsync(Guid financeId, Guid categoryId);
-        Task<Report> GetReport(Guid userId, ReportType reportType);
+        Task<Report> GetReportAsync(Guid userId, ReportType reportType);
     }
 }

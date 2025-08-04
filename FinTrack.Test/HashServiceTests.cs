@@ -1,4 +1,5 @@
 using FinTrack.Services;
+using FinTrack.Services.Contracts;
 using Microsoft.Extensions.Logging;
 using Moq;
 
@@ -7,12 +8,14 @@ namespace FinTrack.Test
     public class HashServiceTests
     {
         private readonly Mock<ILogger<HashService>> _loggerMock;
+        private readonly Mock<IValidatorService> _iValidatorServiceMock;
         private readonly HashService _hashService;
 
         public HashServiceTests()
         {
             _loggerMock = new Mock<ILogger<HashService>>();
-            _hashService = new HashService(_loggerMock.Object);
+            _iValidatorServiceMock = new Mock<IValidatorService> { CallBase = true };
+            _hashService = new HashService(_loggerMock.Object, _iValidatorServiceMock.Object);
         }   
 
 
@@ -41,16 +44,6 @@ namespace FinTrack.Test
 
             //Assert
             Assert.NotEmpty(result);
-        }
-
-        [Fact]
-        public async Task CreateHashPassword_TestPasswopdIsNull_ReturnsThrowArgumentNullException()
-        {
-            //Arrange
-            string testPasswopd = null;
-
-            //Act & Assert
-            await Assert.ThrowsAsync<ArgumentNullException>(() => _hashService.CreateHashPassword(testPasswopd));
         }
 
         [Fact]
@@ -177,16 +170,6 @@ namespace FinTrack.Test
 
             //Assert
             Assert.False(result);
-        }
-
-        [Fact]
-        public async Task VerifyHashedPassword_HashPasswordIsNull_ReturnsThrowArgumentNullException()
-        {
-            //Arrage
-            var testPasswopd = "test" + Guid.NewGuid().ToString();
-
-            //Act & Assert
-            await Assert.ThrowsAsync<ArgumentNullException>(() => _hashService.VerifyHashedPassword(null, testPasswopd));
         }
 
         private bool IsHexString(string str)

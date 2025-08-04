@@ -18,9 +18,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Value = new
                 {
-                    message = exception.Message,
-                    uiMessage = exception.UIMessage,
-                    source = exception.ValidationSource
+                    message = exception.Message
                 }
             };
         }

@@ -28,7 +28,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation($"FinanceController.Get({id}) started");
 
-                var finance = await _financeService.GetFinanceByIdAsync(id);
+                var finance = await _financeService.GetAsync(id);
 
                 Logger.LogInformation($"FinanceController.Get({id}) completed");
                 return Ok(finance);
@@ -47,7 +47,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation($"FinanceController.Get started");
 
-                var finances = await _financeService.GetFinancesAsync();
+                var finances = await _financeService.GetAsync();
 
                 Logger.LogInformation($"FinanceController.Get completed");
                 return Ok(finances);
@@ -67,7 +67,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation("FinanceController.report started");
 
-                var report = await _financeService.GetReport(userId, reportType);
+                var report = await _financeService.GetReportAsync(userId, reportType);
 
                 Logger.LogInformation("FinanceController.report completed");
                 return Ok(report);
@@ -85,7 +85,7 @@ namespace FinTrack.RestApi.Controllers
             {
                 Logger.LogInformation("FinanceController.Post started");
 
-                await _financeService.AddFinanceAsync(financeDto);
+                await _financeService.AddAsync(financeDto);
 
                 Logger.LogInformation("FinanceController.Post completed");
                 return Ok();

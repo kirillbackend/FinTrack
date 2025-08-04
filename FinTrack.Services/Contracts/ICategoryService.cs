@@ -1,5 +1,4 @@
-﻿using FinTrack.Model;
-using FinTrack.Services.Dtos;
+﻿using FinTrack.Services.Dtos;
 
 namespace FinTrack.Services.Contracts
 {
@@ -10,6 +9,5 @@ namespace FinTrack.Services.Contracts
         Task AddAsync(CategoryDto currencyDto);
         Task DeleteAsync(Guid id);
         Task<CategoryDto> UpdateAsync(CategoryDto currencyDto);
-        Task CategoryValidate(Category category);
     }
 }

@@ -4,13 +4,11 @@ using FinTrack.Services.Contracts;
 using FinTrack.Services.Dtos;
 using FinTrack.Services.Mappers.Contracts;
 using Microsoft.Extensions.Logging;
-using FinTrack.Services.Exceptions;
 using FinTrack.Services.Context;
 using FinTrack.Services.Context.Contracts;
 using Microsoft.Extensions.Caching.Distributed;
 using FinTrack.Model;
 using Newtonsoft.Json;
-using Azure;
 
 namespace FinTrack.Services
 {
@@ -18,12 +16,15 @@ namespace FinTrack.Services
     {
         private readonly IContextLocator _contextLocator;
         private readonly IDistributedCache _cache;
+        private readonly IValidatorService _validatorService;
 
-        public UserService(ILogger<UserService> logger, IMapperFactory mapperFactory, IDataContextManager dataContextManager, IContextLocator contextLocator, IDistributedCache cache)
+        public UserService(ILogger<UserService> logger, IMapperFactory mapperFactory, IDataContextManager dataContextManager, IContextLocator contextLocator, 
+            IDistributedCache cache, IValidatorService validatorService)
             : base(logger, mapperFactory, dataContextManager)
         {
             _contextLocator = contextLocator;
             _cache = cache;
+            _validatorService = validatorService;
         }
 
         public async Task AddUserAsync(UserDto userDto)
@@ -47,21 +48,9 @@ namespace FinTrack.Services
             var mapper = MapperFactory.GetMapper<IUserMapper>();
 
             var userContext = _contextLocator.Get<UserContext>();
-
-            if (userContext.Id != id)
-            {
-                Logger.LogWarning($"UserService.DeleteAsync there is no access to the data.");
-                throw new ValidationException("No access data.");
-            }
-
+            await _validatorService.UserIdValidate(id, userContext.Id);
             var user = await repo.GetAsync(id);
-
-            if (user == null)
-            {
-                Logger.LogWarning($"UserService.DeleteAsync the user was not found. Id : {id}");
-                throw new ValidationException("User was not found.");
-            }
-
+            await _validatorService.UserValidate(user);
             await repo.DeleteAsync(id);
 
             Logger.LogInformation($"UserService.DeleteAsync({id}) completed");
@@ -111,11 +100,7 @@ namespace FinTrack.Services
             var mapper = MapperFactory.GetMapper<IUserMapper>();
             var userContext = _contextLocator.Get<UserContext>();
 
-            if (userContext.Id != id)
-            {
-                Logger.LogWarning($"UserService.GetAsync there is no access to the data.");
-                throw new ValidationException("No access data.");
-            }
+            await _validatorService.UserIdValidate(id, userContext.Id);
 
             User? user = null;
             var cashKey = id.ToString();
@@ -129,11 +114,7 @@ namespace FinTrack.Services
             {
                 user = await repo.GetAsync(id);
 
-                if (user == null)
-                {
-                    Logger.LogWarning($"UserService.GetAsync the user was not found. Id : {id}");
-                    throw new ValidationException("User was not found.");
-                }
+                await _validatorService.UserValidate(user);
 
                 cash = JsonConvert.SerializeObject(user);
 
@@ -157,7 +138,6 @@ namespace FinTrack.Services
             var mapper = MapperFactory.GetMapper<IUserMapper>();
 
             var users = await repo.GetAsync();
-
             var usersDto = mapper.MapCollectionToDto(users);
 
             Logger.LogInformation($"UserService.GetAsync completed");
@@ -172,21 +152,9 @@ namespace FinTrack.Services
             var mapper = MapperFactory.GetMapper<IUserMapper>();
 
             var userContext = _contextLocator.Get<UserContext>();
-
-            if (userContext.Id != userDto.Id)
-            {
-                Logger.LogWarning("UserService.UpdateAsync there is no access to the data.");
-                throw new ValidationException("No access data.");
-            }
-
+            await _validatorService.UserIdValidate(userDto.Id, userContext.Id);
             var user = await repo.GetAsync(userDto.Id);
-
-            if (user == null)
-            {
-                Logger.LogWarning($"UserService.UpdateAsync the user was not found.");
-                throw new ValidationException("User was not found.");
-            }
-
+            await _validatorService.UserValidate(user);
             mapper.MapFromDto(userDto, destination: user);
             await DataContextManager.SaveAsync();
 
