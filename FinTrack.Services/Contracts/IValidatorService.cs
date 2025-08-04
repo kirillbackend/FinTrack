@@ -9,5 +9,7 @@ namespace FinTrack.Services.Contracts
         Task FinanceValidate(Guid userContextId, Finance finance);
         Task HashValidate(string hashPassword);
         Task PasswordValidate(string password);
+        Task UserIdValidate(Guid userId, Guid userContextId);
+        Task UserValidate(User user);
     }
 }

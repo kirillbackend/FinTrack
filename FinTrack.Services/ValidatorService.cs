@@ -1,6 +1,5 @@
 ﻿using FinTrack.Model;
 using FinTrack.Services.Contracts;
-using FinTrack.Services.Dtos;
 using FinTrack.Services.Exceptions;
 
 namespace FinTrack.Services
@@ -54,6 +53,22 @@ namespace FinTrack.Services
             if (string.IsNullOrEmpty(password))
             {
                 throw new ArgumentNullException("Password");
+            }
+        }
+
+        public async Task UserIdValidate(Guid userId, Guid userContextId)
+        {
+            if (userContextId != userId)
+            {
+                throw new ValidationException("No access data.", nameof(Guid));
+            }
+        }
+
+        public async Task UserValidate(User user)
+        {
+            if (user == null)
+            {
+                throw new ValidationException("User was not found.", nameof(User));
             }
         }
     }

@@ -163,5 +163,63 @@ namespace FinTrack.Test
             var argumentNullException = Assert.IsType<ArgumentNullException>(exception);
             Assert.Equal(exceptionParamName, argumentNullException.ParamName);
         }
+
+        [Fact]
+        public async Task UserIdValidate_Exsists_ReturnsZeroExceptions()
+        {
+            //Arrange
+            var userId = new Guid("3a9ef1d2-5b7e-4c3a-8d1f-2c6b9e8d7a1f");
+            var userContextId = new Guid("3a9ef1d2-5b7e-4c3a-8d1f-2c6b9e8d7a1f");
+
+            //Act
+            var exception = await Record.ExceptionAsync(() => _validatorService.UserIdValidate(userId, userContextId));
+
+            //Assert
+            Assert.Null(exception);
+        }
+
+        [Fact]
+        public async Task UserIdValidate_UserIdNotEqualUserContextId_ReturnsValidationExceptions()
+        {
+            //Arrange
+            var userId = new Guid();
+            var userContextId = new Guid("3a9ef1d2-5b7e-4c3a-8d1f-2c6b9e8d7a1f");
+            var exceptionParamName = nameof(Guid);
+
+            //Act
+            var exception = await Record.ExceptionAsync(() => _validatorService.UserIdValidate(userId, userContextId));
+
+            //Assert
+            var argumentValidationException = Assert.IsType<ValidationException>(exception);
+            Assert.Equal(exceptionParamName, argumentValidationException.ParamName);
+        }
+
+        [Fact]
+        public async Task UserValidate_Exsists_ReturnsZeroExceptions()
+        {
+            //Arrange
+            var user = new User();  
+
+            //Act
+            var exception = await Record.ExceptionAsync(() => _validatorService.UserValidate(user));
+
+            //Assert
+            Assert.Null(exception);
+        }
+
+        [Fact]
+        public async Task UserValidate_UserIdNotEqualUserContextId_ReturnsValidationExceptions()
+        {
+            //Arrange
+            User user = null;
+            var exceptionParamName = nameof(User);
+
+            //Act
+            var exception = await Record.ExceptionAsync(() => _validatorService.UserValidate(user));
+
+            //Assert
+            var argumentValidationException = Assert.IsType<ValidationException>(exception);
+            Assert.Equal(exceptionParamName, argumentValidationException.ParamName);
+        }
     }
 }

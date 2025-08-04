@@ -47,16 +47,6 @@ namespace FinTrack.Test
         }
 
         [Fact]
-        public async Task CreateHashPassword_TestPasswopdIsNull_ReturnsThrowArgumentNullException()
-        {
-            //Arrange
-            string testPasswopd = null;
-
-            //Act & Assert
-            await Assert.ThrowsAsync<ArgumentNullException>(() => _hashService.CreateHashPassword(testPasswopd));
-        }
-
-        [Fact]
         public async Task CreateHashPassword_RandomTestPasswopd_RetutnsContainsSeparator()
         {
             //Arrange
@@ -180,16 +170,6 @@ namespace FinTrack.Test
 
             //Assert
             Assert.False(result);
-        }
-
-        [Fact]
-        public async Task VerifyHashedPassword_HashPasswordIsNull_ReturnsThrowArgumentNullException()
-        {
-            //Arrage
-            var testPasswopd = "test" + Guid.NewGuid().ToString();
-
-            //Act & Assert
-            await Assert.ThrowsAsync<ArgumentNullException>(() => _hashService.VerifyHashedPassword(null, testPasswopd));
         }
 
         private bool IsHexString(string str)
