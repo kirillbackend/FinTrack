@@ -9,10 +9,12 @@ namespace FinTrack.Services
     {
         private const char _separator = ':';
         private readonly ILogger _logger;
+        private readonly IValidatorService _validatorService;
 
-        public HashService(ILogger<HashService> logger)
+        public HashService(ILogger<HashService> logger, IValidatorService validatorService)
         {
             _logger = logger;
+            _validatorService = validatorService;
         }
 
         public async Task<string> CreateHashPassword(string password)
@@ -23,11 +25,7 @@ namespace FinTrack.Services
             byte[] hash;
             byte[] key;
 
-            if (password == null)
-            {
-                _logger.LogWarning("HashService.CreateHashPassword failed. Password is null.");
-                throw new ArgumentNullException("Password is null.");
-            }
+            await _validatorService.PasswordValidate(password);
 
             salt = RandomNumberGenerator.GetBytes(password.Length);
 
@@ -48,12 +46,8 @@ namespace FinTrack.Services
 
             byte[] hash;
             byte[] key;
-
-            if (hashPassword == null)
-            {
-                _logger.LogWarning("HashService.VerifyHashedPassword failed. Hash is null.");
-                throw new ArgumentNullException("Hash is null.");
-            }
+            
+            await _validatorService.HashValidate(hashPassword);
 
             if (password == null)
             {

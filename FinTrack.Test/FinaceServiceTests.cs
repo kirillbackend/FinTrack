@@ -16,6 +16,7 @@ namespace FinTrack.Test
         private readonly Mock<IContextLocator> _iContextLocatorMock;
         private readonly Mock<IFilterService> _iFilterServiceMock;
         private readonly Mock<IReportService> _iReportService;
+        private readonly Mock<IValidatorService> _iValidatorServiceMock;
 
         private readonly FinanceService _financeService;
 
@@ -27,10 +28,11 @@ namespace FinTrack.Test
             _iContextLocatorMock = new Mock<IContextLocator>();
             _iFilterServiceMock = new Mock<IFilterService>();
             _iReportService = new Mock<IReportService>();
+            _iValidatorServiceMock = new Mock<IValidatorService> { CallBase = true };
 
             _financeService = new FinanceService(
-                _logMock.Object, _iMapperFactoryMock.Object, 
-                _iDataContextManagerMock.Object, _iContextLocatorMock.Object, _iFilterServiceMock.Object, _iReportService.Object);
+                _logMock.Object, _iMapperFactoryMock.Object, _iDataContextManagerMock.Object, _iContextLocatorMock.Object, 
+                _iFilterServiceMock.Object, _iReportService.Object, _iValidatorServiceMock.Object);
         }
 
         //[Fact]

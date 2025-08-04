@@ -2,18 +2,16 @@
 {
     public class ValidationException : Exception
     {
+        private readonly string? _paramName;
+
         public ValidationException(string message) : base(message) { }
 
-        public ValidationException(string message, string uiMessage = null,
-            object validationSource = null)
+        public ValidationException(string message, string paramName)
             : base(message)
         {
-            UIMessage = uiMessage;
-            ValidationSource = validationSource;
+            _paramName = paramName;
         }
 
-        public string UIMessage { get; }
-
-        public object ValidationSource { get; }
+        public virtual string? ParamName => _paramName;
     }
 }

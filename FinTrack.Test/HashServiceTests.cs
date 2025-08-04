@@ -1,4 +1,5 @@
 using FinTrack.Services;
+using FinTrack.Services.Contracts;
 using Microsoft.Extensions.Logging;
 using Moq;
 
@@ -7,12 +8,14 @@ namespace FinTrack.Test
     public class HashServiceTests
     {
         private readonly Mock<ILogger<HashService>> _loggerMock;
+        private readonly Mock<IValidatorService> _iValidatorServiceMock;
         private readonly HashService _hashService;
 
         public HashServiceTests()
         {
             _loggerMock = new Mock<ILogger<HashService>>();
-            _hashService = new HashService(_loggerMock.Object);
+            _iValidatorServiceMock = new Mock<IValidatorService> { CallBase = true };
+            _hashService = new HashService(_loggerMock.Object, _iValidatorServiceMock.Object);
         }   
 
 

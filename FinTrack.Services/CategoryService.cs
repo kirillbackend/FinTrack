@@ -25,9 +25,7 @@ namespace FinTrack.Services
             var categotyMapper = MapperFactory.GetMapper<ICategoryMapper>();
 
             var categoty = categotyMapper.MapFromDto(categoryDto);
-
             await _validatorService.CategoryValidate(categoty);
-
             await categoryRepository.AddAssync(categoty);
         }
 
@@ -43,9 +41,7 @@ namespace FinTrack.Services
             var categotyMapper = MapperFactory.GetMapper<ICategoryMapper>();
 
             var categoty = await categoryRepository.GetAsync(id);
-
             await _validatorService.CategoryValidate(categoty);
-
             var categotyDto = categotyMapper.MapToDto(categoty);
 
             return categotyDto;
@@ -57,9 +53,7 @@ namespace FinTrack.Services
             var categotyMapper = MapperFactory.GetMapper<ICategoryMapper>();
 
             var categories = await categoryRepository.GetAsync();
-
             await CategoriesValidate(categories);
-
             var categoriesDto = categotyMapper.MapCollectionToDto(categories);
 
             return categoriesDto;
@@ -71,9 +65,7 @@ namespace FinTrack.Services
             var categotyMapper = MapperFactory.GetMapper<ICategoryMapper>();
 
             var categoty = await categoryRepository.GetAsync(categoryDto.Id);
-
             await _validatorService.CategoryValidate(categoty);
-
             categotyMapper.MapFromDto(categoryDto, destination: categoty);
             categoty.UpdatedDate = DateTime.UtcNow;
             await DataContextManager.SaveAsync();

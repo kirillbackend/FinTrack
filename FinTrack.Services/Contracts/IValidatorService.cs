@@ -6,5 +6,8 @@ namespace FinTrack.Services.Contracts
     {
         Task CategoryValidate(Category category);
         Task CurrencyValidate(Currency currency);
+        Task FinanceValidate(Guid userContextId, Finance finance);
+        Task HashValidate(string hashPassword);
+        Task PasswordValidate(string password);
     }
 }

@@ -30,11 +30,10 @@ namespace FinTrack.Services
             Logger.LogInformation($"CurrencyService.GetAsync({id}) started");
 
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
-            var currency = await currencyRepository.GetAsync(id);
-
-            await _validatorService.CurrencyValidate(currency);
-
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
+
+            var currency = await currencyRepository.GetAsync(id);
+            await _validatorService.CurrencyValidate(currency);
             var currencyDto = mapper.MapToDto(currency);
 
             Logger.LogInformation($"CurrencyService.GetAsync({id}) completed");
@@ -46,8 +45,9 @@ namespace FinTrack.Services
             Logger.LogInformation($"CurrencyService.GetAsync started");
 
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
-            var currency = await currencyRepository.GetAsync();
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
+
+            var currency = await currencyRepository.GetAsync();
             var currenciesDto = mapper.MapCollectionToDto(currency);
 
             Logger.LogInformation($"CurrencyService.GetAsync completed");
@@ -60,10 +60,9 @@ namespace FinTrack.Services
 
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
+
             var currency = mapper.MapFromDto(currencyDto);
-
             currency.Id = new Guid();
-
             await currencyRepository.AddAsync(currency);
 
             Logger.LogInformation("CurrencyService.AddAsync completed");
@@ -74,10 +73,9 @@ namespace FinTrack.Services
             Logger.LogInformation($"CurrencyService.DeleteAsync({id}) started");
 
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
+
             var currency = await currencyRepository.GetAsync(id);
-
             await _validatorService.CurrencyValidate(currency);
-
             await currencyRepository.DeleteAsync(id);
 
             Logger.LogInformation($"CurrencyService.DeleteAsync({id})  completed");
@@ -89,10 +87,9 @@ namespace FinTrack.Services
 
             var currencyRepository = DataContextManager.CreateRepository<ICurrencyRepository>();
             var mapper = MapperFactory.GetMapper<ICurrencyMapper>();
+
             var currency = await currencyRepository.GetAsync(currencyDto.Id);
-
             await _validatorService.CurrencyValidate(currency);
-
             mapper.MapFromDto(currencyDto, destination: currency);
             await DataContextManager.SaveAsync();
 
